@@ -116,11 +116,11 @@ class Index extends Component
                 $transactionData = [
                     'party_id' => $this->party_id,
                     'trans_type' => $this->trans_type,
-                    'payment_method' => $this->payment_method,
-                    'bill_no' => $this->bill_no,
-                    'desc' => $this->desc,
+                    'payment_method' => $this->payment_method ?: '-',
+                    'bill_no' => $this->bill_no >'-',
+                    'desc' => $this->desc ?: '-',
                     'date' => $this->date ? Carbon::parse($this->date) : Carbon::now(),
-                    'amount' => $this->amount,
+                    'amount' => $this->amount ?: '-',
                     'active_id' => $this->active_id ?? 1,
                 ];
 
@@ -162,7 +162,7 @@ class Index extends Component
         $this->clearFields();
         $this->showEditModal = false;
 //        $this->emit('refreshComponent');
-        $this->render();
+//        $this->rerender();
     }
 
 //    public function refresh()
@@ -251,10 +251,9 @@ class Index extends Component
 
 
 
-    public function applyDateFilter()
+    public function rerender()
     {
-        // Trigger the re-render with the applied filters
-        $this->render();
+        return $this->redirect(route('transactions.index', ['party_id' => $this->party_id]));
     }
 
 

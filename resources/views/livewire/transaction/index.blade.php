@@ -1,4 +1,4 @@
-<div wire:poll.1s>
+<div >
     <x-slot name="header">Transactions</x-slot>
     <div class="flex justify-between py-5 gap-x-5">
 
