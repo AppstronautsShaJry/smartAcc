@@ -163,6 +163,8 @@ class Index extends Component
         $this->showEditModal = false;
 //        $this->emit('refreshComponent');
 //        $this->rerender();
+        $this->render();
+
     }
 
 //    public function refresh()

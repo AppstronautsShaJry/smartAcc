@@ -146,9 +146,11 @@
         </div>
     </x-forms.create>
 
-    <script>
-        Livewire.on('refreshComponent', () => {
-            Livewire.emit('refresh');
-        });
-    </script>
+{{--    <script>--}}
+{{--        Livewire.on('transactionSaved', () => {--}}
+{{--            // Only reload the page when the event is triggered after the save action--}}
+{{--            window.location.reload();--}}
+{{--        });--}}
+{{--    </script>--}}
+
 </div>
