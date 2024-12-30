@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+//use function Termwind\render;
 
 class Index extends Component
 {
@@ -82,10 +83,24 @@ class Index extends Component
         ];
     }
 
+    public $list;
     public function mount($id)
     {
         $this->party_id = $id;
         $this->render();
+
+        // Filter by start date and end date if provided
+        $query = Transaction::where('party_id', $this->party_id)->where('active_id', true);
+
+        if ($this->start_date) {
+            $query->where('date', '>=', $this->start_date);
+        }
+
+        if ($this->end_date) {
+            $query->where('date', '<=', $this->end_date);
+        }
+
+        $this->list = $query->orderBy('date', 'asc')->get();
     }
 
     public function save()
@@ -147,7 +162,7 @@ class Index extends Component
         $this->clearFields();
         $this->showEditModal = false;
 //        $this->emit('refreshComponent');
-
+        $this->render();
     }
 
 //    public function refresh()
@@ -245,22 +260,10 @@ class Index extends Component
 
     public function render()
     {
-        // Filter by start date and end date if provided
-        $query = Transaction::where('party_id', $this->party_id)->where('active_id', true);
-
-        if ($this->start_date) {
-            $query->where('date', '>=', $this->start_date);
-        }
-
-        if ($this->end_date) {
-            $query->where('date', '<=', $this->end_date);
-        }
-
-        $list = $query->orderBy('date', 'asc')->get(); // Apply the filters and get the filtered list
+        // Apply the filters and get the filtered list
 
         return view('livewire.transaction.index')->layout('layouts.app')->with([
-            'list' => $list,
-            'party' => Party::find($this->party_id) ?? new Party(),
+            'party' => Party::find($this->party_id) ?: new Party(),
         ]);
     }
 

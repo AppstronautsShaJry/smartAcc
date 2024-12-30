@@ -26,7 +26,7 @@ class TransController extends Controller
             $transactions->where('date', '<=', $endDate);
         }
 
-        $transactions = $transactions->get();
+        $transactions = $transactions->orderBy('date', 'asc')->get();
 
         $pdf = PDF::loadView('pdf.transactions', compact('transactions'));
 
