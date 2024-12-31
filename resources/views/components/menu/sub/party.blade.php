@@ -4,7 +4,7 @@
     <div
         @click="selected !== 6 ? selected = 6 : selected = null"
         class="relative flex flex-row justify-between items-center h-11 focus:outline-none hover:bg-gray-300
-                                text-gray-500 hover:text-gray-700 border-l-4 border-transparent hover:border-gray-300 px-4 group">
+                                text-gray-500 hover:text-gray-700 border-l-4 border-transparent hover:border-gray-300 px-0 group">
 
                         <span class="inline-flex justify-center items-center space-x-3">
                             <x-icons.icon-fill iconfill="tag-menu"

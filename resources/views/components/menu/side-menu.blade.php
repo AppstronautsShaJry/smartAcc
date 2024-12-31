@@ -6,7 +6,7 @@
     <div class="flex justify-between px-5 py-6">
         <a href="{{route('dashboard')}}" class="flex gap-3">
 {{--            <x-assets.logo.cxlogo :icon="'dark'" class="h-10 w-auto block"/>--}}
-            <span class="text-black font-bold text-2xl sm:text-3xl tracking-widest">SmartAccount</span>
+            <span class="text-black font-bold text-xs sm:text-xl tracking-widest">Smart Account</span>
         </a>
         {{-- {{config('app.name')}} --}}
         <button
@@ -14,7 +14,7 @@
             @click="sidebarOpen = false"
         >
             <svg xmlns="http://www.w3.org/2000/svg"
-                 class="h-7 w-7 text-gray-500 group-hover:text-white"
+                 class="h-7 w-7 text-gray-500 group-hover:text-black"
                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
@@ -22,7 +22,7 @@
     </div>
 
     <div class=" bg-gray-100 text-white h-full overflow-y-scroll">
-        <ul class="flex flex-col py-6 space-y-1"
+        <ul class="flex flex-col py-6"
             x-data="{selected:null}">
 
                 <x-menu.sub.party/>
