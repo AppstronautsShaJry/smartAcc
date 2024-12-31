@@ -5,10 +5,8 @@
      :class="{'translate-x-0 ease-in opacity-100':open === true, '-translate-x-full ease-out opacity-0': sidebarOpen === false}">
     <div class="flex justify-between px-5 py-6">
         <a href="{{route('dashboard')}}" class="flex gap-3">
-{{--            <x-assets.logo.cxlogo :icon="'dark'" class="h-10 w-auto block"/>--}}
             <span class="text-black font-bold text-xs sm:text-xl tracking-widest">Smart Account</span>
         </a>
-        {{-- {{config('app.name')}} --}}
         <button
             class="focus:outline-none focus:bg-gray-100 hover:bg-gray-100  rounded-md group"
             @click="sidebarOpen = false"
@@ -20,15 +18,12 @@
             </svg>
         </button>
     </div>
-
     <div class=" bg-gray-100 text-white h-full overflow-y-scroll">
         <ul class="flex flex-col py-6"
             x-data="{selected:null}">
-
                 <x-menu.sub.party/>
-
             <x-menu.sub.logout/>
-
+            <x-menu.sub.register/>
         </ul>
     </div>
 </nav>
