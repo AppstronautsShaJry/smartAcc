@@ -42,12 +42,14 @@
 
                         <x-table.cell-text><a href="{{route('transactions.index',[$row->id])}}">{{$index+1}}</a></x-table.cell-text>
 
-                        <x-table.cell-text left><span class="capitalize">{{$row->name}}</span></x-table.cell-text>
+                        <x-table.cell-text left><span class="capitalize"><a href="{{route('transactions.index',[$row->id])}}">{{$row->name}}</a></span></x-table.cell-text>
 
                         <x-table.cell-text>
 
                              <span class="font-semibold @if($row->balance < 0) text-red-600 @else text-green-600 @endif">
+                                 <a href="{{route('transactions.index',[$row->id])}}">
                              ₹ {{ number_format($row->balance, 2) }}
+                                 </a>
                                 </span>
 
                         </x-table.cell-text>

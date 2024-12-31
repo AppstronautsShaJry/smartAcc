@@ -1,18 +1,14 @@
 <div >
     <x-slot name="header">Transactions</x-slot>
     <div class="flex justify-between py-5 gap-x-5">
-
         <div class="flex items-center justify-start gap-5">
             <!-- Start Date Filter -->
             <x-input.floating label="Start Date" type="date" wire:model="start_date"/>
-
             <!-- End Date Filter -->
             <x-input.floating label="End Date" type="date" wire:model="end_date"/>
-
             <!-- Apply Filter Button -->
             <button class="max-w-max px-4 py-2 bg-blue-600 text-white rounded-md" wire:click="applyDateFilter">Filter</button>
         </div>
-
         <div class="flex justify-between gap-4">
             <button class="px-4 py-2 bg-green-600 text-white rounded-md font-lex " wire:click="save">New Transaction</button>
             <button class="px-4 py-2 bg-purple-600 text-white rounded-md"
