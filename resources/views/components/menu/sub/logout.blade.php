@@ -1,5 +1,5 @@
 {{-- logout--}}
-<li {{ $attributes->class(['bottom-0 left-0 bg-gray-900 cursor-pointer']) }}>
+<li {{ $attributes->class(['bottom-0 left-0 bg-gray-100 cursor-pointer']) }}>
 
     <form method="POST" action="{{ route('logout') }}">
         @csrf
