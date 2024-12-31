@@ -27,7 +27,7 @@ Route::middleware([
     Route::get('customers', App\Livewire\Customer\Index::class)->name('customers.index');
     Route::get('suppliers', App\Livewire\Supplier\Index::class)->name('suppliers.index');
     Route::get('transactions/{id}', App\Livewire\Transaction\Index::class)->name('transactions.index');
-
+    Route::get('reg-users', App\Livewire\RegisterUser\Index::class)->name('register-users');
     Route::get('transaction-report/{partyId}', [TransController::class, 'generateTransactionReport'])->name('transactions.report');
 
 });
