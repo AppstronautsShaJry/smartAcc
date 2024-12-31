@@ -8,12 +8,14 @@ use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+
 //use function Termwind\render;
 
 class Index extends Component
 {
     use WithPagination;
     use WithFileUploads;
+
     public $showEditModal = false;
     public bool $showDeleteModal = false;
 
@@ -30,12 +32,13 @@ class Index extends Component
     public $end_date = '';
 
     public $active_id = true;
+    public $party_type = true;
 
     public function rules(): array
     {
         return [
-            'party_id' => 'nullable|exists:parties,id', // Assuming the party_id is a foreign key to the 'parties' table
-            'trans_type' => 'required|string|in:Pay,Receive', // Validation for transaction type (Pay or Receive)
+            'party_id' => 'nullable|exists:parties,id',
+            'trans_type' => 'required|string|in:Pay,Receive',
             'payment_method' => 'required|string', // Assuming a required string for the payment method
             'bill_no' => 'required|string|unique:transactions,bill_no', // Assuming 'transactions' table for bill_no uniqueness
             'desc' => 'nullable|string', // Description can be null or a string
@@ -84,94 +87,68 @@ class Index extends Component
     }
 
     public $list;
+    public $party;
+
     public function mount($id)
     {
         $this->party_id = $id;
-        $this->render();
+        $this->party = Party::find($this->party_id);
+        $this->party_type = $this->party->party_type;
 
-        // Filter by start date and end date if provided
-        $query = Transaction::where('party_id', $this->party_id)->where('active_id', true);
-
-        if ($this->start_date) {
-            $query->where('date', '>=', $this->start_date);
-        }
-
-        if ($this->end_date) {
-            $query->where('date', '<=', $this->end_date);
-        }
-
-        $this->list = $query->orderBy('date', 'asc')->get();
     }
+
+
 
     public function save()
     {
         $this->showEditModal = true;
+
     }
 
     public function getSave()
     {
-        if ($this->amount !== '') {
-
+        if ($this->amount != '') {
             if ($this->vid == "") {
-                $transactionData = [
+                Transaction::create([
                     'party_id' => $this->party_id,
                     'trans_type' => $this->trans_type,
                     'payment_method' => $this->payment_method ?: '-',
-                    'bill_no' => $this->bill_no >'-',
+                    'bill_no' => $this->bill_no ?: '-',
                     'desc' => $this->desc ?: '-',
                     'date' => $this->date ? Carbon::parse($this->date) : Carbon::now(),
-                    'amount' => $this->amount ?: '-',
+                    'amount' => $this->amount,
                     'active_id' => $this->active_id ?? 1,
-                ];
-
-                if ($this->image) {
-                    $transactionData['image'] = $this->image;
-                } else {
-                    $transactionData['image'] = null;
-                }
-
-                Transaction::create($transactionData);
+                    'image' => $this->image ?? null,
+                ]);
                 $message = "Saved";
-
             } else {
-                // Editing an existing record
                 $obj = Transaction::find($this->vid);
-                $obj->party_id = $this->party_id;  // Update party_id if needed
+                $obj->party_id = $this->party_id;
                 $obj->trans_type = $this->trans_type;
-                $obj->payment_method = $this->payment_method;
-                $obj->bill_no = $this->bill_no;
-                $obj->desc = $this->desc;
-                $obj->date = $this->date ? Carbon::parse($this->date) : Carbon::now();   // Defaults to current time if not provided
+                $obj->payment_method = $this->payment_method ?: '-';
+                $obj->bill_no = $this->bill_no ?: '-';
+                $obj->desc = $this->desc ?: '-';
+                $obj->date = $this->date ? Carbon::parse($this->date) : Carbon::now();
                 $obj->amount = $this->amount;
                 $obj->active_id = $this->active_id ?? 1;
-
-                if ($this->image) {
-                    $obj->image = $this->image;
-                } elseif ($this->image === null) {
-                    $obj->image = null;
-                }
-
+                $obj->image = $this->image ?? null;
                 $obj->save();
                 $message = "Updated";
             }
 
-            $this->dispatch('notify', ['type' => 'success', 'content' => $message . ' Successfully']);
+            $this->dispatch('notify', ...['type' => 'success', 'content' => $message . ' Successfully']);
         }
-
         session()->flash('success', '"' . $this->bill_no . '" has been ' . $message . ' .');
         $this->clearFields();
         $this->showEditModal = false;
-//        $this->emit('refreshComponent');
-//        $this->rerender();
-        $this->render();
-
+        // Ensure $this->party is set before accessing it
+        if ( $this->party_type == 1) {
+            return $this->redirect(route('customers.index'));
+        } else {
+            return $this->redirect(route('suppliers.index'));
+        }
     }
 
-//    public function refresh()
-//    {
-//        $this->reset();
-//        $this->mount($this->party_id);
-//    }
 
     public function edit($id): void
     {
@@ -213,7 +190,7 @@ class Index extends Component
         $this->date = '';
         $this->image = '';
         $this->amount = '';
-        $this->active_id = 1;  // Assuming 1 means active by default
+        $this->active_id = 1;
     }
 
 #endregion
@@ -240,32 +217,41 @@ class Index extends Component
 
     public function downloadTransactionReport($partyId)
     {
-        // Create the URL with additional query parameters (start_date and end_date)
         $pdfUrl = route('transactions.report', [
             'partyId' => $partyId,
-            'start_date' => $this->start_date, // Pass the start date filter
-            'end_date' => $this->end_date,     // Pass the end date filter
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
         ]);
 
-        // Redirect to the PDF generation route
         return redirect()->to($pdfUrl);
     }
 
 
-
     public function rerender()
     {
-        return $this->redirect(route('transactions.index', ['party_id' => $this->party_id]));
-    }
+        // Redirect to a different route (transactions.index) with party_id as a query parameter
+        $this->render();
 
+    }
 
     public function render()
     {
-        // Apply the filters and get the filtered list
+        $query = Transaction::where('party_id', $this->party_id)->where('active_id', true);
 
+        if ($this->start_date) {
+            $query->where('date', '>=', $this->start_date);
+        }
+
+        if ($this->end_date) {
+            $query->where('date', '<=', $this->end_date);
+        }
+
+        $this->list = $query->orderBy('date', 'asc')->get();
         return view('livewire.transaction.index')->layout('layouts.app')->with([
             'party' => Party::find($this->party_id) ?: new Party(),
+            'transactions' => $this->list,
         ]);
     }
+
 
 }
