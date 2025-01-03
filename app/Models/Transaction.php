@@ -12,7 +12,7 @@ class Transaction extends Model
 
     public function party(): BelongsTo
     {
-        return $this->belongsTo(Party::class, 'party_id');
+        return $this->belongsTo(Party::class);
     }
 
 

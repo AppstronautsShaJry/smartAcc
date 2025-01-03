@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('desc');
             $table->dateTime('date')->useCurrent();
             $table->longText('image')->nullable();
+            $table->json('items')->nullable();
             $table->string('active_id', 20)->default(1);
             $table->timestamps();
         });

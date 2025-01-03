@@ -1,8 +1,11 @@
 <?php
 
+use App\Livewire\Transaction\Index;
 use App\Models\Party;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransController;
+//use App\Http\Controllers\TransactionController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,6 +31,9 @@ Route::middleware([
     Route::get('suppliers', App\Livewire\Supplier\Index::class)->name('suppliers.index');
     Route::get('transactions/{id}', App\Livewire\Transaction\Index::class)->name('transactions.index');
     Route::get('reg-users', App\Livewire\RegisterUser\Index::class)->name('register-users');
-    Route::get('transaction-report/{partyId}', [TransController::class, 'generateTransactionReport'])->name('transactions.report');
+    Route::get('/download-customers-pdf', [\App\Http\Controllers\CustomerReportController::class, 'exportPDF'])->name('customers.pdf');
+//    Route::get('/download-transactions-pdf', [\App\Http\Controllers\TransactionReportController::class, 'exportPDF'])->name('transactions.pdf');
+    Route::get('/download-transactions-pdf', [\App\Http\Controllers\TransactionReportController::class, 'exportPDF'])->name('transactions.pdf');
+
 
 });

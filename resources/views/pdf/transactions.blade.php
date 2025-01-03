@@ -2,47 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction Report</title>
+    <title>Transactions Report</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            font-size: 12px;
-            margin: 20px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
         }
         th, td {
             padding: 8px;
+            border: 1px solid #ddd;
             text-align: left;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #4CAF50;
+            color: white;
         }
-        .total-row {
-            background-color: #f9f9f9;
+        .text-right {
+            text-align: right;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .font-bold {
             font-weight: bold;
+        }
+        .text-green {
+            color: green;
+        }
+        .text-red {
+            color: red;
         }
     </style>
 </head>
 <body>
-<h2>Transaction Report</h2>
-<p><strong>Date:</strong> {{ now()->format('d-m-Y') }}</p>
+
+<h1 class="text-center">Transactions Report</h1>
+<p>Search Term: {{ $searchTerm }}</p>
+<p>Date Filter: {{ ucfirst($dateFilter) }}</p>
+@if($dateFilter == 'custom_range')
+    <p>From: {{ \Carbon\Carbon::parse($start_date)->format('d-M-Y') }} To: {{ \Carbon\Carbon::parse($end_date)->format('d-M-Y') }}</p>
+@endif
 
 <table>
     <thead>
     <tr>
-        <th>No</th>
-        <th>Party Name</th>
-        <th>Date</th>
-        <th>Bill No</th>
-        <th>Payment Method</th>
+        <th>#</th>
+        <th>Party Details</th>
+        <th>Items</th>
         <th>Credit</th>
         <th>Debit</th>
         <th>Balance</th>
@@ -53,36 +64,59 @@
         $totalCredit = 0;
         $totalDebit = 0;
     @endphp
-    @foreach($transactions as $index => $transaction)
+    @foreach($list as $index => $row)
         <tr>
             <td>{{ $index + 1 }}</td>
-            <td>{{ ucfirst($transaction->party->name) }}</td>
-            <td>{{ \Carbon\Carbon::parse($transaction->date)->format('d-m-y') }}</td>
-            <td>{{ $transaction->bill_no }}</td>
-            <td>{{ $transaction->payment_method }}</td>
-
-            @if($transaction->trans_type == 'Pay')
-                @php $totalCredit += $transaction->amount @endphp
-                <td>{{ number_format($transaction->amount, 2) }}</td>
-            @else
-                <td></td>
-            @endif
-
-            @if($transaction->trans_type == 'Receive')
-                @php $totalDebit += $transaction->amount @endphp
-                <td>{{ number_format($transaction->amount, 2) }}</td>
-            @else
-                <td></td>
-            @endif
-
-            <td>{{ number_format($totalCredit - $totalDebit, 2) }}</td>
+            <td>
+                <div><strong>Name:</strong> {{ $row->party->name }}</div>
+                <div><strong>Date:</strong> {{ \Carbon\Carbon::parse($row->date)->format('d-M-Y') }}</div>
+                <div><strong>Bill No:</strong> {{ $row->bill_no }} - <strong>Trans:</strong> {{ $row->payment_method }}</div>
+            </td>
+            <td>
+                @php
+                    $items = json_decode($row->items, true) ?? [];
+                    $itemTotal = 0;
+                @endphp
+                @foreach($items as $item)
+                    <div>
+                        <strong>Name:</strong> {{ $item['item_name'] ?? 'N/A' }},
+                        <strong>Qty:</strong> {{ $item['item_quantity'] ?? 0 }},
+                        <strong>Price:</strong> ₹ {{ number_format($item['item_price'] ?? 0, 2) }}
+                    </div>
+                    @php
+                        $itemTotal += ($item['item_quantity'] ?? 0) * ($item['item_price'] ?? 0);
+                    @endphp
+                @endforeach
+            </td>
+            <td class="text-right text-green">
+                @if($row->trans_type == 'Receive')
+                    @php
+                        $totalCredit += $row->amount + $itemTotal;
+                    @endphp
+                    ₹ {{ number_format($row->amount + $itemTotal, 2) }}
+                @endif
+            </td>
+            <td class="text-right text-red">
+                @if($row->trans_type == 'Pay')
+                    @php
+                        $totalDebit += $row->amount + $itemTotal;
+                    @endphp
+                    ₹ {{ number_format($row->amount + $itemTotal, 2) }}
+                @endif
+            </td>
+            <td class="text-right">
+                ₹ {{ number_format($totalCredit - $totalDebit, 2) }}
+            </td>
         </tr>
     @endforeach
-    <tr class="total-row">
-        <td colspan="6" style="text-align: right;">Total Balance</td>
-        <td colspan="2">{{ number_format($totalCredit - $totalDebit, 2) }}</td>
+    <tr>
+        <td colspan="5" class="text-right font-bold">Total Balance</td>
+        <td class="text-right font-bold">
+            ₹ {{ number_format($totalCredit - $totalDebit, 2) }}
+        </td>
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>

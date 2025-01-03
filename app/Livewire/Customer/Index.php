@@ -4,6 +4,7 @@ namespace App\Livewire\Customer;
 
 use App\Models\Party;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -27,6 +28,10 @@ class Index extends Component
     public $state = '';
     public $country = '';
     public $is_active = 1;
+    public $search = '';
+    public $start_date;
+    public $end_date;
+
 
     #region[rules]
     public function rules(): array
@@ -204,30 +209,69 @@ class Index extends Component
         }
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage(); // Reset pagination when searching
+    }
+
+    public function applyDateFilter()
+    {
+        $this->render();
+    }
+
     public function render()
     {
+        $query = Party::where('is_active', true)
+            ->where('party_type', 1);
 
-        $list = Party::where('is_active', true)
-            ->where('party_type', 1)
-            ->paginate(10);
-
-        // Calculate balance for each party
-        foreach ($list as $party) {
-            // Calculate the total credit (Pay) and total debit (Receive) for each party
-            $totalCredit = Transaction::where('party_id', $party->id)
-                ->where('trans_type', 'Pay')
-                ->sum('amount');
-
-            $totalDebit = Transaction::where('party_id', $party->id)
-                ->where('trans_type', 'Receive')
-                ->sum('amount');
-
-            // Calculate the balance (Credit - Debit)
-            $party->balance =  $totalDebit - $totalCredit;
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('email', 'like', '%' . $this->search . '%')
+                    ->orWhere('phone', 'like', '%' . $this->search . '%')
+                    ->orWhere('adrs_1', 'like', '%' . $this->search . '%')
+                    ->orWhere('party_type', 'like', '%' . $this->search . '%');
+            });
         }
+
+        if ($this->start_date && $this->end_date) {
+            $startDate = Carbon::parse($this->start_date)->startOfDay();
+            $endDate = Carbon::parse($this->end_date)->endOfDay();
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        $list = $query->paginate(10);
+
+        foreach ($list as $party) {
+            $totalCredit = 0;
+            $totalDebit = 0;
+
+            $transactions = Transaction::where('party_id', $party->id)->get();
+            foreach ($transactions as $transaction) {
+                $items = json_decode($transaction->items, true) ?? [];
+                $itemTotal = 0;
+
+                foreach ($items as $item) {
+                    $itemTotal += ($item['item_quantity'] ?? 0) * ($item['item_price'] ?? 0);
+                }
+
+                if ($transaction->trans_type == 'Receive') {
+                    $totalCredit += $transaction->amount + $itemTotal;
+                } elseif ($transaction->trans_type == 'Pay') {
+                    $totalDebit += $transaction->amount + $itemTotal;
+                }
+            }
+
+            // Store the totals and balance on the party
+            $party->totalCredit = $totalCredit;
+            $party->totalDebit = $totalDebit;
+            $party->balance = $totalCredit - $totalDebit;
+        }
+
         return view('livewire.customer.index')->layout('layouts.app')->with([
             'list' => $list,
         ]);
     }
+
 
 }

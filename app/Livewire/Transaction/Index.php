@@ -4,10 +4,12 @@ namespace App\Livewire\Transaction;
 
 use App\Models\Party;
 use App\Models\Transaction;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+
 
 //use function Termwind\render;
 
@@ -21,18 +23,25 @@ class Index extends Component
 
     public $vid;
     public $party_id = '';      // Refers to 'party_id' from the table, might relate to the party's primary key
-    public $trans_type = '';    // Refers to 'trans_type' (e.g., 'Pay' or 'Receive')
+    public $trans_type = 'Receive';    // Refers to 'trans_type' (e.g., 'Pay' or 'Receive')
     public $payment_method = ''; // Refers to 'payment_method' (e.g., 'Cash', 'Card', etc.)
     public $bill_no = '';       // Refers to 'bill_no' (the transaction or bill number)
     public $desc = '';          // Refers to 'desc' (description of the transaction)
     public $date = '';          // Refers to 'date' (transaction date)
     public $image = '';         // Refers to 'image' (could be a file path or base64 encoded image)
-    public $amount = 0.00;      // Refers to 'amount' (transaction amount, stored as decimal)
-    public $start_date = '';
-    public $end_date = '';
+    public $dateFilter = 'all'; // Default option
+    public $start_date;
+    public $end_date;
+
 
     public $active_id = true;
     public $party_type = true;
+
+    public $items = [];
+    public $grandTotal = 0;
+    public $amount = 0;
+    public $searchTerm = '';
+
 
     public function rules(): array
     {
@@ -48,6 +57,11 @@ class Index extends Component
             'active_id' => 'nullable|boolean', // Assuming is_active is a boolean flag, can be true or false
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
+            'items' => 'nullable|array',
+            'items.*.item_no' => 'required|string|max:255',
+            'items.*.item_name' => 'required|string|max:255',
+            'items.*.item_quantity' => 'required|integer|min:1',
+            'items.*.item_price' => 'required|numeric|min:0',
         ];
     }
 
@@ -86,23 +100,35 @@ class Index extends Component
         ];
     }
 
-    public $list;
     public $party;
 
     public function mount($id)
     {
         $this->party_id = $id;
         $this->party = Party::find($this->party_id);
-        $this->party_type = $this->party->party_type;
-
+        $this->party_type = $this->party->party_type ?? 'unknown';
     }
 
+    public function addItem()
+    {
+        $this->items[] = [
+            'item_no' => '',
+            'item_name' => '',
+            'item_quantity' => 0,
+            'item_price' => 0.00,
+            'item_total' => 0.00,
+        ];
+    }
 
+    public function removeItem($index)
+    {
+        unset($this->items[$index]);
+        $this->items = array_values($this->items);
+    }
 
     public function save()
     {
         $this->showEditModal = true;
-
     }
 
     public function getSave()
@@ -111,12 +137,13 @@ class Index extends Component
             if ($this->vid == "") {
                 Transaction::create([
                     'party_id' => $this->party_id,
-                    'trans_type' => $this->trans_type,
+                    'trans_type' => $this->trans_type ?: 'Receive',
                     'payment_method' => $this->payment_method ?: '-',
                     'bill_no' => $this->bill_no ?: '-',
                     'desc' => $this->desc ?: '-',
                     'date' => $this->date ? Carbon::parse($this->date) : Carbon::now(),
                     'amount' => $this->amount,
+                    'items' => json_encode($this->items),
                     'active_id' => $this->active_id ?? 1,
                     'image' => $this->image ?? null,
                 ]);
@@ -130,6 +157,7 @@ class Index extends Component
                 $obj->desc = $this->desc ?: '-';
                 $obj->date = $this->date ? Carbon::parse($this->date) : Carbon::now();
                 $obj->amount = $this->amount;
+                $obj->items = json_encode($this->items);
                 $obj->active_id = $this->active_id ?? 1;
                 $obj->image = $this->image ?? null;
                 $obj->save();
@@ -141,14 +169,12 @@ class Index extends Component
         session()->flash('success', '"' . $this->bill_no . '" has been ' . $message . ' .');
         $this->clearFields();
         $this->showEditModal = false;
-        // Ensure $this->party is set before accessing it
-        if ( $this->party_type == 1) {
+        if ($this->party_type == 1) {
             return $this->redirect(route('customers.index'));
         } else {
             return $this->redirect(route('suppliers.index'));
         }
     }
-
 
     public function edit($id): void
     {
@@ -169,6 +195,7 @@ class Index extends Component
                 $this->bill_no = $obj->bill_no;
                 $this->desc = $obj->desc;
                 $this->date = $obj->date;
+                $this->items = json_decode($obj->items, true) ?? [];
                 $this->image = $obj->image ? Carbon::parse($this->date) : Carbon::now();
                 $this->amount = $obj->amount;
                 $this->active_id = $obj->active_id;
@@ -183,7 +210,7 @@ class Index extends Component
     {
         $this->vid = '';
         $this->party_id = '';
-        $this->trans_type = '';
+        $this->trans_type = 'Pay';
         $this->payment_method = '';
         $this->bill_no = '';
         $this->desc = '';
@@ -214,44 +241,73 @@ class Index extends Component
         }
     }
 
-
-    public function downloadTransactionReport($partyId)
+    public function applyDateFilter()
     {
-        $pdfUrl = route('transactions.report', [
-            'partyId' => $partyId,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
-        ]);
-
-        return redirect()->to($pdfUrl);
-    }
-
-
-    public function rerender()
-    {
-        // Redirect to a different route (transactions.index) with party_id as a query parameter
         $this->render();
-
     }
 
     public function render()
     {
-        $query = Transaction::where('party_id', $this->party_id)->where('active_id', true);
+        $query = Transaction::where('party_id', $this->party_id)
+            ->where('active_id', true);
 
-        if ($this->start_date) {
-            $query->where('date', '>=', $this->start_date);
+        if ($this->searchTerm) {
+            $query->where(function ($query) {
+                $query->where('trans_type', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('payment_method', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('bill_no', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('desc', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('date', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('amount', 'like', '%' . $this->searchTerm . '%');
+            });
         }
 
-        if ($this->end_date) {
-            $query->where('date', '<=', $this->end_date);
+        if ($this->dateFilter != 'all') {
+            switch ($this->dateFilter) {
+                case 'today':
+                    $query->whereDate('date', Carbon::today());
+                    break;
+                case 'yesterday':
+                    $query->whereDate('date', Carbon::yesterday());
+                    break;
+                case 'last_15_days':
+                    $query->whereDate('date', '>=', Carbon::now()->subDays(15));
+                    break;
+                case 'last_30_days':
+                    $query->whereDate('date', '>=', Carbon::now()->subDays(30));
+                    break;
+                case 'last_90_days':
+                    $query->whereDate('date', '>=', Carbon::now()->subDays(90));
+                    break;
+                case 'last_180_days':
+                    $query->whereDate('date', '>=', Carbon::now()->subDays(180));
+                    break;
+                case 'custom_range':
+                    if ($this->start_date && $this->end_date) {
+                        $startDate = Carbon::parse($this->start_date)->startOfDay();
+                        $endDate = Carbon::parse($this->end_date)->endOfDay();
+                        $query->whereBetween('date', [$startDate, $endDate]);
+                    }
+                    break;
+            }
         }
 
-        $this->list = $query->orderBy('date', 'asc')->get();
+        $transactions = $query->orderBy('date', 'asc')->get()->map(function ($transaction) {
+            $items = json_decode($transaction->items, true) ?? [];
+            $itemTotal = 0;
+
+            foreach ($items as $item) {
+                $itemTotal += ($item['item_quantity'] ?? 0) * ($item['item_price'] ?? 0);
+            }
+
+            $transaction->item_total = $itemTotal;
+            return $transaction;
+        });
+
         return view('livewire.transaction.index')->layout('layouts.app')->with([
             'party' => Party::find($this->party_id) ?: new Party(),
-            'transactions' => $this->list,
+            'list' => $transactions,
         ]);
     }
-
 
 }
