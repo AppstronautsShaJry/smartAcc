@@ -83,18 +83,17 @@
                 $totalDebitSum += $party->totalDebit;
                 $totalBalanceSum += $party->balance;
             @endphp
-
-        @endforeach
-        <tr>
-            <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
-            <td>₹ {{ number_format($totalCreditSum, 2) }}</td>
-            <td>₹ {{ number_format($totalDebitSum, 2) }}</td>
-            <td>
+            <tr>
+                <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+                <td>₹ {{ number_format($totalCreditSum, 2) }}</td>
+                <td>₹ {{ number_format($totalDebitSum, 2) }}</td>
+                <td>
         <span class="{{ $totalBalanceSum < 0 ? 'text-red' : 'text-green' }}">
             ₹ {{ number_format($totalBalanceSum, 2) }}
         </span>
-            </td>
-        </tr>
+                </td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 </table>

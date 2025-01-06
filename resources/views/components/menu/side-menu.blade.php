@@ -5,7 +5,7 @@
      :class="{'translate-x-0 ease-in opacity-100':open === true, '-translate-x-full ease-out opacity-0': sidebarOpen === false}">
     <div class="flex justify-between px-5 py-6">
         <a href="{{route('dashboard')}}" class="flex gap-3">
-            <span class="text-black font-bold text-xs sm:text-xl tracking-widest">Smart Account</span>
+            <span class="text-black font-bold text-xs sm:text-xl tracking-widest">Tabbassam I Mart</span>
         </a>
         <button
             class="focus:outline-none focus:bg-gray-100 hover:bg-gray-100  rounded-md group"

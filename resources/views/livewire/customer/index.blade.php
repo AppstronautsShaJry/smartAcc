@@ -1,28 +1,82 @@
-<div>
+<div class="space-y-10">
     <x-slot name="header">Customer</x-slot>
-    <div class="flex justify-between py-5">
-        <div class="w-1/2">
-            <x-input.floating wire:model.live.debounce.300ms="search"
-                              type="text"
-                              label="search ..."
-                              placeholder="Search by Name, Email, Phone, Address,Date or Party Type"
-            />
+    <div class="bg-white p-4 rounded-lg shadow-sm transition-all duration-300 hover:shadow-md">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div class="w-full md:w-1/2 mb-4 md:mb-0">
+                <x-input.floating
+                    wire:model.live.debounce.300ms="search"
+                    type="text"
+                    label="search ..."
+                    placeholder="Search by Name, Email, Phone, Address,Date or Party Type"
+                />
+            </div>
+
+            <div class="flex flex-wrap gap-3 justify-end">
+                <button
+                    class="px-4 py-2
+                       bg-green-600
+                       text-white
+                       rounded-md
+                       font-lex
+                       hover:bg-green-700
+                       transition-colors
+                       flex items-center
+                       gap-2"
+                    wire:click="save">
+                    New
+                </button>
+
+                <a href="{{ route('customers.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}"
+                   class="bg-purple-600
+                      text-white
+                      px-4
+                      py-2
+                      flex
+                      items-center
+                      justify-center
+                      rounded-md
+                      hover:bg-purple-700
+                      transition-colors">
+                    Download PDF
+                </a>
+            </div>
         </div>
-        <div class="flex gap-x-5">
-            <button class="px-4 py-2 bg-green-600 text-white rounded-md font-lex " wire:click="save">New</button>
-            <a href="{{ route('customers.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}"
-               class="bg-purple-600 text-white px-2 flex items-center justify-center text-center rounded-md">
-                Download PDF
-            </a>
 
+        <div class="mt-4 flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-4 items-end">
+            <div class="w-full md:w-auto">
+                <x-input.floating
+                    label="Start Date"
+                    type="date"
+                    wire:model="start_date"
+                />
+            </div>
 
+            <div class="w-full md:w-auto">
+                <x-input.floating
+                    label="End Date"
+                    type="date"
+                    wire:model="end_date"
+                />
+            </div>
+
+            <button
+                class="w-full md:w-auto
+                   px-4
+                   py-2
+                   bg-blue-600
+                   text-white
+                   rounded-md
+                   hover:bg-blue-700
+                   transition-colors
+                   flex
+                   items-center
+                   justify-center"
+                wire:click="applyDateFilter">
+                Filter
+            </button>
         </div>
     </div>
-    <div class="flex space-x-4">
-        <x-input.floating label="Start Date" type="date" wire:model="start_date"/>
-        <x-input.floating label="End Date" type="date" wire:model="end_date"/>
-        <button class="max-w-max px-4 py-2 bg-blue-600 text-white rounded-md" wire:click="applyDateFilter">Filter</button>
-    </div>
+
 
 
     <x-forms.m-panel>

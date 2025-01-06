@@ -1,57 +1,161 @@
-<div>
+<div class="space-y-10">
     <x-slot name="header">Transactions</x-slot>
-    <div class="flex justify-between items-center py-5 gap-x-5">
-        <div class="flex items-center justify-start gap-5">
-            <div class="mb-4">
-                <x-input.floating type="text" wire:model.live="searchTerm" placeholder="Search transactions..."/>
+    <div class="w-full bg-gradient-to-r from-blue-50 to-blue-100
+            flex flex-col gap-5 p-6
+            shadow-md hover:shadow-xl
+            transition-all duration-300
+            rounded-lg
+            animate-fade-in">
+
+        <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-merri font-semibold
+                   text-blue-800
+                   tracking-wide
+                   hover:text-blue-600
+                   transition-colors">
+                {{$party->name}}
+            </h2>
+            <div class="text-sm text-gray-500
+                    bg-blue-100
+                    px-3 py-1
+                    rounded-full">
+                Contact Details
             </div>
-            <!-- Start Date Filter -->
         </div>
-        <div class="flex justify-between gap-4">
-            <button class="px-4 py-2 bg-green-600 text-white rounded-md font-lex " wire:click="save">New Transaction
-            </button>
-{{--            <button wire:click="exportToPdf" class="bg-purple-600 text-white flex justify-center items-center rounded-sm ">Export to PDF</button>--}}
-            <a href="{{ route('transactions.pdf', [
-    'party_id' => $party->id,
-    'search' => $searchTerm ?? '',  // Ensure search term is passed, or default to empty string
-    'start_date' => $start_date ?? '',  // Ensure start date is passed, or default to empty string
-    'end_date' => $end_date ?? '',  // Ensure end date is passed, or default to empty string
-    'dateFilter' => $dateFilter ?? 'all' // Ensure dateFilter is passed, or default to 'all'
-]) }}"
-               class="bg-purple-600 text-white px-2 flex items-center justify-center text-center rounded-md">
-                Download PDF
-            </a>
 
+        <div class="flex flex-wrap gap-x-5
+                text-gray-600
+                font-lex
+                items-center">
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                </svg>
+                <span class="hover:text-blue-700 transition-colors">
+                {{$party->email}}
+            </span>
+            </div>
 
-
-
-
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.61 18 2 12.39 2 6V3z"/>
+                </svg>
+                <span class="hover:text-blue-700 transition-colors">
+                {{$party->phone}}
+            </span>
+            </div>
         </div>
+
     </div>
-    <div class="inline-flex items-center gap-x-5 pb-12">
-        <!-- Date Filter Dropdown -->
-        <x-input.select wire:model="dateFilter" class="form-control">
-            <option value="all">All Dates</option>
-            <option value="today">Today</option>
-            <option value="yesterday">Yesterday</option>
-            <option value="last_15_days">Last 15 Days</option>
-            <option value="last_30_days">Last 30 Days</option>
-            <option value="last_90_days">Last 90 Days</option>
-            <option value="last_180_days">Last 180 Days</option>
-            <option value="custom_range">Custom Range</option>
-        </x-input.select>
 
-        <!-- Start Date Filter (Visible only when Custom Range is selected) -->
-        @if ($dateFilter == 'custom_range')
-            <div class="mt-3">
-                <x-input.floating label="Start Date" type="date" wire:model="start_date"/>
-                <x-input.floating label="End Date" type="date" wire:model="end_date"/>
+    <div class="bg-gray-50 p-4 rounded-lg shadow-sm transition-all duration-300 hover:shadow-md">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 gap-x-5">
+            <div class="flex flex-col md:flex-row items-center justify-start w-full gap-4">
+                <div class="w-full md:w-auto">
+                    <x-input.floating
+                        type="text"
+                        wire:model.live="searchTerm"
+                        placeholder="Search transactions..."
+                    />
+                </div>
             </div>
-        @endif
 
-        <!-- Apply Filter Button -->
-        <button class="max-w-max px-4 py-2 bg-blue-600 text-white rounded-md" wire:click="applyDateFilter">Filter
-        </button>
+            <div class="flex flex-wrap justify-end gap-4">
+                <button
+                    class="px-4 py-2
+                       bg-green-600
+                       text-white
+                       rounded-md
+                       font-lex
+                       hover:bg-green-700
+                       transition-colors"
+                    wire:click="save">
+                    New Transaction
+                </button>
+
+{{--                <a href="{{ route('transactions.pdf', ['partyId' => $party_id]--}}
+{{--                ,['startDate'=>$start_date],['endDate'=>$end_date],['searchTerm'=>$searchTerm],['dateFilter'=>$dateFilter]) }}"--}}
+{{--                  target="_blank" class="bg-purple-600--}}
+{{--                      text-white--}}
+{{--                      px-4--}}
+{{--                      py-2--}}
+{{--                      flex--}}
+{{--                      items-center--}}
+{{--                      justify-center--}}
+{{--                      rounded-md--}}
+{{--                      hover:bg-purple-700--}}
+{{--                      transition-colors">--}}
+{{--                    Download PDF--}}
+{{--                </a>--}}
+
+{{--                <a href="{{ route('transactions.pdf', ['partyId' => $party_id]) }}?startDate={{ $start_date }}&endDate={{ $end_date }}&searchTerm={{ $searchTerm }}&dateFilter={{ $dateFilter }}"--}}
+{{--                   target="_blank"--}}
+{{--                   class="bg-purple-600 text-white px-4 py-2 flex items-center justify-center rounded-md hover:bg-purple-700 transition-colors">--}}
+{{--                    Download PDF--}}
+{{--                </a>--}}
+
+                <a href="{{ route('transactions.pdf', ['partyId' => $party_id]) }}?searchTerm={{ $searchTerm }}&dateFilter={{ $dateFilter }}&startDate={{ $start_date }}&endDate={{ $end_date }}"
+                   target="_blank"
+                   class="bg-purple-600 text-white px-4 py-2 flex items-center justify-center rounded-md hover:bg-purple-700 transition-colors">
+                    Download PDF
+                </a>
+
+
+            </div>
+        </div>
+
+        <div class="mt-4 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+            <div class="w-full md:w-auto">
+                <x-input.select
+                    wire:model="dateFilter"
+                    class="w-full md:w-auto">
+                    <option value="all">All Dates</option>
+                    <option value="today">Today</option>
+                    <option value="yesterday">Yesterday</option>
+                    <option value="last_15_days">Last 15 Days</option>
+                    <option value="last_30_days">Last 30 Days</option>
+                    <option value="last_90_days">Last 90 Days</option>
+                    <option value="last_180_days">Last 180 Days</option>
+                    <option value="custom_range">Custom Range</option>
+                </x-input.select>
+            </div>
+
+            @if ($dateFilter == 'custom_range')
+                <div class="flex flex-col md:flex-row gap-4 w-full">
+                    <div class="w-full md:w-auto">
+                        <x-input.floating
+                            label="Start Date"
+                            type="date"
+                            wire:model="start_date"
+                        />
+                    </div>
+                    <div class="w-full md:w-auto">
+                        <x-input.floating
+                            label="End Date"
+                            type="date"
+                            wire:model="end_date"
+                        />
+                    </div>
+                </div>
+            @endif
+
+            <div class="w-full md:w-auto">
+                <button
+                    class="w-full md:w-auto
+                       px-4
+                       py-2
+                       bg-blue-600
+                       text-white
+                       rounded-md
+                       hover:bg-blue-700
+                       transition-colors"
+                    wire:click="applyDateFilter">
+                    Filter
+                </button>
+            </div>
+        </div>
     </div>
 
 
@@ -154,7 +258,7 @@
                 <x-table.header-serial width="5%"/>
 
                 <x-table.header-text sortIcon="none" left>
-                    Party Details
+                    Bill Details
                 </x-table.header-text>
 
 
@@ -188,38 +292,42 @@
 
                         <x-table.cell-text left>
                             <div class="font-lex text-xs">
-                                <div class="capitalize font-merri text-blue-600 text-sm">
-                                    {{$row->party->name}}
-                                </div>
-                                <div
-                                    class="text-gray-400 text-[9px]">{{\Carbon\Carbon::parse($row->date)->format('d-M-Y')}}</div>
+                                {{--                                <div class="capitalize font-merri text-blue-600 text-sm">--}}
+                                {{--                                    {{$row->party->name}}--}}
+                                {{--                                </div>--}}
+                                {{--                                <div--}}
+                                {{--                                    class="text-gray-400 text-[9px]">{{\Carbon\Carbon::parse($row->date)->format('d-M-Y')}}</div>--}}
                                 <div class="">B.No: {{$row->bill_no}} - Trans: {{$row->payment_method}}</div>
+                                <span class="text-blue-600">{{\Carbon\Carbon::parse($row->date)->format('d-M-Y')}}</span>
                             </div>
                         </x-table.cell-text>
 
-                        <x-table.cell-text>
-                            @php
-                                $items = json_decode($row->items, true) ?? [];
-                                $itemTotal = 0;
-                                if (!empty($items)) {
-                                    foreach ($items as $item) {
-                                        $itemTotal += ($item['item_quantity'] ?? 0) * ($item['item_price'] ?? 0);
+                        <x-table.cell-text left="">
+                            <div class="flex justify-start">
+                                @php
+                                    $items = json_decode($row->items, true) ?? [];
+                                    $itemTotal = 0;
+                                    if (!empty($items)) {
+                                        foreach ($items as $item) {
+                                            $itemTotal += ($item['item_quantity'] ?? 0) * ($item['item_price'] ?? 0);
+                                        }
                                     }
-                                }
-                            @endphp
-                            @if(!empty($items))
-                                <ul class="list-disc list-inside">
-                                    @foreach($items as $item)
-                                        <li>
-                                            <strong>Name:</strong> {{ $item['item_name'] ?? 'N/A' }},
-                                            <strong>Qty:</strong> {{ $item['item_quantity'] ?? 0 }},
-                                            <strong>Price:</strong> ₹ {{ number_format($item['item_price'] ?? 0, 2) }}
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @else
-                                <span class="text-gray-500">No Items</span>
-                            @endif
+                                @endphp
+                                @if(!empty($items))
+                                    <ul class="list-disc list-inside text-start">
+                                        @foreach($items as $item)
+                                            <li>
+                                                <strong>Name:</strong> {{ $item['item_name'] ?? 'N/A' }},
+                                                <strong>Qty:</strong> {{ $item['item_quantity'] ?? 0 }},
+                                                <strong>Price:</strong>
+                                                ₹ {{ number_format($item['item_price'] ?? 0, 2) }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <span class="text-gray-500">No Items</span>
+                                @endif
+                            </div>
                         </x-table.cell-text>
 
                         <x-table.cell-text right class="text-green-600 font-semibold">

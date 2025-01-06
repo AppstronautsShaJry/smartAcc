@@ -106,7 +106,7 @@ class Index extends Component
                 Party::create([
                     'party_type' => $this->party_type,
                     'name' => $this->name,
-                    'email' => $this->email,
+                    'email' => $this->email ?: '-',
                     'phone' => $this->phone ?: '-',
                     'adrs_1' => $this->adrs_1 ?: '-',
                     'adrs_2' => $this->adrs_2 ?: '-',

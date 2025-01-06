@@ -12,11 +12,9 @@ class TransactionReportController extends Controller
 {
     public function exportPDF(Request $request)
     {
-        // Initial query to fetch transactions for a specific party
         $query = Transaction::where('party_id', $request->party_id)
             ->where('active_id', true);
 
-        // Apply search term filter if provided
         if ($request->search) {
             $query->where(function ($q) use ($request) {
                 $q->where('trans_type', 'like', '%' . $request->search . '%')
@@ -28,7 +26,6 @@ class TransactionReportController extends Controller
             });
         }
 
-        // Apply the date filter
         if ($request->dateFilter != 'all') {
             switch ($request->dateFilter) {
                 case 'today':
@@ -50,7 +47,6 @@ class TransactionReportController extends Controller
                     $query->whereDate('date', '>=', Carbon::now()->subDays(180));
                     break;
                 case 'custom_range':
-                    // Apply custom date range filter if start_date and end_date are provided
                     if ($request->start_date && $request->end_date) {
                         $startDate = Carbon::parse($request->start_date)->startOfDay();
                         $endDate = Carbon::parse($request->end_date)->endOfDay();
@@ -60,27 +56,21 @@ class TransactionReportController extends Controller
             }
         }
 
-        // Retrieve the filtered transactions
         $transactions = $query->orderBy('date', 'asc')->get()->map(function ($transaction) {
             $items = json_decode($transaction->items, true) ?? [];
             $itemTotal = 0;
-
-            // Calculate item totals for each transaction
             foreach ($items as $item) {
                 $itemTotal += ($item['item_quantity'] ?? 0) * ($item['item_price'] ?? 0);
             }
-
             $transaction->item_total = $itemTotal;
             return $transaction;
         });
 
-        // Get the party details
         $party = Party::find($request->party_id);
         if (!$party) {
             return response()->json(['error' => 'Party not found'], 404);
         }
 
-        // Load the PDF view and pass the necessary data
         $pdf = PDF::loadView('pdf.transactionReport', [
             'transactions' => $transactions,
             'party' => $party,

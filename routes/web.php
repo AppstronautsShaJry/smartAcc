@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TransactionReportController;
 use App\Livewire\Transaction\Index;
 use App\Models\Party;
 use Illuminate\Support\Facades\Route;
@@ -32,8 +33,7 @@ Route::middleware([
     Route::get('transactions/{id}', App\Livewire\Transaction\Index::class)->name('transactions.index');
     Route::get('reg-users', App\Livewire\RegisterUser\Index::class)->name('register-users');
     Route::get('/download-customers-pdf', [\App\Http\Controllers\CustomerReportController::class, 'exportPDF'])->name('customers.pdf');
-//    Route::get('/download-transactions-pdf', [\App\Http\Controllers\TransactionReportController::class, 'exportPDF'])->name('transactions.pdf');
-    Route::get('/download-transactions-pdf', [\App\Http\Controllers\TransactionReportController::class, 'exportPDF'])->name('transactions.pdf');
-
+    Route::get('/download-suppliers-pdf', [\App\Http\Controllers\SupplierReportController::class, 'exportPDF'])->name('supplier.pdf');
+    Route::get('/transactions/pdf/{partyId}', [TransController::class, 'generatePDF'])->name('transactions.pdf');
 
 });
