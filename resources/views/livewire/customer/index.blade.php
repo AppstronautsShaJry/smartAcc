@@ -173,7 +173,7 @@
                 @error('name')
                 <span class="text-red-600 text-xs font-lex">{{ $message }}</span>
                 @enderror
-{{--                <x-input.floating label="Email" wire:model="email"/>--}}
+{{--                <x-input.floating label="Email" hidden wire:model="email"/>--}}
                 <x-input.floating label="Phone" wire:model="phone"/>
                 <x-input.floating label="Address/Category" wire:model="adrs_1"/>
 

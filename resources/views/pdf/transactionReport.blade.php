@@ -1,166 +1,176 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Transaction Report.</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Report</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
+        body {
             font-family: 'DejaVu Sans', sans-serif;
-            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            font-size: 10px;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafc;
         }
 
-        thead {
-            background-color: #f8f9fa;
+        .container {
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
-            border: 1px solid #dee2e6;
-            padding: 10px;
-            text-align: left;
-            vertical-align: middle;
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
-        th {
-            background-color: #e9ecef;
+        .header img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+            color: #333;
+        }
+
+        .header p {
+            font-size: 10px;
+            color: #777;
+        }
+
+        .sub-header {
+            color: #dc3545;
+            font-size: 12px;
             font-weight: bold;
-            color: #495057;
+            text-align: center;
+            margin: 10px 0 20px;
+        }
+
+        .party-details {
+            padding: 10px;
+            background-color: #ebf7f7;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .party-details p {
+            margin: 3px 0;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 10px;
+        }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
             text-transform: uppercase;
         }
 
-        tbody tr:nth-child(even) {
-            background-color: #f8f9fa;
+        .table tbody tr:nth-child(even) {
+            background-color: #f9fafc;
         }
 
-        tbody tr:hover {
-            background-color: #e9ecef;
-            transition: background-color 0.3s ease;
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
         }
 
-        td[style*="color: green"] {
-            color: #28a745 !important;
+        .totals-row {
             font-weight: bold;
+            background-color: #f1f3f5;
         }
 
-        td[style*="color: red"] {
-            color: #dc3545 !important;
-            font-weight: bold;
+        .text-red {
+            color: #dc3545;
+        }
+
+        .text-green {
+            color: #28a745;
         }
     </style>
-
 </head>
-<body style="border: 1px solid gray;">
-<table style="width: 100%; padding: 20px;background-color: #ebf7f7;">
-    <tr style="text-align: start" width="10%">
-        <td width="10%">
-            <img src="{{ public_path('images/ruppee.jpg') }}" alt="" width="" height="25px"
-                 style="border-radius: 100%">
-        </td>
-        <td style="90%"><h1 style="font-size: 30px; padding-right: 40px">Tabasam I Mart </h1></td>
-    </tr>
-    <tr style="">
-        <td width="" colspan="2" style="font-size: 10px; padding: 5px 0; color: gray;">Kolavoor Mangalore Contact:
-            786006321
-        </td>
-    </tr>
-    <tr style=" color: red; padding-bottom: 5px;">
-        <td colspan="2"><strong>CREDIT DEBIT SHORT REPORT OF ALL PERSON</strong></td>
-    </tr>
-</table>
-<table class="" style="width: 100%; border-bottom:  1px solid gray ; font-size: 10px;">
-    <tr class="" style="vertical-align: top">
-        <td >
-            <div class="" style="line-height: 0.5; padding: 0 20px;">
-                <p style="font-size: 20px"> <b>{{$party->name}}</b></p>
-                <p>{{$party->email.'   ,   '.$party->phone}}</p>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="{{ public_path('images/ruppee.jpg') }}" alt="Logo" height="50">
+        <h1>Tabasam I Mart</h1>
+    </div>
+    <p>Kolavoor, Mangalore | Contact: 786006321</p>
 
-                <p> {{$party->adrs_1}}</p>
-            </div>
-        </td>
-    </tr>
-</table>
-<table width="100%" style="font-size: 10px;">
-    <thead>
-    <tr>
-        <th>S. No.</th>
-        <th>Date</th>
-        <th>Bill Details</th>
-        <th>Item Name</th>
-        <th>Item Quantity</th>
-        <th>Item Price</th>
-        <th>Debit</th>
-        <th>Credit</th>
-        <th>Balance</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach($transactions as $index => $row)
+    <div class="sub-header">
+        CREDIT DEBIT SHORT REPORT OF ALL PERSON
+    </div>
+
+    <div class="party-details">
+        <p><strong>{{$party->name}}</strong></p>
+        <p>{{$party->email}} , {{$party->phone}}</p>
+        <p>{{$party->adrs_1}}</p>
+    </div>
+
+    <table class="table">
+        <thead>
         <tr>
-            <td>{{ $index + 1 }}</td>
-            <td>{{ \Carbon\Carbon::parse($row->date)->format('d-M-Y') }}</td>
-            <td>{{ $row->bill_no . ',' . $row->payment_method }}</td>
-
-            {{-- Display the items --}}
-
-            <td>
-                @foreach($row->items as $item)
-                    <p>
-                        <strong>Name:</strong> {{ $item['item_name'] }}
-
-                    </p>
-                @endforeach
-            </td>
-            <td>
-                @foreach($row->items as $item)
-                    <p>
-                        <strong>Qty:</strong> {{ $item['item_quantity'] }}
-                    </p>
-                @endforeach
-            </td>
-            <td>
-                @foreach($row->items as $item)
-                    <p>
-                        <strong>Price:</strong> ₹ {{ $item['item_price'] }}
-                    </p>
-                @endforeach
-            </td>
-
-            {{-- Display Credit --}}
-
-
-            {{-- Display Debit --}}
-            <td style="color: red;">
-                ₹ {{ $row->debit }}
-            </td>
-            <td style="color: green;">
-                ₹ {{ $row->credit }}
-            </td>
-
-            {{-- Display Balance --}}
-            <td>
-                ₹ {{ $row->balance }}
-            </td>
+            <th>#</th>
+            <th>Date</th>
+            <th>Bill Details</th>
+            <th>Item Name</th>
+            <th>Item Quantity</th>
+            <th>Item Price</th>
+            <th>Debit</th>
+            <th>Credit</th>
+            <th>Balance</th>
         </tr>
-    @endforeach
+        </thead>
+        <tbody>
+        @foreach($transactions as $index => $row)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ \Carbon\Carbon::parse($row->date)->format('d-M-Y') }}</td>
+                <td>{{ $row->bill_no }}, {{ $row->payment_method }}</td>
+                <td>
+                    @foreach($row->items as $item)
+                        <p>{{ $item['item_name'] }}</p>
+                    @endforeach
+                </td>
+                <td>
+                    @foreach($row->items as $item)
+                        <p>{{ $item['item_quantity'] }}</p>
+                    @endforeach
+                </td>
+                <td>
+                    @foreach($row->items as $item)
+                        <p>₹ {{ $item['item_price'] }}</p>
+                    @endforeach
+                </td>
+                <td class="text-red">₹ {{ $row->debit }}</td>
+                <td class="text-green">₹ {{ $row->credit }}</td>
+                <td>₹ {{ $row->balance }}</td>
+            </tr>
+        @endforeach
 
-    {{-- Totals Row --}}
-    <tr>
-        <td colspan="6" style="text-align: right;"><strong>Totals:</strong></td>
-        <td style="color: red;"><strong>₹ {{ $totalDebit }}</strong></td>
-        <td style="color: green;"><strong>₹ {{ $totalCredit }}</strong></td>
-        <td><strong>₹ {{ $totalBalance }}</strong></td>
-    </tr>
-    </tbody>
-</table>
-
-
-
-
+        <tr class="totals-row">
+            <td colspan="6" style="text-align: right;">Totals:</td>
+            <td class="text-red">₹ {{ $totalDebit }}</td>
+            <td class="text-green">₹ {{ $totalCredit }}</td>
+            <td>₹ {{ $totalBalance }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

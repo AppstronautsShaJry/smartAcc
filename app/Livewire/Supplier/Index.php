@@ -38,7 +38,7 @@ class Index extends Component
         return [
             'party_type' => 'required|string',
             'name' => 'required|unique:companies,name',
-            'email' => 'required|email|unique:companies,email',
+            'email' => 'nullable',
             'phone' => 'nullable|string',
             'adrs_1' => 'required|string',
             'adrs_2' => 'nullable|string',
@@ -58,7 +58,7 @@ class Index extends Component
         return [
             'party_type.required' => ':attribute is required.',
             'name.required' => ':attribute is required.',
-            'email.required' => ':attribute is required.',
+//            'email.required' => ':attribute is required.',
             'email.email' => ':attribute must be a valid email address.',
             'email.unique' => ':attribute is already taken.',
             'phone.string' => ':attribute must be a string.',
@@ -77,7 +77,7 @@ class Index extends Component
         return [
             'party_type' => 'Party Type',
             'name' => 'Name',
-            'email' => 'Email',
+//            'email' => 'Email',
             'phone' => 'Phone',
             'adrs_1' => 'Address Line 1',
             'adrs_2' => 'Address Line 2',
@@ -102,10 +102,14 @@ class Index extends Component
         if ($this->name != '') {
 
             if ($this->vid == "") {
+                $lastRecord = Party::latest('id')->first();
+                $nextId = $lastRecord ? $lastRecord->id + 1 : 1;
+                $generatedEmail = $nextId . '@g.in';
+
                 Party::create([
                     'party_type' => $this->party_type,
                     'name' => $this->name,
-                    'email' => $this->email ?: '-',
+                    'email' => $this->email ?: $generatedEmail,
                     'phone' => $this->phone ?: '-',
                     'adrs_1' => $this->adrs_1 ?: '-',
                     'adrs_2' => $this->adrs_2 ?: '-',
