@@ -56,7 +56,7 @@
 
 </head>
 <body style="border: 1px solid gray;">
-<table style="width: 100%; border-bottom: gray 1px solid; padding: 20px;background-color: #ebf7f7;">
+<table style="width: 100%; padding: 20px;background-color: #ebf7f7;">
     <tr style="text-align: start" width="10%">
         <td width="10%">
             <img src="{{ public_path('images/ruppee.jpg') }}" alt="" width="" height="25px"
@@ -73,7 +73,7 @@
         <td colspan="2"><strong>CREDIT DEBIT SHORT REPORT OF ALL PERSON</strong></td>
     </tr>
 </table>
-<table class="" style="width: 100%; border-bottom:  1px solid gray ">
+<table class="" style="width: 100%; border-bottom:  1px solid gray ; font-size: 10px;">
     <tr class="" style="vertical-align: top">
         <td >
             <div class="" style="line-height: 0.5; padding: 0 20px;">
@@ -85,15 +85,17 @@
         </td>
     </tr>
 </table>
-<table width="100%">
+<table width="100%" style="font-size: 10px;">
     <thead>
     <tr>
         <th>S. No.</th>
         <th>Date</th>
         <th>Bill Details</th>
-        <th>Items</th>
-        <th>Credit</th>
+        <th>Item Name</th>
+        <th>Item Quantity</th>
+        <th>Item Price</th>
         <th>Debit</th>
+        <th>Credit</th>
         <th>Balance</th>
     </tr>
     </thead>
@@ -105,24 +107,39 @@
             <td>{{ $row->bill_no . ',' . $row->payment_method }}</td>
 
             {{-- Display the items --}}
+
             <td>
                 @foreach($row->items as $item)
                     <p>
-                        <strong>Name:</strong> {{ $item['item_name'] }} |
-                        <strong>Qty:</strong> {{ $item['item_quantity'] }} |
+                        <strong>Name:</strong> {{ $item['item_name'] }}
+
+                    </p>
+                @endforeach
+            </td>
+            <td>
+                @foreach($row->items as $item)
+                    <p>
+                        <strong>Qty:</strong> {{ $item['item_quantity'] }}
+                    </p>
+                @endforeach
+            </td>
+            <td>
+                @foreach($row->items as $item)
+                    <p>
                         <strong>Price:</strong> ₹ {{ $item['item_price'] }}
                     </p>
                 @endforeach
             </td>
 
             {{-- Display Credit --}}
-            <td style="color: green;">
-                ₹ {{ $row->credit }}
-            </td>
+
 
             {{-- Display Debit --}}
             <td style="color: red;">
                 ₹ {{ $row->debit }}
+            </td>
+            <td style="color: green;">
+                ₹ {{ $row->credit }}
             </td>
 
             {{-- Display Balance --}}
@@ -134,9 +151,9 @@
 
     {{-- Totals Row --}}
     <tr>
-        <td colspan="4" style="text-align: right;"><strong>Totals:</strong></td>
-        <td style="color: green;"><strong>₹ {{ $totalCredit }}</strong></td>
+        <td colspan="6" style="text-align: right;"><strong>Totals:</strong></td>
         <td style="color: red;"><strong>₹ {{ $totalDebit }}</strong></td>
+        <td style="color: green;"><strong>₹ {{ $totalCredit }}</strong></td>
         <td><strong>₹ {{ $totalBalance }}</strong></td>
     </tr>
     </tbody>

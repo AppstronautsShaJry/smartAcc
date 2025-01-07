@@ -261,18 +261,22 @@
                     Bill Details
                 </x-table.header-text>
 
-
                 <x-table.header-text sortIcon="none" left>
-                    Items
+                    Item Name
                 </x-table.header-text>
-
-
                 <x-table.header-text sortIcon="none" left>
-                    Credit
+                    Items Quantity
+                </x-table.header-text>
+                <x-table.header-text sortIcon="none" left>
+                    Items Price
                 </x-table.header-text>
                 <x-table.header-text sortIcon="none" left>
                     Debit
                 </x-table.header-text>
+                <x-table.header-text sortIcon="none" left>
+                    Credit
+                </x-table.header-text>
+
                 <x-table.header-text sortIcon="none" left>
                     Balance
                 </x-table.header-text>
@@ -316,12 +320,36 @@
                                 @if(!empty($items))
                                     <ul class="list-disc list-inside text-start">
                                         @foreach($items as $item)
-                                            <li>
                                                 <strong>Name:</strong> {{ $item['item_name'] ?? 'N/A' }},
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <span class="text-gray-500">No Items</span>
+                                @endif
+                            </div>
+                        </x-table.cell-text>
+                        <x-table.cell-text left="">
+                            <div class="flex justify-start">
+
+                                @if(!empty($items))
+                                    <ul class="list-disc list-inside text-start">
+                                        @foreach($items as $item)
                                                 <strong>Qty:</strong> {{ $item['item_quantity'] ?? 0 }},
-                                                <strong>Price:</strong>
-                                                ₹ {{ number_format($item['item_price'] ?? 0, 2) }}
-                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <span class="text-gray-500">No Items</span>
+                                @endif
+                            </div>
+                        </x-table.cell-text>
+                        <x-table.cell-text left="">
+                            <div class="flex justify-start">
+
+                                @if(!empty($items))
+                                    <ul class="list-disc list-inside text-start">
+                                        @foreach($items as $item)
+
+                                                <strong>₹ {{ number_format($item['item_price'] ?? 0, 2) }}</strong>
                                         @endforeach
                                     </ul>
                                 @else
@@ -330,19 +358,20 @@
                             </div>
                         </x-table.cell-text>
 
-                        <x-table.cell-text right class="text-green-600 font-semibold">
-                            @if($row->trans_type == 'Receive')
-                                @php
-                                    $totalCredit += $row->amount + $itemTotal;
-                                @endphp
-                                ₹ {{ number_format($row->amount + $itemTotal, 2) }}
-                            @endif
-                        </x-table.cell-text>
+
 
                         <x-table.cell-text right class="text-red-400 font-semibold">
                             @if($row->trans_type == 'Pay')
                                 @php
                                     $totalDebit += $row->amount + $itemTotal;
+                                @endphp
+                                ₹ {{ number_format($row->amount + $itemTotal, 2) }}
+                            @endif
+                        </x-table.cell-text>
+                        <x-table.cell-text right class="text-green-600 font-semibold">
+                            @if($row->trans_type == 'Receive')
+                                @php
+                                    $totalCredit += $row->amount + $itemTotal;
                                 @endphp
                                 ₹ {{ number_format($row->amount + $itemTotal, 2) }}
                             @endif
@@ -358,7 +387,7 @@
                 @endforeach
 
                 <x-table.row class="bg-slate-100">
-                    <x-table.cell-text colspan="5" class="text-blue-600 font-semibold">Total Balance</x-table.cell-text>
+                    <x-table.cell-text colspan="7" class="text-blue-600 font-semibold">Total Balance</x-table.cell-text>
 
                     <x-table.cell-text right class="font-semibold">
                         ₹ {{ number_format($totalCredit - $totalDebit, 2) }}

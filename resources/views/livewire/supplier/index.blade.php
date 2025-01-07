@@ -75,7 +75,7 @@
                                     <div class="text-red-600"><span>Db:</span> <span
                                             class="text-gray-500 pl-4">₹ {{ number_format($row->totalDebit, 2)}}</span></div>
                                     <div>  {{$row->phone}}</div>
-                                        <div class="">{{$row->email}}</div>
+{{--                                        <div class="">{{$row->email}}</div>--}}
                                         <div> {{$row->adrs_1}}</div>
                                     </div>
 
@@ -119,7 +119,7 @@
                 @error('name')
                 <span class="text-red-600 text-xs font-lex">{{ $message }}</span>
                 @enderror
-                <x-input.floating label="Email" wire:model="email"/>
+{{--                <x-input.floating label="Email" wire:model="email"/>--}}
                 <x-input.floating label="Phone" wire:model="phone"/>
                 <x-input.floating label="Address/Category" wire:model="adrs_1"/>
 

@@ -81,7 +81,7 @@ class TransactionReportController extends Controller
         ]);
 
         // Return the generated PDF for download
-        return $pdf->download('transactions_report.pdf');
+        return $pdf->stream('transactions_report.pdf');
     }
 
 

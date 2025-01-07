@@ -64,7 +64,7 @@ class CustomerReportController extends Controller
 
         // Load Blade view into PDF
         $pdf = PDF::loadView('pdf.customerReport', ['list' => $list]);
-        return $pdf->download('customers.pdf');
+        return $pdf->stream('customers.pdf');
     }
 
 }
