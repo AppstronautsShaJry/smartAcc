@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('parties', function (Blueprint $table) {
+        Schema::create('trans_types', function (Blueprint $table) {
             $table->id();
-            $table->string('party_type');
             $table->string('name');
-            $table->string('phone')->nullable();
-            $table->string('other')->nullable();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('is_active')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('trans_types');
     }
 };

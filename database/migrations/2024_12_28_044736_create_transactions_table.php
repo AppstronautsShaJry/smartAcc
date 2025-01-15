@@ -12,9 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('party_id')->nullable()->constrained('parties')->onDelete('set null');
             $table->decimal('amount', 10, 2);
-            $table->string('trans_type', 20)->default('Pay');
-            $table->string('payment_method');
-            $table->string('bill_no');
+            $table->string('trans_type', 20)->default('Item Out');
             $table->text('desc');
             $table->dateTime('date')->useCurrent();
             $table->longText('image')->nullable();

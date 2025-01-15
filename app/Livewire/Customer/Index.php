@@ -19,14 +19,8 @@ class Index extends Component
     public $vid = '';
     public $party_type = 1;
     public $name = '';
-    public $email = '';
     public $phone = '';
-    public $adrs_1 = '';
-    public $adrs_2 = '';
-    public $pincode = '';
-    public $city = '';
-    public $state = '';
-    public $country = '';
+    public $other = '';
     public $is_active = 1;
     public $search = '';
     public $start_date;
@@ -38,15 +32,9 @@ class Index extends Component
     {
         return [
             'party_type' => 'required|string',
-            'name' => 'required|unique:companies,name',
-            'email' => 'nullable',
+            'name' => 'required|string,name',
             'phone' => 'nullable|string',
-            'adrs_1' => 'required|string',
-            'adrs_2' => 'nullable|string',
-            'city' => 'required|string',
-            'state' => 'required|string',
-            'pincode' => 'required|string',
-            'country' => 'nullable|string',
+            'other' => 'nullable|string',
             'is_active' => 'nullable|boolean', // Assuming is_active is a boolean flag
         ];
     }
@@ -59,16 +47,8 @@ class Index extends Component
         return [
             'party_type.required' => ':attribute is required.',
             'name.required' => ':attribute is required.',
-//            'email.required' => ':attribute is required.',
-            'email.email' => ':attribute must be a valid email address.',
-            'email.unique' => ':attribute is already taken.',
-            'phone.string' => ':attribute must be a string.',
-            'adrs_1.required' => ':attribute is required.',
-            'adrs_2.string' => ':attribute must be a string.',
-            'city.required' => ':attribute is required.',
-            'state.required' => ':attribute is required.',
-            'pincode.required' => ':attribute is required.',
-            'country.string' => ':attribute must be a string.',
+            'phone.nullable' => ':attribute is required.',
+            'other.nullable' => ':attribute is required.',
             'is_active.boolean' => ':attribute must be true or false.',
         ];
     }
@@ -78,14 +58,7 @@ class Index extends Component
         return [
             'party_type' => 'Party Type',
             'name' => 'Name',
-//            'email' => 'Email',
-            'phone' => 'Phone',
-            'adrs_1' => 'Address Line 1',
-            'adrs_2' => 'Address Line 2',
-            'city' => 'City',
-            'state' => 'State',
-            'pincode' => 'Pincode',
-            'country' => 'Country',
+            'other' => 'Other/Category',
             'is_active' => 'Active Status',
         ];
     }
@@ -103,21 +76,12 @@ class Index extends Component
         if ($this->name != '') {
             if ($this->vid == "") {
 
-                $lastRecord = Party::latest('id')->first();
-                $nextId = $lastRecord ? $lastRecord->id + 1 : 1;
-                $generatedEmail = $nextId . '@g.in';
-
                 Party::create([
                     'party_type' => $this->party_type,
                     'name' => $this->name,
-                    'email' => $this->email ?: $generatedEmail,
                     'phone' => $this->phone ?: '-',
-                    'adrs_1' => $this->adrs_1 ?: '-',
-                    'adrs_2' => $this->adrs_2 ?: '-',
-                    'pincode' => $this->pincode ?: '-',
-                    'city' => $this->city ?: '-',
-                    'state' => $this->state ?: '-',
-                    'country' => $this->country ?: '-',
+                    'other' => $this->other ?: '-',
+                    'user_id' => auth()->id(),
                     'is_active' => $this->is_active ?: 1,
                 ]);
                 $message = "Saved";
@@ -125,14 +89,9 @@ class Index extends Component
                 $obj = Party::find($this->vid);
                 $obj->party_type = $this->party_type;
                 $obj->name = $this->name;
-                $obj->email = $this->email;
                 $obj->phone = $this->phone;
-                $obj->adrs_1 = $this->adrs_1;
-                $obj->adrs_2 = $this->adrs_2;
-                $obj->pincode = $this->pincode;
-                $obj->city = $this->city;
-                $obj->state = $this->state;
-                $obj->country = $this->country;
+                $obj->other = $this->other;
+                $obj->user_id = auth()->id();
                 $obj->is_active = $this->is_active;
                 $obj->save();
                 $message = "Updated";
@@ -160,14 +119,8 @@ class Index extends Component
                 $this->vid = $obj->id;
                 $this->party_type = $obj->party_type;
                 $this->name = $obj->name;
-                $this->email = $obj->email;
                 $this->phone = $obj->phone;
-                $this->adrs_1 = $obj->adrs_1;
-                $this->adrs_2 = $obj->adrs_2;
-                $this->pincode = $obj->pincode;
-                $this->city = $obj->city;
-                $this->state = $obj->state;
-                $this->country = $obj->country;
+                $this->other = $obj->other;
                 $this->is_active = $obj->is_active;
                 return $obj;
             }
@@ -181,14 +134,8 @@ class Index extends Component
         $this->vid = '';
         $this->party_type = '';
         $this->name = '';
-        $this->email = '';
         $this->phone = '';
-        $this->adrs_1 = '';
-        $this->adrs_2 = '';
-        $this->pincode = '';
-        $this->city = '';
-        $this->state = '';
-        $this->country = '';
+        $this->other = '';
         $this->is_active = 1;
     }
 
@@ -223,17 +170,65 @@ class Index extends Component
         $this->render();
     }
 
+    public function export()
+    {
+        $query = Party::where('is_active', true)
+            ->where('party_type', 1)
+            ->where('user_id', auth()->id())
+            ->get();
+
+        $totalCreditSum = 0;
+        $totalDebitSum = 0;
+        $balanceSum = 0;
+
+        foreach ($query as $party) {
+            $totalCredit = 0;
+            $totalDebit = 0;
+
+            $transactions = Transaction::where('party_id', $party->id)->get();
+            foreach ($transactions as $transaction) {
+                $items = json_decode($transaction->items, true) ?? [];
+                $itemTotal = 0;
+
+                foreach ($items as $item) {
+                    $itemTotal += ($item['item_quantity'] ?? 0) * ($item['item_price'] ?? 0);
+                }
+
+                if ($transaction->trans_type == 'Amount Received') {
+                    $totalCredit += $transaction->amount + $itemTotal;
+                } elseif ($transaction->trans_type == 'Item Out') {
+                    $totalDebit += $transaction->amount + $itemTotal;
+                }
+            }
+
+            $party->totalCredit = $totalCredit;
+            $party->totalDebit = $totalDebit;
+            $party->balance = $totalCredit - $totalDebit;
+
+            $totalCreditSum += $totalCredit;
+            $totalDebitSum += $totalDebit;
+            $balanceSum += $party->balance;
+        }
+
+        $fileName = 'customer_balances_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
+
+        return \Maatwebsite\Excel\Facades\Excel::download(
+            new \App\Exports\CustomerExport($query, $totalCreditSum, $totalDebitSum, $balanceSum),
+            $fileName
+        );
+    }
+
+
     public function render()
     {
         $query = Party::where('is_active', true)
-            ->where('party_type', 1);
+            ->where('party_type', 1)->where('user_id', auth()->id());
 
         if ($this->search) {
             $query->where(function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('email', 'like', '%' . $this->search . '%')
                     ->orWhere('phone', 'like', '%' . $this->search . '%')
-                    ->orWhere('adrs_1', 'like', '%' . $this->search . '%')
+                    ->orWhere('other', 'like', '%' . $this->search . '%')
                     ->orWhere('party_type', 'like', '%' . $this->search . '%');
             });
         }
@@ -245,6 +240,10 @@ class Index extends Component
         }
 
         $list = $query->paginate(10);
+
+        $totalCreditSum = 0;
+        $totalDebitSum = 0;
+        $balanceSum = 0;
 
         foreach ($list as $party) {
             $totalCredit = 0;
@@ -259,22 +258,30 @@ class Index extends Component
                     $itemTotal += ($item['item_quantity'] ?? 0) * ($item['item_price'] ?? 0);
                 }
 
-                if ($transaction->trans_type == 'Receive') {
+                if ($transaction->trans_type == 'Amount Received') {
                     $totalCredit += $transaction->amount + $itemTotal;
-                } elseif ($transaction->trans_type == 'Pay') {
+                } elseif ($transaction->trans_type == 'Item Out') {
                     $totalDebit += $transaction->amount + $itemTotal;
                 }
             }
 
-            // Store the totals and balance on the party
             $party->totalCredit = $totalCredit;
             $party->totalDebit = $totalDebit;
             $party->balance = $totalCredit - $totalDebit;
+
+            $totalCreditSum += $totalCredit;
+            $totalDebitSum += $totalDebit;
+            $balanceSum += $party->balance;
         }
+
         return view('livewire.customer.index')->layout('layouts.app')->with([
             'list' => $list,
+            'totalCreditSum' => $totalCreditSum,
+            'totalDebitSum' => $totalDebitSum,
+            'balanceSum' => $balanceSum,
         ]);
     }
+
 
 
 }

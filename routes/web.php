@@ -18,8 +18,8 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        $customers = Party::where('party_type', 1);
-        $suppliers = Party::where('party_type', 2);
+        $customers = Party::where('party_type', 1)->where('user_id', auth()->id())->get();
+        $suppliers = Party::where('party_type', 2)->where('user_id', auth()->id())->get();
         return view('dashboard', compact('customers', 'suppliers'));
     })->name('dashboard');
 });
@@ -35,5 +35,6 @@ Route::middleware([
     Route::get('/download-customers-pdf', [\App\Http\Controllers\CustomerReportController::class, 'exportPDF'])->name('customers.pdf');
     Route::get('/download-suppliers-pdf', [\App\Http\Controllers\SupplierReportController::class, 'exportPDF'])->name('supplier.pdf');
     Route::get('/transactions/pdf/{partyId}', [TransController::class, 'generatePDF'])->name('transactions.pdf');
+    Route::get('customer-xls', App\Livewire\Customer\Index::class)->name('customers.index');
 
 });
