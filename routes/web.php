@@ -8,18 +8,18 @@ use App\Http\Controllers\TransController;
 //use App\Http\Controllers\TransactionController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        $customers = Party::where('party_type', 1)->where('user_id', auth()->id())->get();
-        $suppliers = Party::where('party_type', 2)->where('user_id', auth()->id())->get();
+    Route::get('/', function () {
+        $customers = Party::where('party_type', 1)->where('user_id', auth()->id())->where('is_active', true)->get();
+        $suppliers = Party::where('party_type', 2)->where('user_id', auth()->id())->where('is_active', true)->get();
         return view('dashboard', compact('customers', 'suppliers'));
     })->name('dashboard');
 });

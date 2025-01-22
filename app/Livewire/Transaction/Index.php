@@ -205,7 +205,6 @@ class Index extends Component
     {
         $this->vid = '';
         $this->party_id = '';
-        $this->trans_type = '';
         $this->desc = '';
         $this->date = '';
         $this->image = '';

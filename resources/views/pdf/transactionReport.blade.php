@@ -128,8 +128,8 @@
             <th>#</th>
             <th>Date</th>
             <th>Bill Details</th>
-            <th>Item Name</th>
-            <th>Item Quantity</th>
+            <th>Name</th>
+            <th>Quantity</th>
             <th>Item Price</th>
             <th>Debit</th>
             <th>Credit</th>

@@ -19,10 +19,8 @@ export default {
                 asul:["Asul", "sans-serif"],
                 merri:["Merriweather", "sans-serif"],
                 lex: ["Lexend", "sans-serif"]
-
             },
         },
     },
-
     plugins: [forms, typography],
 };

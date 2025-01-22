@@ -15,17 +15,15 @@ class Index extends Component
 
     public $showEditModal = false;
     public bool $showDeleteModal = false;
-
     public $vid = '';
     public $party_type = 1;
     public $name = '';
     public $phone = '';
     public $other = '';
-    public $is_active = 1;
+    public $is_active = true;
     public $search = '';
     public $start_date;
     public $end_date;
-
 
     #region[rules]
     public function rules(): array
@@ -58,7 +56,7 @@ class Index extends Component
         return [
             'party_type' => 'Party Type',
             'name' => 'Name',
-            'other' => 'Other/Category',
+            'other' => 'Status',
             'is_active' => 'Active Status',
         ];
     }
@@ -74,13 +72,17 @@ class Index extends Component
     public function getSave()
     {
         if ($this->name != '') {
-            if ($this->vid == "") {
 
+            if ($this->other == 'Closed') {
+                $this->is_active = 0;
+            }
+
+            if ($this->vid == "") {
                 Party::create([
                     'party_type' => $this->party_type,
                     'name' => $this->name,
                     'phone' => $this->phone ?: '-',
-                    'other' => $this->other ?: '-',
+                    'other' => $this->other ?: 'New',
                     'user_id' => auth()->id(),
                     'is_active' => $this->is_active ?: 1,
                 ]);
@@ -135,8 +137,7 @@ class Index extends Component
         $this->party_type = '';
         $this->name = '';
         $this->phone = '';
-        $this->other = '';
-        $this->is_active = 1;
+        $this->is_active = true;
     }
 
 #endregion
@@ -218,12 +219,20 @@ class Index extends Component
         );
     }
 
-
     public function render()
     {
-        $query = Party::where('is_active', true)
-            ->where('party_type', 1)->where('user_id', auth()->id());
+        // Start the query with the user ID filter
+        $query = Party::where('user_id', auth()->id())
+            ->where('party_type', 1);  // Existing filter for party_type = 1
 
+        // Check if we need to show inactive records
+        if ($this->is_active === false) {
+            $query->where('is_active', false);  // Show only inactive parties
+        } else {
+            $query->where('is_active', true);  // Default to showing active parties
+        }
+
+        // Search filter (if any)
         if ($this->search) {
             $query->where(function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%')
@@ -233,18 +242,22 @@ class Index extends Component
             });
         }
 
+        // Date range filter (if any)
         if ($this->start_date && $this->end_date) {
             $startDate = Carbon::parse($this->start_date)->startOfDay();
             $endDate = Carbon::parse($this->end_date)->endOfDay();
             $query->whereBetween('created_at', [$startDate, $endDate]);
         }
 
+        // Paginate the result
         $list = $query->paginate(10);
 
+        // Variables to store the totals
         $totalCreditSum = 0;
         $totalDebitSum = 0;
         $balanceSum = 0;
 
+        // Iterate through the parties and calculate the totals
         foreach ($list as $party) {
             $totalCredit = 0;
             $totalDebit = 0;
@@ -274,6 +287,7 @@ class Index extends Component
             $balanceSum += $party->balance;
         }
 
+        // Return the view with the necessary data
         return view('livewire.customer.index')->layout('layouts.app')->with([
             'list' => $list,
             'totalCreditSum' => $totalCreditSum,
@@ -282,6 +296,10 @@ class Index extends Component
         ]);
     }
 
-
+    public function toggleInactiveFilter()
+    {
+        // Toggle the value of is_active between true and false
+        $this->is_active = !$this->is_active;
+    }
 
 }
