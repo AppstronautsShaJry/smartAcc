@@ -288,7 +288,7 @@ class Index extends Component
         }
 
         // Return the view with the necessary data
-        return view('livewire.customer.index')->layout('layouts.app')->with([
+        return view('livewire.supplier.index')->layout('layouts.app')->with([
             'list' => $list,
             'totalCreditSum' => $totalCreditSum,
             'totalDebitSum' => $totalDebitSum,
