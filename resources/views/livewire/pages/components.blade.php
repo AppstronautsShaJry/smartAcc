@@ -98,7 +98,7 @@
             </nav>
         </div>
 
-        <div class="flex-1 p-6 flex flex-col">
+        <div class="flex-1 p-6 flex flex-col h-screen overflow-y-auto">
             <div class="bg-white p-4 shadow rounded-lg flex justify-between items-center mb-6">
                 <h1 class="text-xl font-semibold">Dashboard</h1>
                 {{--            <input type="text" placeholder="Search..." class="p-2 border rounded-lg w-1/3">--}}
@@ -252,7 +252,6 @@
         </div>
 
         <!-- Footer -->
-
     </div>
 </div>
 <!-- Footer -->
