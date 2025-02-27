@@ -10,28 +10,37 @@
 <body class="bg-gray-100">
 <div class="flex h-screen" x-data="{ sidebarOpen: true }">
     <!-- Sidebar -->
-    <div :class="sidebarOpen ? 'w-64' : 'w-16'" class="bg-indigo-900 text-white transition-all duration-300 p-4 flex flex-col h-full overflow-y-auto">
-        <button @click="sidebarOpen = !sidebarOpen" class="mb-4 focus:outline-none">
-            ☰
+    <div :class="sidebarOpen ? 'w-64' : 'w-16'"
+         class="bg-indigo-900 text-[#111827] transition-all duration-300 p-4 flex flex-col">
+        <button @click="sidebarOpen = !sidebarOpen" class="mb-4 flex items-center focus:outline-none">
+            <span>☰</span>
+            <span class="ml-6 text-xl font-bold">Tabbassam I Mart</span>
         </button>
         <nav>
             <ul>
-                <li class="mb-2 flex items-center">
-                    <span class="text-lg">📊</span>
-                    <a href="#" class="ml-2 block p-2 hover:bg-indigo-700 rounded" x-show="sidebarOpen">Dashboard</a>
-                </li>
-                <li class="mb-2 flex items-center">
+                <div class="mb-2 flex items-center hover:bg-indigo-700 p-1 hover:rounded-sm ">
+                    <span class="text-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                               stroke-linecap="round" stroke-linejoin="round"
+                                               class="icon icon-tabler icons-tabler-outline icon-tabler-home text-[#111827]"><path
+                                stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0"/><path
+                                d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/><path
+                                d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg></span>
+                    <a href="#" class="ml-2 block p-2 rounded" x-show="sidebarOpen">Dashboard</a>
+                </div>
+                <div class="mb-2 flex items-center hover:bg-indigo-700 p-1 hover:rounded-sm ">
                     <span class="text-lg">👤</span>
-                    <a href="#" class="ml-2 block p-2 hover:bg-indigo-700 rounded" x-show="sidebarOpen">Customers</a>
-                </li>
-                <li class="mb-2 flex items-center">
+                    <a href="#" class="ml-2 block p-2 rounded" x-show="sidebarOpen">Customers</a>
+                </div>
+                <div class="mb-2 flex items-center hover:bg-indigo-700 p-1 hover:rounded-sm ">
                     <span class="text-lg">🏢</span>
-                    <a href="#" class="ml-2 block p-2 hover:bg-indigo-700 rounded" x-show="sidebarOpen">Suppliers</a>
-                </li>
-                <li class="mb-2 flex items-center">
+                    <a href="#" class="ml-2 block p-2 rounded" x-show="sidebarOpen">Suppliers</a>
+                </div>
+                <div class="mb-2 flex items-center hover:bg-indigo-700 p-1 hover:rounded-sm ">
                     <span class="text-lg">💰</span>
-                    <a href="#" class="ml-2 block p-2 hover:bg-indigo-700 rounded" x-show="sidebarOpen">Transactions</a>
-                </li>
+                    <a href="#" class="ml-2 block p-2 rounded" x-show="sidebarOpen">Transactions</a>
+                </div>
             </ul>
         </nav>
     </div>
