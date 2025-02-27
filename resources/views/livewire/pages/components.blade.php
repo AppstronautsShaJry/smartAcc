@@ -105,35 +105,95 @@
                 <div class="relative w-2/4">
                     <input type="text" placeholder="Search Transactions..."
                            class="p-2 pl-10 border rounded-lg w-full focus:ring-indigo-500 focus:border-indigo-500 transition-transform duration-300 ease-in-out transform hover:scale-105">
-                    <span class="absolute left-3 top-2 text-indigo-500">🔍</span>
+                    <span class="absolute left-3 top-2 text-indigo-500">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="24" height="24" viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round"
+                             stroke-linejoin="round"
+                             class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"/><path
+                                d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/><path
+                                d="M21 21l-6 -6"/></svg></span>
                 </div>
             </div>
 
             <!-- Action Buttons -->
-            <div class="mb-6 flex gap-2">
+            <div class="mb-6 flex gap-2 text-lg">
                 <button
                     class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
-                    ➕ Add
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none"
+                                                                                                  d="M0 0h24v24H0z"
+                                                                                                  fill="none"/><path
+                                d="M12 5l0 14"/><path d="M5 12l14 0"/>
+                        </svg>
+                    </span>
+                    <span class="text-lg font-semibold">Add</span>
                 </button>
                 <button
                     class="px-4 py-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
-                    ❌ Delete
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                               class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none"
+                                                                                                 d="M0 0h24v24H0z"
+                                                                                                 fill="none"/><path
+                                d="M18 6l-12 12"/><path d="M6 6l12 12"/></svg></span>
+                    <span class="text-lg font-semibold">Delete</span>
                 </button>
                 <button
                     class="px-4 py-2 rounded-lg bg-gradient-to-r from-gray-500 to-gray-700 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
-                    ⬅️ Back
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                               class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left-dashed"><path
+                                stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h6m3 0h1.5m3 0h.5"/><path
+                                d="M5 12l4 4"/><path d="M5 12l4 -4"/></svg></span>
+                    <span class="font-semibold ">Back</span>
                 </button>
                 <button
                     class="px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-teal-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
-                    📄 Excel
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                               class="icon icon-tabler icons-tabler-outline icon-tabler-file-spreadsheet"><path
+                                stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path
+                                d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/><path
+                                d="M8 11h8v7h-8z"/><path d="M8 15h8"/><path d="M11 11v7"/></svg></span>
+                    <span class="font-semibold">Excel</span>
                 </button>
                 <button
                     class="px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-yellow-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
-                    📑 PDF
+                   <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="icon icon-tabler icons-tabler-outline icon-tabler-file-type-pdf">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+                        <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"/>
+                        <path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6"/>
+                        <path d="M17 18h2"/>
+                        <path d="M20 15h-3v6"/>
+                        <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z"/>
+                    </svg>
+                       </span>
+                    <span class="font-semibold">PDF</span>
                 </button>
                 <button
                     class="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
-                    🖨️ Print
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                               class="icon icon-tabler icons-tabler-outline icon-tabler-printer"><path stroke="none"
+                                                                                                       d="M0 0h24v24H0z"
+                                                                                                       fill="none"/><path
+                                d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"/><path
+                                d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"/><path
+                                d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"/></svg>
+                    </span>️
+                    <span class="font-semibold">Print</span>
                 </button>
             </div>
 
@@ -180,22 +240,99 @@
                 <input type="date" x-model="endDate"
                        class="p-2 border rounded-lg focus:ring focus:ring-indigo-300 transition-all">
                 <button @click="console.log(startDate, endDate)"
-                        class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-lg shadow-md hover:scale-105 transition-transform">
-                    🔍 Filter
+                        class="px-4 py-1 bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-lg shadow-md hover:scale-105 transition-transform">
+                    <span class="inline-flex gap-2 p-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none"
+                                                                                                    d="M0 0h24v24H0z"
+                                                                                                    fill="none"/><path
+                                d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/><path
+                                d="M21 21l-6 -6"/></svg>
+                        <span>Filter</span></span>
                 </button>
             </div>
 
             <!-- Badges -->
             <div class="mb-6 flex gap-2">
-            <span
-                class="px-4 py-1 rounded-full bg-gradient-to-r from-green-400 to-green-600 text-white">✔ Success</span>
-                <span class="px-4 py-1 rounded-full bg-gradient-to-r from-red-400 to-red-600 text-white">⚠ Danger</span>
-                <span class="px-4 py-1 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 text-white">ℹ Info</span>
+
+                <div
+                    class="px-2 p-0.5 py-1 gap-1 rounded-full inline-flex items-center justify-center bg-gradient-to-r from-green-400/70 to-green-600 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="icon icon-tabler icons-tabler-outline icon-tabler-progress-check size-4">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M10 20.777a8.942 8.942 0 0 1 -2.48 -.969"/>
+                        <path d="M14 3.223a9.003 9.003 0 0 1 0 17.554"/>
+                        <path d="M4.579 17.093a8.961 8.961 0 0 1 -1.227 -2.592"/>
+                        <path d="M3.124 10.5c.16 -.95 .468 -1.85 .9 -2.675l.169 -.305"/>
+                        <path d="M6.907 4.579a8.954 8.954 0 0 1 3.093 -1.356"/>
+                        <path d="M9 12l2 2l4 -4"/>
+                    </svg>
+                    <span class="text-xs font-semibold tracking-wider">Success</span>
+                </div>
+
+                <div
+                    class="px-2 p-0.5 py-1 gap-1 rounded-full inline-flex items-center justify-center bg-gradient-to-r from-red-400/70 to-red-600 text-white">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="size-4 icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle"><path
+                                stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v4"/><path
+                                d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z"/><path
+                                d="M12 16h.01"/></svg>
+                    </span>
+
+                    <span class="text-xs tracking-wider font-semibold"> Danger</span>
+                </div>
+
+                <div
+                    class="px-2 p-0.5 py-1 gap-1 rounded-full inline-flex items-center justify-center bg-gradient-to-r from-blue-400/70 to-blue-600 text-white">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="size-4 icon icon-tabler icons-tabler-outline icon-tabler-info-circle"><path stroke="none"
+                                                                                                         d="M0 0h24v24H0z"
+                                                                                                         fill="none"/><path
+                                d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/><path d="M12 9h.01"/><path d="M11 12h1v4h1"/></svg>
+                    </span>
+                    <span class="text-xs tracking-wider font-semibold">Info </span>
+                </div>
+
+                <div
+                    class="px-2 p-0.5 py-1 gap-1 rounded-full inline-flex items-center justify-center bg-gradient-to-r from-yellow-400/70 to-yellow-600 text-white">
+                    <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                               class="size-4 icon icon-tabler icons-tabler-outline icon-tabler-alert-circle"><path
+                                stroke="none" d="M0 0h24v24H0z" fill="none"/><path
+                                d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/><path d="M12 8v4"/><path
+                                d="M12 16h.01"/></svg>
+                    </span>
+                    <span class="text-xs tracking-wider font-semibold">Warning</span>
+                </div>
+
+                <div
+                    class="px-2 p-0.5 py-1 gap-1 rounded-full inline-flex items-center justify-center bg-gradient-to-r from-gray-400/70 to-gray-600 text-white"><span><svg
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="size-4 icon icon-tabler icons-tabler-outline icon-tabler-brightness-up"><path stroke="none"
+                                                                                                          d="M0 0h24v24H0z"
+                                                                                                          fill="none"/><path
+                                d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M12 5l0 -2"/><path
+                                d="M17 7l1.4 -1.4"/><path d="M19 12l2 0"/><path d="M17 17l1.4 1.4"/><path
+                                d="M12 19l0 2"/><path d="M7 17l-1.4 1.4"/><path d="M6 12l-2 0"/><path
+                                d="M7 7l-1.4 -1.4"/></svg></span>
+                    <span class="text-xs tracking-wider font-semibold">Light </span>
+                </div>
                 <span
-                    class="px-4 py-1 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white">⚠ Warning</span>
-                <span
-                    class="px-4 py-1 rounded-full bg-gradient-to-r from-gray-400 to-gray-600 text-white">🔘 Light</span>
-                <span class="px-4 py-1 rounded-full bg-gradient-to-r from-black to-gray-800 text-white">🌙 Dark</span>
+                    class="px-2 p-0.5 py-1 gap-1 rounded-full inline-flex items-center justify-center bg-gradient-to-r from-black/70 to-gray-800 text-white">
+                    <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                               class="size-4 icon icon-tabler icons-tabler-outline icon-tabler-moon"><path stroke="none"
+                                                                                                    d="M0 0h24v24H0z"
+                                                                                                    fill="none"/><path
+                                d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"/></svg></span>
+                    <span class="text-xs tracking-wider font-semibold">Dark</span></span>
             </div>
 
             <!-- Transactions Table -->
@@ -205,11 +342,11 @@
                     <thead>
                     <tr class="bg-indigo-500 text-white">
                         <th class="p-2">#</th>
-                        <th class="p-2">Party Name</th>
-                        <th class="p-2">Type</th>
-                        <th class="p-2">Amount</th>
-                        <th class="p-2">Date</th>
-                        <th class="p-2">Actions</th>
+                        <th class="p-2 text-left">Party Name</th>
+                        <th class="p-2 text-left">Type</th>
+                        <th class="p-2 text-left">Amount</th>
+                        <th class="p-2 text-left">Date</th>
+                        <th class="p-2 text-left">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -246,7 +383,15 @@
                 </div>
                 <button
                     class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
-                    ➕ Add
+                    <span>
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none"
+                                                                                                   d="M0 0h24v24H0z"
+                                                                                                   fill="none"/><path
+                                 d="M12 5l0 14"/><path d="M5 12l14 0"/>
+                        </svg>
+                        </span> Add
                 </button>
             </footer>
         </div>
