@@ -1,4 +1,4 @@
-<header class="flex  items-center sm:px-4 px-1 py-3 text-semibold text-gray-800  border-b
+<header class="flex  items-center sm:px-4 px-1 py-3 text-semiboldt ext-gray-800  border-b
 shadow-md print:hidden">
 
     <div class="w-full sm:px-2 px-0 flex flex-row  justify-between items-center">

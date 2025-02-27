@@ -37,4 +37,5 @@ Route::middleware([
     Route::get('/transactions/pdf/{partyId}', [TransController::class, 'generatePDF'])->name('transactions.pdf');
     Route::get('customer-xls', App\Livewire\Customer\Index::class)->name('customers.index');
 
+    Route::get('dash', App\Livewire\Pages\Dashboard::class)->name('dash');
 });
