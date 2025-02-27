@@ -18,19 +18,19 @@
             <ul>
                 <li class="mb-2 flex items-center">
                     <span class="text-lg">📊</span>
-                    <a href="#" class="ml-2 block p-2 hover:bg-indigo-700 rounded" x-show="sidebarOpen">Dashboard</a>
+                    <a href="{{route('dash')}}" class="ml-2 block p-2 hover:bg-indigo-700 rounded" x-show="sidebarOpen">Dashboard</a>
                 </li>
                 <li class="mb-2 flex items-center">
                     <span class="text-lg">👤</span>
-                    <a href="#" class="ml-2 block p-2 hover:bg-indigo-700 rounded" x-show="sidebarOpen">Customers</a>
+                    <a href="{{route('customer.page')}}" class="ml-2 block p-2 hover:bg-indigo-700 rounded" x-show="sidebarOpen">Customers</a>
                 </li>
                 <li class="mb-2 flex items-center">
                     <span class="text-lg">🏢</span>
-                    <a href="#" class="ml-2 block p-2 hover:bg-indigo-700 rounded" x-show="sidebarOpen">Suppliers</a>
+                    <a href="{{route('supplier.page')}}" class="ml-2 block p-2 hover:bg-indigo-700 rounded" x-show="sidebarOpen">Suppliers</a>
                 </li>
                 <li class="mb-2 flex items-center">
                     <span class="text-lg">💰</span>
-                    <a href="#" class="ml-2 block p-2 hover:bg-indigo-700 rounded" x-show="sidebarOpen">Transactions</a>
+                    <a href="{{route('transaction.page')}}" class="ml-2 block p-2 hover:bg-indigo-700 rounded" x-show="sidebarOpen">Transactions</a>
                 </li>
             </ul>
         </nav>
@@ -91,7 +91,7 @@
                     <td class="p-2 text-green-500">₹10,000</td>
                     <td class="p-2">2025-02-25</td>
                     <td class="p-2">
-                        <button class="bg-indigo-500 text-white px-3 py-1 rounded-md">View</button>
+                        <a href="{{route('customer.page')}}" class="bg-indigo-500 text-white px-3 py-1 rounded-md">View</a>
                     </td>
                 </tr>
                 <tr class="border-t">
@@ -101,7 +101,7 @@
                     <td class="p-2 text-red-500">₹5,000</td>
                     <td class="p-2">2025-02-26</td>
                     <td class="p-2">
-                        <button class="bg-indigo-500 text-white px-3 py-1 rounded-md">View</button>
+                        <a href="{{route('supplier.page')}}" class="bg-indigo-500 text-white px-3 py-1 rounded-md">View</a>
                     </td>
                 </tr>
                 </tbody>

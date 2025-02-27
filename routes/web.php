@@ -38,9 +38,9 @@ Route::middleware([
     Route::get('customer-xls', App\Livewire\Customer\Index::class)->name('customers.index');
 
     Route::get('dash', App\Livewire\Pages\Dashboard::class)->name('dash');
-    Route::get('cust', App\Livewire\Pages\Dashboard::class)->name('dash');
-    Route::get('supl', App\Livewire\Pages\Dashboard::class)->name('dash');
-    Route::get('trans/{id}', App\Livewire\Pages\Dashboard::class)->name('dash');
+    Route::get('cust', App\Livewire\Pages\Customer::class)->name('customer.page');
+    Route::get('supl', App\Livewire\Pages\Supplier::class)->name('supplier.page');
+    Route::get('trans', App\Livewire\Pages\Transaction::class)->name('transaction.page');
     Route::get('components', App\Livewire\Pages\Components::class)->name('components');
 
 });

@@ -10,7 +10,7 @@
 <body class="bg-gray-100">
 <div class="flex h-screen" x-data="{ sidebarOpen: true }">
     <!-- Sidebar -->
-    <div :class="sidebarOpen ? 'w-64' : 'w-16'" class="bg-indigo-900 text-white transition-all duration-300 p-4 flex flex-col">
+    <div :class="sidebarOpen ? 'w-64' : 'w-16'" class="bg-indigo-900 text-white transition-all duration-300 p-4 flex flex-col h-full overflow-y-auto">
         <button @click="sidebarOpen = !sidebarOpen" class="mb-4 focus:outline-none">
             ☰
         </button>
@@ -37,36 +37,82 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex-1 p-6">
+    <div class="flex-1 p-6 h-auto overflow-y-auto">
         <!-- Top Navbar -->
         <div class="bg-white p-4 shadow rounded-lg flex justify-between items-center mb-6">
             <h1 class="text-xl font-semibold">Dashboard</h1>
             <input type="text" placeholder="Search..." class="p-2 border rounded-lg w-1/3">
         </div>
 
-        <!-- Cards Section -->
-        <div class="grid grid-cols-3 md-grid-cols-3 gap-4 mb-6">
-            <div class="bg-white p-4 shadow rounded-lg flex items-center">
-                <div class="p-3 bg-indigo-100 text-indigo-600 rounded-full">📊</div>
-                <div class="ml-4">
-                    <p class="text-gray-500 text-sm">Total Transactions</p>
-                    <p class="text-xl font-semibold">₹1,20,000</p>
-                </div>
-            </div>
-            <div class="bg-white p-4 shadow rounded-lg flex items-center">
-                <div class="p-3 bg-green-100 text-green-600 rounded-full">💰</div>
-                <div class="ml-4">
-                    <p class="text-gray-500 text-sm">Total Income</p>
-                    <p class="text-xl font-semibold">₹75,000</p>
-                </div>
-            </div>
-            <div class="bg-white p-4 shadow rounded-lg flex items-center">
-                <div class="p-3 bg-red-100 text-red-600 rounded-full">📉</div>
-                <div class="ml-4">
-                    <p class="text-gray-500 text-sm">Total Expenses</p>
-                    <p class="text-xl font-semibold">₹45,000</p>
-                </div>
-            </div>
+        <!-- Action Buttons -->
+        <div class="mb-6 flex gap-2">
+            <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
+                ➕ Add
+            </button>
+            <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
+                ❌ Delete
+            </button>
+            <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-gray-500 to-gray-700 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
+                ⬅️ Back
+            </button>
+            <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-teal-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
+                📄 Excel
+            </button>
+            <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-yellow-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
+                📑 PDF
+            </button>
+            <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
+                🖨️ Print
+            </button>
+        </div>
+
+        <!-- Date Filters with Dropdown -->
+        <div class="bg-white p-4 shadow rounded-lg mb-6 flex gap-4 items-center" x-data="{}">
+            <label class="text-gray-700 font-semibold">Date Range:</label>
+            <select x-model="dateFilter" class="p-2 border rounded-lg bg-indigo-200 text-indigo-800 focus:ring focus:ring-indigo-500 transition-all ease-in-out duration-300 transform hover:scale-105">
+                <option value="Custom Range" class="bg-indigo-300 text-indigo-900">📅 Custom Range</option>
+                <option value="Today" class="bg-green-300 text-green-900">🌞 Today</option>
+                <option value="Yesterday" class="bg-yellow-300 text-yellow-900">🌙 Yesterday</option>
+                <option value="Last 15 days" class="bg-blue-300 text-blue-900">📆 Last 15 days</option>
+                <option value="Last 30 days" class="bg-purple-300 text-purple-900">📆 Last 30 days</option>
+                <option value="Last 60 days" class="bg-pink-300 text-pink-900">📆 Last 60 days</option>
+                <option value="Last 90 days" class="bg-red-300 text-red-900">📆 Last 90 days</option>
+                <option value="Custom Date" class="bg-gray-300 text-gray-900">🛠 Custom Date</option>
+            </select>
+        </div>
+
+        <!-- Custom Date Filter -->
+        <div class="bg-white p-4 shadow rounded-lg mb-6 flex gap-4 items-center" x-show="dateFilter === 'Custom Date'">
+            <label class="text-gray-700 font-semibold">Start Date:</label>
+            <input type="date" x-model="startDate" class="p-2 border rounded-lg focus:ring focus:ring-indigo-300 transition-all">
+            <label class="text-gray-700 font-semibold">End Date:</label>
+            <input type="date" x-model="endDate" class="p-2 border rounded-lg focus:ring focus:ring-indigo-300 transition-all">
+            <button @click="console.log(startDate, endDate)" class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-lg shadow-md hover:scale-105 transition-transform">
+                🔍 Filter
+            </button>
+        </div>
+
+
+        <!-- Date Filter -->
+
+        <div class="bg-white p-4 shadow rounded-lg mb-6 flex gap-4 items-center">
+            <label class="text-gray-700 font-semibold">Start Date:</label>
+            <input type="date" x-model="startDate" class="p-2 border rounded-lg focus:ring focus:ring-indigo-300 transition-all">
+            <label class="text-gray-700 font-semibold">End Date:</label>
+            <input type="date" x-model="endDate" class="p-2 border rounded-lg focus:ring focus:ring-indigo-300 transition-all">
+            <button @click="console.log(startDate, endDate)" class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-lg shadow-md hover:scale-105 transition-transform">
+                🔍 Filter
+            </button>
+        </div>
+
+        <!-- Badges -->
+        <div class="mb-6 flex gap-2">
+            <span class="px-4 py-1 rounded-full bg-gradient-to-r from-green-400 to-green-600 text-white">✔ Success</span>
+            <span class="px-4 py-1 rounded-full bg-gradient-to-r from-red-400 to-red-600 text-white">⚠ Danger</span>
+            <span class="px-4 py-1 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 text-white">ℹ Info</span>
+            <span class="px-4 py-1 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white">⚠ Warning</span>
+            <span class="px-4 py-1 rounded-full bg-gradient-to-r from-gray-400 to-gray-600 text-white">🔘 Light</span>
+            <span class="px-4 py-1 rounded-full bg-gradient-to-r from-black to-gray-800 text-white">🌙 Dark</span>
         </div>
 
         <!-- Transactions Table -->
@@ -109,66 +155,5 @@
         </div>
     </div>
 </div>
-<!-- cards  -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div class="bg-white p-4 shadow rounded-lg flex items-center">
-        <div class="p-3 bg-indigo-100 text-indigo-600 rounded-full">
-            📈
-        </div>
-        <div class="ml-4">
-            <p class="text-gray-500 text-sm">Total Transactions</p>
-            <p class="text-xl font-semibold">₹1,20,000</p>
-        </div>
-    </div>
-</div>
-
-
-<!-- search bar -->
-<input type="text" placeholder="Search Transactions..." class="p-2 border rounded-lg w-full focus:ring-indigo-500 focus:border-indigo-500">
-
-<!-- dropdown filters -->
-<div x-data="{ open: false }" class="relative">
-    <button @click="open = !open" class="p-2 border rounded-md">
-        Filter ▼
-    </button>
-    <div x-show="open" @click.away="open = false" class="absolute bg-white shadow-md mt-2 p-2 rounded-md">
-        <label class="block">
-            <input type="checkbox" class="mr-2"> Customers
-        </label>
-        <label class="block">
-            <input type="checkbox" class="mr-2"> Suppliers
-        </label>
-    </div>
-</div>
-
-
-<!-- transaction table -->
-
-<table class="w-full border-collapse bg-white shadow-lg rounded-lg">
-    <thead>
-    <tr class="bg-indigo-500 text-white">
-        <th class="p-2">#</th>
-        <th class="p-2">Party Name</th>
-        <th class="p-2">Type</th>
-        <th class="p-2">Amount</th>
-        <th class="p-2">Date</th>
-        <th class="p-2">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="border-t">
-        <td class="p-2">1</td>
-        <td class="p-2">John Doe</td>
-        <td class="p-2">Customer</td>
-        <td class="p-2 text-green-500">₹10,000</td>
-        <td class="p-2">2025-02-25</td>
-        <td class="p-2">
-            <button class="bg-indigo-500 text-white px-3 py-1 rounded-md">View</button>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<!-- -->
 </body>
 </html>

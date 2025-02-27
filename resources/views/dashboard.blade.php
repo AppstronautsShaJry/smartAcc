@@ -5,6 +5,8 @@
         </h2>
     </x-slot>
 
+
+
     <div class="flex justify-evenly h-screen">
         <x-partials.card1 party="Customer" :link="'customers.index'" :count="$customers->count()" />
         <x-partials.card1 party="Supplier" :link="'suppliers.index'" :count="$suppliers->count()" />
