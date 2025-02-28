@@ -11,7 +11,6 @@
         <x-partials.card1 party="Customer" :link="'customers.index'" :count="$customers->count()" />
         <x-partials.card1 party="Supplier" :link="'suppliers.index'" :count="$suppliers->count()" />
 
-
         <div class="w-full fixed bottom-0 right-0 h-16 flex justify-end items-center px-20 bg-gray-100 ">
             <div x-data="{
                 showToast: false,

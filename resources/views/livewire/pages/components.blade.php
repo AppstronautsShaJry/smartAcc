@@ -229,9 +229,7 @@
                 </button>
             </div>
             <!-- Custom Date Filter -->
-
             <!-- Date Filter -->
-
             <div class="bg-white p-4 shadow rounded-lg mb-6 flex gap-4 items-center">
                 <label class="text-gray-700 font-semibold">Start Date:</label>
                 <input type="date" x-model="startDate"
@@ -396,13 +394,37 @@
                         </span> Add
                 </button>
             </footer>
+            <!-- Toast Notifications -->
+            <div class="fixed bottom-4 right-4 space-y-2" x-data="{ notifications: [] }">
+                <template x-for="(notification, index) in notifications" :key="index">
+                    <div x-show="notification.show" x-transition.opacity.duration.500ms class="p-4 rounded-lg shadow-md text-white" :class="notification.type">
+                        <div class="flex justify-between items-center">
+                            <span x-text="notification.message"></span>
+                            <button @click="notification.show = false">✖</button>
+                        </div>
+                    </div>
+                </template>
+            </div>
         </div>
-
         <!-- Footer -->
     </div>
 </div>
-<!-- Footer -->
-</body>
 
+
+
+
+</body>
+<script>
+    function notify(message, type) {
+        document.querySelector('[x-data]').__x.$data.notifications.push({
+            message,
+            type: `bg-gradient-to-r ${type}`,
+            show: true
+        });
+        setTimeout(() => {
+            document.querySelector('[x-data]').__x.$data.notifications.shift();
+        }, 1000);
+    }
+</script>
 </html>
 
