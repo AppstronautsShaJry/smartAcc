@@ -16,7 +16,7 @@ class Supplier extends Component
     public $showEditModal = false;
     public bool $showDeleteModal = false;
     public $vid = '';
-    public $party_type = 1;
+    public $party_type = 2;
     public $name = '';
     public $phone = '';
     public $other = '';
