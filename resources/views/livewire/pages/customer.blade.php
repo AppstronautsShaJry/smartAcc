@@ -1,4 +1,4 @@
-<x-layouts.master>
+<div>
     <div class="bg-white p-4 shadow rounded-lg flex justify-between items-center mb-6">
         {{--        <h1 class="text-xl font-semibold ">Dashboard</h1>--}}
         <x-forms.head header="Customer"/>
@@ -145,6 +145,21 @@
         </div>
     </div>
     <div class="fixed bottom-1 right-6 max-w-max py-4 ">
-        <x-button.add wire:click="save">Add Customer</x-button.add>
+{{--        <x-button.add wire:click="hello">Add Customer</x-button.add>--}}
+{{--        <button wire:click="hello">Click</button>--}}
+        <button wire:click="save"
+                class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md
+        flex items-center gap-2 hover:scale-105 transition-transform">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none"
+                                                                                          d="M0 0h24v24H0z"
+                                                                                          fill="none"/><path
+                        d="M12 5l0 14"/><path d="M5 12l14 0"/>
+                </svg>
+            </span>
+            <span class="text-lg font-semibold">Add Customer</span>
+        </button>
     </div>
-</x-layouts.master>
+</div>

@@ -11,7 +11,7 @@ class Dashboard extends Component
     {
         $customers = Party::where('party_type', 1)->where('user_id', auth()->id())->where('is_active', true)->get();
         $suppliers = Party::where('party_type', 2)->where('user_id', auth()->id())->where('is_active', true)->get();
-        return view('livewire.pages.dashboard')->with(
+        return view('livewire.pages.dashboard')->layout('layouts.web')->with(
             [
                 'customers' => $customers,
                 'suppliers' => $suppliers,

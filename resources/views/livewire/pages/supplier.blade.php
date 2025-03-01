@@ -1,4 +1,4 @@
-<x-layouts.master>
+<div>
     <div class="bg-white p-4 shadow rounded-lg flex justify-between items-center mb-6">
         {{--        <h1 class="text-xl font-semibold ">Dashboard</h1>--}}
         <x-forms.head header="Supplier"/>
@@ -179,4 +179,4 @@
     <div class="fixed bottom-1 right-6 max-w-max py-4 ">
         <x-button.add wire:click="save">Add Supplier</x-button.add>
     </div>
-</x-layouts.master>
+</div>

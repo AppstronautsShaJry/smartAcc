@@ -1,6 +1,5 @@
-
-<x-layouts.master>
-
+{{--<x-layouts.master>--}}
+<div>
     <div class="bg-white p-4 shadow rounded-lg flex justify-between items-center mb-6">
         {{--        <h1 class="text-xl font-semibold ">Dashboard</h1>--}}
         <x-forms.head header="Dashboard"/>
@@ -140,7 +139,7 @@
             <td class="p-2">Supplier</td>
             <td class="p-2 text-red-500">₹5,000</td>
             <td class="p-2">
- <x-badge.ani-badge />
+                <x-badge.ani-badge/>
             </td>
             <td class="p-2">
                 <span
@@ -153,4 +152,5 @@
             </td>
         </tr>
     </x-table.temp>
-</x-layouts.master>
+    {{--</x-layouts.master>--}}
+</div>

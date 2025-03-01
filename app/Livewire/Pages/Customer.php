@@ -287,7 +287,7 @@ class Customer extends Component
         }
 
         // Return the view with the necessary data
-        return view('livewire.pages.customer')->with([
+        return view('livewire.pages.customer')->layout('layouts.web')->with([
             'list' => $list,
             'totalCreditSum' => $totalCreditSum,
             'totalDebitSum' => $totalDebitSum,

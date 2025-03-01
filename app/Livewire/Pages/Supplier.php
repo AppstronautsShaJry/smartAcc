@@ -16,6 +16,6 @@ class Supplier extends Component
     }
     public function render()
     {
-        return view('livewire.pages.supplier');
+        return view('livewire.pages.supplier')->layout('layouts.web');
     }
 }
