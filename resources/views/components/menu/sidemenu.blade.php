@@ -1,41 +1,41 @@
 <div :class="sidebarOpen ? 'w-64' : 'w-16'"
      class="bg-indigo-900 text-white transition-all duration-300 p-4 flex flex-col">
-    <button @click="sidebarOpen = !sidebarOpen" class="mb-4 flex items-center focus:outline-none">
-        <span class="ml-2">☰</span>
-        <span class="ml-6 text-xl font-bold" x-show="sidebarOpen">Tabbassam I Mart</span>
+    <button @click="sidebarOpen = !sidebarOpen" class="mb-4 flex items-center focus:outline-none bg-gradient-to-br from-indigo-500 to-fuchsia-500 rounded-sm p-2">
+        <span class="">☰</span>
+        <span class="ml-6 text-md font-bold font-mono tracking-wider" x-show="sidebarOpen">Tabbassam I Mart</span>
     </button>
-    <nav class="relative">
+    <nav class="relative font-mono tracking-wide">
         <div>
             <div class="mb-2 flex items-center hover:bg-indigo-700 p-1 hover:rounded-sm ">
-                    <span class="text-lg">
+                    <a href="{{route('dash')}}" class="text-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                              stroke-linecap="round" stroke-linejoin="round"
                              class="icon icon-tabler icons-tabler-outline icon-tabler-home text-gray-200"><path
                                 stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0"/><path
                                 d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/><path
-                                d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg></span>
+                                d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg></a>
                 <a href="{{route('dash')}}" class="ml-2 block p-2 rounded" x-show="sidebarOpen">Dashboard</a>
             </div>
             <div class="mb-2 flex items-center hover:bg-indigo-700 p-1 hover:rounded-sm ">
-                    <span class="text-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    <a href="{{route('customer.page')}}" class="text-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                stroke-linecap="round" stroke-linejoin="round"
                                                class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle"><path
                                 stroke="none" d="M0 0h24v24H0z" fill="none"/><path
                                 d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path
                                 d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path
-                                d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"/></svg></span>
+                                d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"/></svg></a>
                 <a href="{{route('customer.page')}}" class="ml-2 block p-2 rounded" x-show="sidebarOpen">Customers</a>
             </div>
             <div class="mb-2 flex items-center hover:bg-indigo-700 p-1 hover:rounded-sm ">
-                    <span class="text-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    <a href="{{route('supplier.page')}}" class="text-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                stroke-linecap="round" stroke-linejoin="round"
                                                class="icon icon-tabler icons-tabler-outline icon-tabler-user-check"><path
                                 stroke="none" d="M0 0h24v24H0z" fill="none"/><path
                                 d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4"/><path
-                                d="M15 19l2 2l4 -4"/></svg></span>
+                                d="M15 19l2 2l4 -4"/></svg></a>
                 <a href="{{route('supplier.page')}}" class="ml-2 block p-2 rounded" x-show="sidebarOpen">Suppliers</a>
             </div>
             <div class="mb-2 flex items-center hover:bg-indigo-700 p-1 hover:rounded-sm ">
@@ -68,7 +68,7 @@
                                 stroke="none" d="M0 0h24v24H0z" fill="none"/><path
                                 d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"/><path
                                 d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/></svg></span>
-                <a href="{{route('profile.show')}}" class="ml-2 block p-2 rounded"
+                <a href="{{route('profile.show')}}" class="ml-2 block p-2 rounded font-mono tracking-wider font-semibold"
                    x-show="sidebarOpen">Profile</a>
             </div>
 
@@ -84,7 +84,7 @@
                             d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z"/>
                     </svg>
                 </div>
-                <a href="{{ route('dash') }}" class="ml-1 block p-2 rounded" x-show="sidebarOpen">
+                <a href="{{ route('dash') }}" class="ml-1 block p-2 rounded text-yellow-200 font-mono tracking-wider font-semibold" x-show="sidebarOpen">
                     {{ auth()->user()->name }}
                 </a>
             </div>
