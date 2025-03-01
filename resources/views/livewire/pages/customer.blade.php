@@ -36,89 +36,115 @@
         <x-slot name="head">
             {{--                <th class="p-2 text-left">#</th>--}}
             {{--            <x-table.th>#</x-table.th>--}}
-            <th class="p-2 text-left">#</th>
-            <th class="p-2 text-left">Customer Details</th>
-
-            <th class="p-2 text-left">Balance</th>
-            <th class="p-2 text-left">Status</th>
-            <th class="p-2 text-left">Actions</th>
+            <th class="p-2 text-left" width="5%">#</th>
+            <th class="p-2 text-left" width="auto">Customer Details</th>
+            <th class="p-2 text-left" width="15%">Balance</th>
+            <th class="p-2 text-left" width="15%">Status</th>
+            <th class="p-2 text-center" width="15%">Actions</th>
         </x-slot>
 
-        <tr class="border-t font-lex font-semibold tracking-wider">
-            <td class="p-2">1</td>
-            <td class="p-2">John Doe</td>
-            <td class="p-2 text-green-500">₹10,000</td>
-            <td class="p-2"><x-badge.success>New</x-badge.success></td>
-            <td class="p-2">
-                <span><x-button.edit/></span>
-                <span><x-button.delete/></span>
-            </td>
-        </tr>
-        <tr class="border-t font-lex font-semibold tracking-wider">
-            <td class="p-2">1</td>
-            <td class="p-2">John Doe</td>
-            <td class="p-2 text-green-500">₹10,000</td>
-            <td class="p-2"><x-badge.info>Pending</x-badge.info></td>
-            <td class="p-2">
-                <span><x-button.edit/></span>
-                <span><x-button.delete/></span>
-            </td>
-        </tr>
-        <tr class="border-t font-lex font-semibold tracking-wider">
-            <td class="p-2">1</td>
-            <td class="p-2">John Doe</td>
-            <td class="p-2 text-green-500">₹10,000</td>
-            <td class="p-2"><x-badge.light>Closed</x-badge.light></td>
-            <td class="p-2">
-                <span><x-button.edit/></span>
-                <span><x-button.delete/></span>
-            </td>
-        </tr>
+        @foreach($list as $index=>$row)
+            <tr class="border-t font-lex font-semibold tracking-wider">
+                <td class="p-2"><a href="{{route('transactions.index',[$row->id])}}">{{$index+1}}</td>
+                <td class="p-2 inline-flex items-center">
+                    <div class="flex items-center gap-x-3">
+                        <div>{{$row->name}}</div>
+                        <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
+                            <span class="text-gray-500 font-semibold">Cr:</span>
+                            <span class="text-green-500">₹10,000</span>
+                        </div>
+                        <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
+                            <span class="text-gray-500 font-semibold">Db :</span>
+                            <span class="text-red-500">₹5900</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="p-2 text-green-500 text-left">₹10,000</td>
+                <td class="p-2 text-left">
+                    <div class="">
+                        @if($row->other == 'New')
+                            <x-badge.success>new</x-badge.success>
+                        @elseif($row->other == 'Pending')
+                            <x-badge.success>pending</x-badge.success>
+                        @elseif($row->other == 'Closed')
+                            <x-badge.success>closed</x-badge.success>
+                        @endif
+                    </div>
+                </td>
+                <td class="p-2 text-center">
+                    <span><x-button.edit wire:click="edit({{$vid}})"/></span>
+                    <span><x-button.delete wire:click="getDelete({{$vid}})"/></span>
+                </td>
+            </tr>
+        @endforeach
+
     </x-table.temp>
 
-        <div
-            class="fixed bottom-0 bg-white p-4 font-lex  shadow rounded-lg mt-4 max-w-max mb-4 flex items-center justify-start gap-x-6">
-            <div class="inline-flex items-center ">
-                <span class="text-gray-400 font-semibold">Total Balance :</span>
-                <span class="font-semibold  text-blue-500 inline-flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
-                    <path d="M7 9l11 0"/>
-                </svg>
-                24,000
-            </span>
-            </div>
-            <div class="inline-flex items-center">
-                <span class="text-gray-400 font-semibold">Total Credit :</span>
-                <span class="font-semibold  text-green-500 inline-flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
-                    <path d="M7 9l11 0"/>
-                </svg>
-                24,000
-            </span>
-            </div>
-            <div class="inline-flex items-center">
-                <span class="text-gray-400 font-semibold">Total Debit :</span>
-                <span class="font-semibold  text-red-500 inline-flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
-                    <path d="M7 9l11 0"/>
-                </svg>
-                24,000
-            </span>
+    <x-forms.create :id="$vid">
+        <div class="w-full flex gap-5">
+            <div class="w-full flex flex-col gap-5">
+                <div class="flex gap-5">
+                    <x-radio.btn value="1" wire:model="party_type" checked>Customer</x-radio.btn>
+                    <x-radio.btn value="2" wire:model="party_type">Supplier</x-radio.btn>
+                </div>
+                <x-input.floating label="Name" wire:model="name"/>
+                @error('name')
+                <span class="text-red-600 text-xs font-lex">{{ $message }}</span>
+                @enderror
+                <x-input.floating label="Phone" wire:model="phone"/>
+                {{--                <x-input.floating label="Status" wire:model="other"/>--}}
+                <x-input.modal-select label="Status" wire:model="other">
+                    <option value="New">New</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Closed">Closed</option>
+                </x-input.modal-select>
             </div>
         </div>
-        <div class="fixed bottom-1 right-6 max-w-max py-4 ">
-            <x-button.add>Add Customer</x-button.add>
+    </x-forms.create>
+
+    <div
+        class="fixed bottom-0 bg-white p-4 font-lex  shadow rounded-lg mt-4 max-w-max mb-4 flex items-center justify-start gap-x-6">
+        <div class="inline-flex items-center ">
+            <span class="text-gray-400 font-semibold">Total Balance :</span>
+            <span class="font-semibold  text-blue-500 inline-flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
+                    <path d="M7 9l11 0"/>
+                </svg>
+                24,000
+            </span>
         </div>
+        <div class="inline-flex items-center">
+            <span class="text-gray-400 font-semibold">Total Credit :</span>
+            <span class="font-semibold  text-green-500 inline-flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
+                    <path d="M7 9l11 0"/>
+                </svg>
+                24,000
+            </span>
+        </div>
+        <div class="inline-flex items-center">
+            <span class="text-gray-400 font-semibold">Total Debit :</span>
+            <span class="font-semibold  text-red-500 inline-flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
+                    <path d="M7 9l11 0"/>
+                </svg>
+                24,000
+            </span>
+        </div>
+    </div>
+    <div class="fixed bottom-1 right-6 max-w-max py-4 ">
+        <x-button.add wire:click="save">Add Customer</x-button.add>
+    </div>
 </x-layouts.master>
