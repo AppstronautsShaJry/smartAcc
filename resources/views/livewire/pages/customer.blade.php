@@ -40,15 +40,15 @@
             <th class="p-2 text-left">Customer Details</th>
 
             <th class="p-2 text-left">Balance</th>
-            <th class="p-2 text-left">Other</th>
+            <th class="p-2 text-left">Status</th>
             <th class="p-2 text-left">Actions</th>
         </x-slot>
 
         <tr class="border-t font-lex font-semibold tracking-wider">
             <td class="p-2">1</td>
             <td class="p-2">John Doe</td>
-            <td class="p-2">Customer</td>
             <td class="p-2 text-green-500">₹10,000</td>
+            <td class="p-2"><x-badge.success>New</x-badge.success></td>
             <td class="p-2">
                 <span><x-button.edit/></span>
                 <span><x-button.delete/></span>
@@ -57,8 +57,18 @@
         <tr class="border-t font-lex font-semibold tracking-wider">
             <td class="p-2">1</td>
             <td class="p-2">John Doe</td>
-            <td class="p-2">Customer</td>
-            <td class="p-2 text-red-500">₹5,000</td>
+            <td class="p-2 text-green-500">₹10,000</td>
+            <td class="p-2"><x-badge.info>Pending</x-badge.info></td>
+            <td class="p-2">
+                <span><x-button.edit/></span>
+                <span><x-button.delete/></span>
+            </td>
+        </tr>
+        <tr class="border-t font-lex font-semibold tracking-wider">
+            <td class="p-2">1</td>
+            <td class="p-2">John Doe</td>
+            <td class="p-2 text-green-500">₹10,000</td>
+            <td class="p-2"><x-badge.light>Closed</x-badge.light></td>
             <td class="p-2">
                 <span><x-button.edit/></span>
                 <span><x-button.delete/></span>
