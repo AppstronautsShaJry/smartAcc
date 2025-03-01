@@ -1,4 +1,6 @@
+
 <x-layouts.master>
+
     <div class="bg-white p-4 shadow rounded-lg flex justify-between items-center mb-6">
         {{--        <h1 class="text-xl font-semibold ">Dashboard</h1>--}}
         <x-forms.head header="Dashboard"/>
@@ -7,31 +9,31 @@
             <!-- Search Bar -->
             <x-filter.search/>
             <!-- Filter Button -->
-{{--            <x-filter.btn/>--}}
+            {{--            <x-filter.btn/>--}}
 
         </div>
     </div>
 
-{{--    <x-filter.drop-section>--}}
-{{--        <div class="w-28 border rounded-md md:w-auto">--}}
-{{--            <x-input.floating--}}
-{{--                label="Start Date"--}}
-{{--                type="date"--}}
-{{--            />--}}
-{{--        </div>--}}
-{{--        <div class="w-28 border rounded-md md:w-auto">--}}
-{{--            <x-input.floating--}}
-{{--                label="End Date"--}}
-{{--                type="date"--}}
-{{--            />--}}
-{{--        </div>--}}
-{{--    </x-filter.drop-section>--}}
+    {{--    <x-filter.drop-section>--}}
+    {{--        <div class="w-28 border rounded-md md:w-auto">--}}
+    {{--            <x-input.floating--}}
+    {{--                label="Start Date"--}}
+    {{--                type="date"--}}
+    {{--            />--}}
+    {{--        </div>--}}
+    {{--        <div class="w-28 border rounded-md md:w-auto">--}}
+    {{--            <x-input.floating--}}
+    {{--                label="End Date"--}}
+    {{--                type="date"--}}
+    {{--            />--}}
+    {{--        </div>--}}
+    {{--    </x-filter.drop-section>--}}
 
     <!-- Cards Section -->
     <div class="grid grid-cols-3 md-grid-cols-3 gap-4 mb-6">
         <x-cards.card1 title="Total Bal" value="12,000">
             <x-slot name="icon">
-                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                      class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -137,7 +139,9 @@
             <td class="p-2">Jane Smith</td>
             <td class="p-2">Supplier</td>
             <td class="p-2 text-red-500">₹5,000</td>
-            <td class="p-2">2025-02-26</td>
+            <td class="p-2">
+ <x-badge.ani-badge />
+            </td>
             <td class="p-2">
                 <span
                     class="bg-gradient-to-br from-indigo-500 to-fuchsia-500 text-white px-3 py-1 w-auto rounded-md inline-flex items-center">
@@ -149,5 +153,4 @@
             </td>
         </tr>
     </x-table.temp>
-
 </x-layouts.master>
