@@ -36,45 +36,103 @@
         <x-slot name="head">
             {{--                <th class="p-2 text-left">#</th>--}}
             {{--            <x-table.th>#</x-table.th>--}}
-            <th class="p-2 text-left">#</th>
-            <th class="p-2 text-left">Supplier Details</th>
-
-            <th class="p-2 text-left">Balance</th>
-            <th class="p-2 text-left">Status</th>
-            <th class="p-2 text-left">Actions</th>
+            <th class="p-2 text-left" width="5%">#</th>
+            <th class="p-2 text-left" width="auto">Supplier Details</th>
+            <th class="p-2 text-left" width="15%">Balance</th>
+            <th class="p-2 text-left" width="15%">Status</th>
+            <th class="p-2 text-center" width="15%">Actions</th>
         </x-slot>
 
         <tr class="border-t font-lex font-semibold tracking-wider">
             <td class="p-2">1</td>
-            <td class="p-2">John Doe</td>
-            <td class="p-2 text-green-500">₹10,000</td>
-            <td class="p-2"><x-badge.success>New</x-badge.success></td>
-            <td class="p-2">
+            <td class="p-2 inline-flex items-center">
+                <div class="flex items-center gap-x-3">
+                    <div>John Doe</div>
+                    <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
+                        <span class="text-gray-500 font-semibold">Cr:</span>
+                        <span class="text-green-500">₹10,000</span>
+                    </div>
+                    <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
+                        <span class="text-gray-500 font-semibold">Db :</span>
+                        <span class="text-red-500">₹5900</span>
+                    </div>
+                </div>
+            </td>
+            <td class="p-2 text-green-500 text-left">₹10,000</td>
+            <td class="p-2 text-left">
+                <x-badge.success>New</x-badge.success>
+            </td>
+            <td class="p-2 text-center">
                 <span><x-button.edit/></span>
                 <span><x-button.delete/></span>
             </td>
         </tr>
         <tr class="border-t font-lex font-semibold tracking-wider">
             <td class="p-2">1</td>
-            <td class="p-2">John Doe</td>
+            <td class="p-2 inline-flex items-center">
+                <div class="flex items-center gap-x-3">
+                    <div>John Doe</div>
+                    <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
+                        <span class="text-gray-500 font-semibold">Cr:</span>
+                        <span class="text-green-500">₹10,000</span>
+                    </div>
+                    <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
+                        <span class="text-gray-500 font-semibold">Db :</span>
+                        <span class="text-red-500">₹5900</span>
+                    </div>
+                </div>
+            </td>
             <td class="p-2 text-green-500">₹10,000</td>
-            <td class="p-2"><x-badge.info>Pending</x-badge.info></td>
             <td class="p-2">
+                <x-badge.info>Pending</x-badge.info>
+            </td>
+            <td class="p-2 text-center">
                 <span><x-button.edit/></span>
                 <span><x-button.delete/></span>
             </td>
         </tr>
         <tr class="border-t font-lex font-semibold tracking-wider">
             <td class="p-2">1</td>
-            <td class="p-2">John Doe</td>
+            <td class="p-2 inline-flex items-center">
+                <div class="flex items-center gap-x-3">
+                    <div>John Doe</div>
+                    <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
+                        <span class="text-gray-500 font-semibold">Cr:</span>
+                        <span class="text-green-500">₹10,000</span>
+                    </div>
+                    <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
+                        <span class="text-gray-500 font-semibold">Db :</span>
+                        <span class="text-red-500">₹5900</span>
+                    </div>
+                </div>
+            </td>
             <td class="p-2 text-green-500">₹10,000</td>
-            <td class="p-2"><x-badge.light>Closed</x-badge.light></td>
             <td class="p-2">
+                <x-badge.light>Closed</x-badge.light>
+            </td>
+            <td class="p-2 text-center">
                 <span><x-button.edit/></span>
                 <span><x-button.delete/></span>
             </td>
         </tr>
     </x-table.temp>
+
+{{--    <x-forms.create :id="$vid">--}}
+{{--        <div class="w-full flex gap-5">--}}
+{{--            <div class="w-full flex flex-col gap-5">--}}
+{{--                <div class="flex gap-5">--}}
+{{--                    <x-radio.btn value="1" wire:model="party_type" checked>Customer</x-radio.btn>--}}
+{{--                    <x-radio.btn value="2" wire:model="party_type">Supplier</x-radio.btn>--}}
+{{--                </div>--}}
+{{--                <x-input.floating label="Name" wire:model="name"/>--}}
+{{--                @error('name')--}}
+{{--                <span class="text-red-600 text-xs font-lex">{{ $message }}</span>--}}
+{{--                @enderror--}}
+{{--                <x-input.floating label="Phone" wire:model="phone"/>--}}
+{{--                <x-input.floating label="Address/Category" wire:model="other"/>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </x-forms.create>--}}
 
     <div
         class="fixed bottom-0 bg-white p-4 font-lex  shadow rounded-lg mt-4 max-w-max mb-4 flex items-center justify-start gap-x-6">
@@ -119,6 +177,6 @@
         </div>
     </div>
     <div class="fixed bottom-1 right-6 max-w-max py-4 ">
-        <x-button.add>Add Supplier</x-button.add>
+        <x-button.add wire:click="save">Add Supplier</x-button.add>
     </div>
 </x-layouts.master>
