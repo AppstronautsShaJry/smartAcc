@@ -1,4 +1,4 @@
-<button {{$attibutes}}
+<button {{$attributes}}
     class="px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-yellow-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
                    <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
