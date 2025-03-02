@@ -51,7 +51,7 @@
 
         @foreach($list as $index=>$row)
             <tr class="border-t font-lex font-semibold tracking-wider">
-                <td class="p-2"><a href="{{route('transactions.index',[$row->id])}}">{{$index+1}}</td>
+                <td class="p-2"><a href="{{route('transaction.page',[$row->id])}}">{{$index+1}}</td>
                 <td class="p-2 inline-flex items-center">
                     <div class="flex items-center gap-x-3">
                         <div class="capitalize">{{$row->name}}</div>
