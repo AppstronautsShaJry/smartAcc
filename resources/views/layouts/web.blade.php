@@ -24,7 +24,7 @@
             <!-- Sidebar -->
             <x-menu.sidemenu />
 
-            <div class="flex-1 p-6" x-data="{ showFilter: false, startDate: '', endDate: '' }">
+            <div class="h-screen overflow-y-auto flex-1 p-6" x-data="{ showFilter: false, startDate: '', endDate: '' }">
                 <!-- Top Navbar -->
                 {{$slot}}
             </div>

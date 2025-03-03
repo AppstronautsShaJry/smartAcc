@@ -15,25 +15,6 @@
             >
                 <x-button.pdf>Pdf</x-button.pdf>
             </a>
-
-            <a  href="{{ route('customers.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}"
-                    class="px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-yellow-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
-                   <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                         class="icon icon-tabler icons-tabler-outline icon-tabler-file-type-pdf">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
-                        <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"/>
-                        <path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6"/>
-                        <path d="M17 18h2"/>
-                        <path d="M20 15h-3v6"/>
-                        <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z"/>
-                    </svg>
-                       </span>
-                <span class="font-semibold">Pdf</span>
-            </a>
-
         </div>
     </div>
 
@@ -75,15 +56,17 @@
                 <td class="p-2 inline-flex items-center">
                     <div class="flex items-center gap-x-3">
                         <div class="capitalize">{{$row->name}}</div>
-                        <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
+                        <div class="inline-flex items-center text-xs pt-1 gap-x-2">
                             <span class="text-gray-500 font-semibold">Cr:</span>
-                            <span
-                                class="text-gray-500 pl-2">₹ {{number_format($row->totalCredit,2)}}</span>
+                            <span class="{{ $row->totalCredit > 0 ? 'text-green-500' : 'text-gray-400' }} pl-2">
+                              ₹ {{ number_format($row->totalCredit, 2) }}
+                              </span>
                         </div>
-                        <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
-                            <span class="text-gray-500 font-semibold">Db :</span>
-                            <span
-                                class="text-gray-500 pl-2">₹ {{ number_format($row->totalDebit, 2)}}</span>
+                        <div class="inline-flex items-center text-xs pt-1 gap-x-2">
+                            <span class="text-gray-500 font-semibold">Db:</span>
+                            <span class="{{ $row->totalDebit > 0 ? 'text-red-500' : 'text-gray-400' }} pl-2">
+                             ₹ {{ number_format($row->totalDebit, 2) }}
+                            </span>
                         </div>
                     </div>
                 </td>
@@ -116,6 +99,7 @@
 
     </x-table.temp>
     <x-modal.delete/>
+    <div class="my-5 mb-12">{{$list->links()}}</div>
 
     <x-forms.create :id="$vid">
         <div class="w-full flex gap-5">
