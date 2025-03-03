@@ -37,6 +37,16 @@
         </x-cards.card1>
 
         <x-cards.card1 title="Customer" value="3,80,000">
+            <x-slot name="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-brand-days-counter">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M20.779 10.007a9 9 0 1 0 -10.77 10.772"/>
+                    <path d="M13 21h8v-7"/>
+                    <path d="M12 8v4l3 3"/>
+                </svg>
+            </x-slot>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                  class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">
@@ -51,6 +61,16 @@
         </x-cards.card1>
 
         <x-cards.card1 title="Supplier" value="5,00,000">
+            <x-slot name="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-brand-days-counter">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M20.779 10.007a9 9 0 1 0 -10.77 10.772"/>
+                    <path d="M13 21h8v-7"/>
+                    <path d="M12 8v4l3 3"/>
+                </svg>
+            </x-slot>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                  class="icon icon-tabler icons-tabler-outline icon-tabler-moneybag">
@@ -62,6 +82,15 @@
         </x-cards.card1>
 
         <x-cards.card1 title="Total Credit" value="12,000">
+            <x-slot name="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
+                    <path d="M7 9l11 0"/>
+                </svg>
+            </x-slot>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                  class="icon icon-tabler icons-tabler-outline icon-tabler-credit-card-refund">
@@ -76,6 +105,15 @@
         </x-cards.card1>
 
         <x-cards.card1 title="Total Debit" value="3,80,000">
+            <x-slot name="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
+                    <path d="M7 9l11 0"/>
+                </svg>
+            </x-slot>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                  class="icon icon-tabler icons-tabler-outline icon-tabler-door-exit">
@@ -123,7 +161,7 @@
             <td class="p-2">Supplier</td>
             <td class="p-2 text-red-500">₹5,000</td>
             <td class="p-2">
-                <x-badge.ani-badge/>
+                2025-02-25
             </td>
             <td class="p-2">
                 <span

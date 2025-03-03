@@ -8,13 +8,17 @@
             <x-filter.search wire:model.live="searchTerm"/>
             <!-- Filter Button -->
             <x-filter.btn/>
+
             <x-button.excel wire:click="export">Excel</x-button.excel>
-            <x-button.pdf>Pdf</x-button.pdf>
-            <a href="{{ route('transactions.pdf', ['partyId' => $party_id]) }}?searchTerm={{ $searchTerm }}&dateFilter={{ $dateFilter }}&startDate={{ $start_date }}&endDate={{ $end_date }}"
-               target="_blank"
-               class="bg-purple-600 text-white px-4 py-2 flex items-center justify-center rounded-md hover:bg-purple-700 transition-colors">
-                PDF
+            <a href="{{ route('transactions.pdf', ['partyId' => $party_id]) }}?searchTerm={{ $searchTerm }}&dateFilter={{ $dateFilter }}&startDate={{ $start_date }}&endDate={{ $end_date }}">
+                <x-button.pdf>Pdf</x-button.pdf>
             </a>
+
+            {{--            <a href="{{ route('transactions.pdf', ['partyId' => $party_id]) }}?searchTerm={{ $searchTerm }}&dateFilter={{ $dateFilter }}&startDate={{ $start_date }}&endDate={{ $end_date }}"--}}
+            {{--               target="_blank"--}}
+            {{--               class="bg-purple-600 text-white px-4 py-2 flex items-center justify-center rounded-md hover:bg-purple-700 transition-colors">--}}
+            {{--                PDF--}}
+            {{--            </a>--}}
         </div>
     </div>
 
@@ -169,7 +173,7 @@
             </tr>
         @endforeach
         <tr class="border-t font-lex font-semibold tracking-wider">
-            <td class="p-2" colspan="5" >Total Balance</td>
+            <td class="p-2" colspan="5">Total Balance</td>
             <td class="p-2 text-green-500">
                 ₹ {{ number_format($totalCredit - $totalDebit, 2) }}
             </td>
@@ -179,6 +183,8 @@
         </tr>
     </x-table.temp>
     <x-modal.delete/>
+{{--    <div class="my-5 mb-12">{{$list->links()}}</div>--}}
+    <div> {{$list->links()}}</div>
 
     <x-forms.create :id="$vid" :max-width="'2xl'">
         <div class="w-full flex flex-col gap-16">
@@ -267,48 +273,48 @@
     </x-forms.create>
 
 
-    <div
-        class="fixed bottom-0 bg-white p-4 font-lex  shadow rounded-lg mt-4 max-w-max mb-4 flex items-center justify-start gap-x-6">
-        <div class="inline-flex items-center ">
-            <span class="text-gray-400 font-semibold">Total Balance :</span>
-            <span class="font-semibold  text-blue-500 inline-flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
-                    <path d="M7 9l11 0"/>
-                </svg>
-                24,000
-            </span>
-        </div>
-        <div class="inline-flex items-center">
-            <span class="text-gray-400 font-semibold">Total Credit :</span>
-            <span class="font-semibold  text-green-500 inline-flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
-                    <path d="M7 9l11 0"/>
-                </svg>
-                24,000
-            </span>
-        </div>
-        <div class="inline-flex items-center">
-            <span class="text-gray-400 font-semibold">Total Debit :</span>
-            <span class="font-semibold  text-red-500 inline-flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
-                    <path d="M7 9l11 0"/>
-                </svg>
-                24,000
-            </span>
-        </div>
-    </div>
+    {{--    <div--}}
+    {{--        class="fixed bottom-0 bg-white p-4 font-lex  shadow rounded-lg mt-4 max-w-max mb-4 flex items-center justify-start gap-x-6">--}}
+    {{--        <div class="inline-flex items-center ">--}}
+    {{--            <span class="text-gray-400 font-semibold">Total Balance :</span>--}}
+    {{--            <span class="font-semibold  text-blue-500 inline-flex items-center">--}}
+    {{--                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"--}}
+    {{--                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"--}}
+    {{--                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">--}}
+    {{--                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
+    {{--                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>--}}
+    {{--                    <path d="M7 9l11 0"/>--}}
+    {{--                </svg>--}}
+    {{--                24,000--}}
+    {{--            </span>--}}
+    {{--        </div>--}}
+    {{--        <div class="inline-flex items-center">--}}
+    {{--            <span class="text-gray-400 font-semibold">Total Credit :</span>--}}
+    {{--            <span class="font-semibold  text-green-500 inline-flex items-center">--}}
+    {{--                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"--}}
+    {{--                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"--}}
+    {{--                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">--}}
+    {{--                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
+    {{--                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>--}}
+    {{--                    <path d="M7 9l11 0"/>--}}
+    {{--                </svg>--}}
+    {{--                24,000--}}
+    {{--            </span>--}}
+    {{--        </div>--}}
+    {{--        <div class="inline-flex items-center">--}}
+    {{--            <span class="text-gray-400 font-semibold">Total Debit :</span>--}}
+    {{--            <span class="font-semibold  text-red-500 inline-flex items-center">--}}
+    {{--                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"--}}
+    {{--                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"--}}
+    {{--                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">--}}
+    {{--                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
+    {{--                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>--}}
+    {{--                    <path d="M7 9l11 0"/>--}}
+    {{--                </svg>--}}
+    {{--                24,000--}}
+    {{--            </span>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
     <div class="fixed bottom-1 right-6 max-w-max py-4 ">
         <x-button.add wire:click="save">Add Transaction</x-button.add>
     </div>

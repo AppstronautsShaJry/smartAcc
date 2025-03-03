@@ -15,7 +15,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class Transac extends Component
 {
-    use WithPagination;
+//    use WithPagination;
+    use withPagination;
     use \Livewire\Features\SupportFileUploads\WithFileUploads;
 
     public $file;
@@ -37,6 +38,7 @@ class Transac extends Component
     public $grandTotal = 0;
     public $amount = 0;
     public $searchTerm = '';
+
 //    public $list;
 
     public function rules(): array
@@ -128,7 +130,7 @@ class Transac extends Component
             if ($this->vid == "") {
                 Transaction::create([
                     'party_id' => $this->party_id,
-                    'trans_type' => $this->trans_type ,
+                    'trans_type' => $this->trans_type,
                     'desc' => $this->desc ?: '-',
                     'date' => $this->date ? Carbon::parse($this->date) : Carbon::now(),
                     'amount' => $this->amount,
@@ -157,9 +159,9 @@ class Transac extends Component
         $this->clearFields();
         $this->showEditModal = false;
         if ($this->party_type == 1) {
-            return $this->redirect(route('customers.index'));
+            return $this->redirect(route('customer.page'));
         } else {
-            return $this->redirect(route('suppliers.index'));
+            return $this->redirect(route('supplier.page'));
         }
     }
 
@@ -201,6 +203,7 @@ class Transac extends Component
         $this->amount = '';
         $this->active_id = 1;
     }
+
 #endregion
 
     public function getDelete($id): void
@@ -294,7 +297,10 @@ class Transac extends Component
             }
         }
 
-        $transactions = $query->orderBy('date', 'asc')->get()->map(function ($transaction) {
+        // Paginate the result
+        $list = $query->orderBy('date', 'asc')->paginate(10);
+
+        $list->getCollection()->transform(function ($transaction) {
             $items = json_decode($transaction->items, true) ?? [];
             $itemTotal = 0;
 
@@ -306,9 +312,10 @@ class Transac extends Component
             return $transaction;
         });
 
+
         return view('livewire.pages.transac')->layout('layouts.web')->with([
             'party' => Party::find($this->party_id) ?: new Party(),
-            'list' => $transactions,
+            'list' => $list,
         ]);
     }
 

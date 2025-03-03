@@ -11,9 +11,9 @@
 
             <x-button.excel wire:click="export">Excel</x-button.excel>
 
-{{--            <a href="{{ route('suppliers.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}">--}}
+            <a href="{{ route('supplier.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}">
                 <x-button.pdf>Pdf</x-button.pdf>
-{{--            </a>--}}
+            </a>
         </div>
     </div>
 
@@ -68,7 +68,7 @@
                     </div>
                 </td>
                 <td class="p-2 text-green-500 text-left">
-                    <a href="{{route('transactions.index',[$row->id])}}">
+                    <a href="{{route('transaction.page',[$row->id])}}">
                         <span class="font-semibold
                         @if($row->balance < 0)
                                 text-red-600
@@ -96,6 +96,7 @@
 
     </x-table.temp>
     <x-modal.delete/>
+    <div class="my-5 mb-12">{{$list->links()}}</div>
 
     <x-forms.create :id="$vid">
         <div class="w-full flex gap-5">
