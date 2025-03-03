@@ -17,11 +17,11 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/', function () {
+    Route::get('/dash', function () {
         $customers = Party::where('party_type', 1)->where('user_id', auth()->id())->where('is_active', true)->get();
         $suppliers = Party::where('party_type', 2)->where('user_id', auth()->id())->where('is_active', true)->get();
         return view('dashboard', compact('customers', 'suppliers'));
-    })->name('dashboard');
+    })->name('dash');
 });
 Route::middleware([
     'auth:sanctum',
@@ -37,7 +37,7 @@ Route::middleware([
     Route::get('/transactions/pdf/{partyId}', [TransController::class, 'generatePDF'])->name('transactions.pdf');
     Route::get('customer-xls', App\Livewire\Customer\Index::class)->name('customers.index');
 
-    Route::get('dash', App\Livewire\Pages\Dashboard::class)->name('dash');
+    Route::get('/', App\Livewire\Pages\Dashboard::class)->name('dashboard');
     Route::get('cust', App\Livewire\Pages\Customer::class)->name('customer.page');
     Route::get('supl', App\Livewire\Pages\Supplier::class)->name('supplier.page');
     Route::get('trans/{id}', App\Livewire\Pages\Transac::class)->name('transaction.page');

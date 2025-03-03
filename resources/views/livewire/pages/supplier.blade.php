@@ -54,7 +54,7 @@
                 <td class="p-2"><a href="{{route('transaction.page',[$row->id])}}">{{$index+1}}</td>
                 <td class="p-2 inline-flex items-center">
                     <div class="flex items-center gap-x-3">
-                        <div class="capitalize">{{$row->name}}</div>
+                        <div class="capitalize"><a href="{{route('transaction.page',[$row->id])}}">{{$row->name}}</a></div>
                         <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
                             <span class="text-gray-500 font-semibold">Cr:</span>
                             <span

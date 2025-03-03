@@ -206,7 +206,7 @@ class Transac extends Component
 
 #endregion
 
-    public function getDelete($id): void
+    public function getDelete($id)
     {
         if ($id) {
             $this->clearFields();
@@ -224,6 +224,7 @@ class Transac extends Component
             $this->clearFields();
         }
     }
+
 
     public function applyDateFilter()
     {
