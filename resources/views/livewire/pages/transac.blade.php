@@ -57,7 +57,7 @@
     </x-filter.drop-section>
 
     <div class="grid grid-cols-1 md-grid-cols-1 gap-4 mb-6">
-        <x-cards.card1 :title="'{{$party->name}}'" :value="'{{$party->phone.$party->adrs_1}}'">
+        <x-cards.card1 :title="$party->name" :value="$party->phone.$party->adrs_1">
             <x-slot name="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
