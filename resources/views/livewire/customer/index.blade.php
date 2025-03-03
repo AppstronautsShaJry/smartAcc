@@ -53,7 +53,6 @@
                     Excel
                 </button>
 
-
                 <a href="{{ route('customers.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}"
                    target="_blank"
                    class="bg-purple-600

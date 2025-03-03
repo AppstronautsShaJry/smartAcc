@@ -1,5 +1,5 @@
 <div :class="sidebarOpen ? 'w-64' : 'w-16'"
-     class="bg-indigo-900 text-white transition-all duration-300 p-4 flex flex-col">
+     class="bg-indigo-900 text-white transition-all duration-300 p-4 flex flex-col h-screen overflow-y-auto">
     <button @click="sidebarOpen = !sidebarOpen" class="mb-4 flex items-center focus:outline-none bg-gradient-to-br from-indigo-500 to-fuchsia-500 rounded-sm p-2">
         <span class="">☰</span>
         <span class="ml-6 text-md font-bold font-mono tracking-wider" x-show="sidebarOpen">Tabbassam I Mart</span>
@@ -46,7 +46,7 @@
                                 stroke="none" d="M0 0h24v24H0z" fill="none"/><path
                                 d="M13 9a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1v-10z"/><path
                                 d="M18 8v-3a1 1 0 0 0 -1 -1h-13a1 1 0 0 0 -1 1v12a1 1 0 0 0 1 1h9"/><path d="M16 9h2"/></svg></span>
-                <a href="{{route('transaction.page')}}" class="ml-2 block p-2 rounded" x-show="sidebarOpen">Transactions</a>
+                <a href="#" class="ml-2 block p-2 rounded" x-show="sidebarOpen">Transactions</a>
             </div>
             <div class="mb-2 flex items-center hover:bg-indigo-700 p-1 hover:rounded-sm ">
                     <span class="text-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

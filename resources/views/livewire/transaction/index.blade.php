@@ -1,6 +1,5 @@
 <div class="space-y-5">
     <x-slot name="header">Transactions</x-slot>
-
     <div class="bg-gray-50 border p-4 rounded-lg shadow-sm transition-all duration-300 hover:shadow-md">
         <div class="mt-4 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 justify-between">
             <div class="w-2/3 flex gap-x-5 ">
@@ -158,7 +157,7 @@
     </x-forms.create>
 
     <div class="w-full flex justify-start gap-x-5 font-lex p-5 bg-gradient-to-r from-green-200 to-blue-200  h-auto rounded-lg shadow">
-        <div class="text-xl font-merri capitalize">{{$party->name}}</div>
+        <div class="text-xl font-merri capitalize"></div>
         <div class="flex gap-x-5">
         <div>{{$party->adrs_1}}</div>
         <div>{{$party->phone}}</div>
@@ -210,7 +209,6 @@
                         <x-table.cell-text>{{$index+1}}</x-table.cell-text>
                         <x-table.cell-text left="">
                             <div class="flex justify-start">
-
                                 @php
                                     $items = json_decode($row->items, true) ?? [];
                                     $itemTotal = 0;

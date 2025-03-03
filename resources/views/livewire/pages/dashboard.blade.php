@@ -9,24 +9,8 @@
             <x-filter.search/>
             <!-- Filter Button -->
             {{--            <x-filter.btn/>--}}
-
         </div>
     </div>
-
-    {{--    <x-filter.drop-section>--}}
-    {{--        <div class="w-28 border rounded-md md:w-auto">--}}
-    {{--            <x-input.floating--}}
-    {{--                label="Start Date"--}}
-    {{--                type="date"--}}
-    {{--            />--}}
-    {{--        </div>--}}
-    {{--        <div class="w-28 border rounded-md md:w-auto">--}}
-    {{--            <x-input.floating--}}
-    {{--                label="End Date"--}}
-    {{--                type="date"--}}
-    {{--            />--}}
-    {{--        </div>--}}
-    {{--    </x-filter.drop-section>--}}
 
     <!-- Cards Section -->
     <div class="grid grid-cols-3 md-grid-cols-3 gap-4 mb-6">

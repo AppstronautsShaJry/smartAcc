@@ -5,6 +5,7 @@ namespace App\Livewire\Pages;
 use App\Exports\TransactionsExport;
 use App\Imports\TransactionsImport;
 use App\Models\Party;
+use App\Models\Transaction;
 use App\Models\TransType;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -12,15 +13,14 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
-class Transaction extends Component
+class Transac extends Component
 {
     use WithPagination;
-    use WithFileUploads;
+    use \Livewire\Features\SupportFileUploads\WithFileUploads;
 
     public $file;
     public $showEditModal = false;
     public bool $showDeleteModal = false;
-
     public $vid;
     public $party_id = '';      // Refers to 'party_id' from the table, might relate to the party's primary key
     public $trans_type = 'Item Out';    // Refers to 'trans_type' (e.g., 'Pay' or 'Receive')
@@ -31,10 +31,8 @@ class Transaction extends Component
     public $start_date;
     public $end_date;
 
-
     public $active_id = true;
     public $party_type = true;
-
     public $items = [];
     public $grandTotal = 0;
     public $amount = 0;
@@ -82,7 +80,7 @@ class Transaction extends Component
     {
         return [
             'party_id' => 'Party ID',
-            'trans_type' => 'Transaction Type',
+            'trans_type' => 'Transac Type',
             'desc' => 'Description',
             'date' => 'Date',
             'image' => 'Image',
@@ -90,9 +88,6 @@ class Transaction extends Component
             'active_id' => 'Active Status',
         ];
     }
-
-
-
 
     public $party;
     public $transaction_type;
@@ -206,7 +201,6 @@ class Transaction extends Component
         $this->amount = '';
         $this->active_id = 1;
     }
-
 #endregion
 
     public function getDelete($id): void
@@ -243,6 +237,7 @@ class Transaction extends Component
 
         session()->flash('message', 'Transactions imported successfully!');
     }
+
     public function export()
     {
         $transactions = Transaction::where('party_id', $this->party_id)
@@ -254,7 +249,6 @@ class Transaction extends Component
 
         return Excel::download(new TransactionsExport($transactions), $fileName);
     }
-
 
     public function render()
     {
@@ -312,7 +306,7 @@ class Transaction extends Component
             return $transaction;
         });
 
-        return view('livewire.pages.transaction')->layout('layouts.web')->with([
+        return view('livewire.pages.transac')->layout('layouts.web')->with([
             'party' => Party::find($this->party_id) ?: new Party(),
             'list' => $transactions,
         ]);

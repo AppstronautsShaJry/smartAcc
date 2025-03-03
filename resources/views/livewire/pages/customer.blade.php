@@ -11,9 +11,29 @@
 
             <x-button.excel wire:click="export">Excel</x-button.excel>
 
-            <a href="{{ route('customers.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}">
+            <a href="{{ route('customers.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}"
+            >
                 <x-button.pdf>Pdf</x-button.pdf>
             </a>
+
+            <a  href="{{ route('customers.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}"
+                    class="px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-yellow-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
+                   <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="icon icon-tabler icons-tabler-outline icon-tabler-file-type-pdf">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+                        <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"/>
+                        <path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6"/>
+                        <path d="M17 18h2"/>
+                        <path d="M20 15h-3v6"/>
+                        <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z"/>
+                    </svg>
+                       </span>
+                <span class="font-semibold">Pdf</span>
+            </a>
+
         </div>
     </div>
 
@@ -68,7 +88,7 @@
                     </div>
                 </td>
                 <td class="p-2 text-green-500 text-left">
-                    <a href="{{route('transactions.index',[$row->id])}}">
+                    <a href="{{route('transaction.page',[$row->id])}}">
                         <span class="font-semibold
                         @if($row->balance < 0)
                                 text-red-600
@@ -79,11 +99,11 @@
                 <td class="p-2 text-left">
                     <div class="">
                         @if($row->other == 'New')
-                            <x-badge.success>new</x-badge.success>
+                            <x-badge.new-badge>New</x-badge.new-badge>
                         @elseif($row->other == 'Pending')
-                            <x-badge.success>pending</x-badge.success>
+                            <x-badge.pending-badge>Pending</x-badge.pending-badge>
                         @elseif($row->other == 'Closed')
-                            <x-badge.success>closed</x-badge.success>
+                            <x-badge.closed-badge>Closed</x-badge.closed-badge>
                         @endif
                     </div>
                 </td>

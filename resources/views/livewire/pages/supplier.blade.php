@@ -79,11 +79,11 @@
                 <td class="p-2 text-left">
                     <div class="">
                         @if($row->other == 'New')
-                            <x-badge.success>new</x-badge.success>
+                            <x-badge.new-badge>New</x-badge.new-badge>
                         @elseif($row->other == 'Pending')
-                            <x-badge.success>pending</x-badge.success>
+                            <x-badge.pending-badge>Pending</x-badge.pending-badge>
                         @elseif($row->other == 'Closed')
-                            <x-badge.success>closed</x-badge.success>
+                            <x-badge.closed-badge>Closed</x-badge.closed-badge>
                         @endif
                     </div>
                 </td>

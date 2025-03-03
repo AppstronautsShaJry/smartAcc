@@ -14,7 +14,7 @@ class TransController extends Controller
 //    {
 //        $party = Party::find($partyId);
 //
-//        $transaction = Transaction::all();
+//        $transaction = Transac::all();
 //
 //        $pdf = Pdf::loadView('pdf.transactionReport', ['transactions' => $transaction, 'party' => $party]);
 //
@@ -31,7 +31,7 @@ class TransController extends Controller
 //        $endDate = $request->query('endDate');
 //
 //        // Build the query with filters
-//        $query = Transaction::where('party_id', $partyId);
+//        $query = Transac::where('party_id', $partyId);
 //
 //        if ($searchTerm) {
 //            $query->where(function ($q) use ($searchTerm) {
@@ -65,7 +65,7 @@ class TransController extends Controller
 //        $startDate = $request->query('startDate');
 //        $endDate = $request->query('endDate');
 //
-//        $query = Transaction::where('party_id', $partyId);
+//        $query = Transac::where('party_id', $partyId);
 //
 //        if ($searchTerm) {
 //            $query->where(function ($q) use ($searchTerm) {

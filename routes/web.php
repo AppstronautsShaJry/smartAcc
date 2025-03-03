@@ -40,7 +40,7 @@ Route::middleware([
     Route::get('dash', App\Livewire\Pages\Dashboard::class)->name('dash');
     Route::get('cust', App\Livewire\Pages\Customer::class)->name('customer.page');
     Route::get('supl', App\Livewire\Pages\Supplier::class)->name('supplier.page');
-    Route::get('trans/{id}', App\Livewire\Pages\Transaction::class)->name('transaction.page');
+    Route::get('trans/{id}', App\Livewire\Pages\Transac::class)->name('transaction.page');
     Route::get('components', App\Livewire\Pages\Components::class)->name('components');
 
 });

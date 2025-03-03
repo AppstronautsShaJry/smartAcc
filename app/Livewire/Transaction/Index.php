@@ -25,7 +25,6 @@ class Index extends Component
     public $file;
     public $showEditModal = false;
     public bool $showDeleteModal = false;
-
     public $vid;
     public $party_id = '';      // Refers to 'party_id' from the table, might relate to the party's primary key
     public $trans_type = 'Item Out';    // Refers to 'trans_type' (e.g., 'Pay' or 'Receive')
@@ -36,10 +35,8 @@ class Index extends Component
     public $start_date;
     public $end_date;
 
-
     public $active_id = true;
     public $party_type = true;
-
     public $items = [];
     public $grandTotal = 0;
     public $amount = 0;
@@ -87,7 +84,7 @@ class Index extends Component
     {
         return [
             'party_id' => 'Party ID',
-            'trans_type' => 'Transaction Type',
+            'trans_type' => 'Transac Type',
             'desc' => 'Description',
             'date' => 'Date',
             'image' => 'Image',
@@ -95,9 +92,6 @@ class Index extends Component
             'active_id' => 'Active Status',
         ];
     }
-
-
-
 
     public $party;
     public $transaction_type;
@@ -211,7 +205,6 @@ class Index extends Component
         $this->amount = '';
         $this->active_id = 1;
     }
-
 #endregion
 
     public function getDelete($id): void
@@ -248,6 +241,7 @@ class Index extends Component
 
         session()->flash('message', 'Transactions imported successfully!');
     }
+
     public function export()
     {
         $transactions = Transaction::where('party_id', $this->party_id)
@@ -259,7 +253,6 @@ class Index extends Component
 
         return Excel::download(new TransactionsExport($transactions), $fileName);
     }
-
 
     public function render()
     {
