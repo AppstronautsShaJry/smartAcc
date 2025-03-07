@@ -7,13 +7,13 @@
 <form wire:submit.prevent="save">
     <div class="w-full h-auto">
         <x-modal wire:model.defer="showEditModal" maxWidth="{{{$maxWidth}}}" >
-            <div class="sm:px-6 px-2 pt-4">
-                <div class="text-lg">
+            <div class="">
+                <div class="text-lg py-4 text-white bg-gradient-to-r from-blue-500 to-indigo-600 p-2 font-semibold rounded-t-md px-6">
 {{--                    {{$id === "" ? 'New Entry' : 'Edit Entry'}}--}}
                     {{ empty($id) ? 'New Entry' : 'Edit Entry' }}
                 </div>
-                <x-forms.section-border class="py-2"/>
-                <div class="mt-5">
+{{--                <x-forms.section-border class="py-2"/>--}}
+                <div class="mt-5 px-6 ">
                     {{$slot}}
                 </div>
                 <div class="mb-1">&nbsp;</div>

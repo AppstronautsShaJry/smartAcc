@@ -104,7 +104,7 @@
     <x-forms.create :id="$vid">
         <div class="w-full flex gap-5">
             <div class="w-full flex flex-col gap-5">
-                <div class="flex gap-5">
+                <div class="flex gap-5 ">
                     <x-radio.btn value="1" wire:model="party_type" checked>Customer</x-radio.btn>
                     <x-radio.btn value="2" wire:model="party_type">Supplier</x-radio.btn>
                 </div>

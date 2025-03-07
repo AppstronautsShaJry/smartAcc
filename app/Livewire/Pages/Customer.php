@@ -133,7 +133,7 @@ class Customer extends Component
     public function clearFields(): void
     {
         $this->vid = '';
-        $this->party_type = '';
+        $this->party_type = 1;
         $this->name = '';
         $this->phone = '';
         $this->is_active = true;
