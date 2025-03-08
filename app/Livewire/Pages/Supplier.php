@@ -134,7 +134,7 @@ class Supplier extends Component
     public function clearFields(): void
     {
         $this->vid = '';
-        $this->party_type = '';
+        $this->party_type = 2;
         $this->name = '';
         $this->phone = '';
         $this->is_active = true;

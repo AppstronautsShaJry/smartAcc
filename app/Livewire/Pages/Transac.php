@@ -8,8 +8,9 @@ use App\Models\Party;
 use App\Models\Transaction;
 use App\Models\TransType;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
-use Livewire\WithFileUploads;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -17,7 +18,7 @@ class Transac extends Component
 {
 //    use WithPagination;
     use withPagination;
-    use \Livewire\Features\SupportFileUploads\WithFileUploads;
+    use WithFileUploads;
 
     public $file;
     public $showEditModal = false;
@@ -98,7 +99,7 @@ class Transac extends Component
     {
         $this->party_id = $id;
         $this->party = Party::find($this->party_id);
-        $this->party_type = $this->party->party_type ?? 'unknown';
+//        $this->party_type = $this->party->party_type ?? 'unknown';
         $this->transaction_type = TransType::all();
     }
 
@@ -111,6 +112,7 @@ class Transac extends Component
             'item_price' => 0.00,
             'item_total' => 0.00,
         ];
+
     }
 
     public function removeItem($index)
@@ -202,6 +204,7 @@ class Transac extends Component
         $this->image = '';
         $this->amount = '';
         $this->active_id = 1;
+
     }
 
 #endregion

@@ -84,6 +84,91 @@
         </x-cards.card1>
     </div>
 
+    <x-forms.create :id="$vid" :max-width="'2xl'">
+        <div class="w-full flex flex-col gap-16">
+            <div class="flex gap-5">
+                <div class="w-full flex-col flex gap-5">
+                    <!-- Dropdown to select transaction type -->
+                    <x-input.modal-select wire:model.live="trans_type" label="Transaction Type" class="w-full">
+                        <option value="" disabled>Select Transaction Type</option>
+                        @foreach($transaction_type as $type)
+                            <option value="{{ $type->name }}">{{ $type->name }}</option>
+                        @endforeach
+                    </x-input.modal-select>
+                    <x-input.floating label="Amount" wire:model="amount"/>
+                </div>
+                <div class="w-full flex-col flex gap-5">
+
+                    <x-input.floating type="date" label="Transaction Date" wire:model="date"/>
+                    <x-input.floating label="Transaction Image" wire:model="image" type="file"/>
+                </div>
+            </div>
+            @if($trans_type == 'Item Out')
+
+                <div class="mt-5 text-xs space-y-3 h-80 overflow-y-auto pr-6">
+                    <h3 class="text-lg font-semibold">Items</h3>
+                    <table class="table-auto w-full">
+                        <thead class="pb-12">
+                        <tr class="border-b border-gray-400 bg-gray-100">
+                            <th width="5%" class="py-4">No</th>
+                            <th>Name</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th width="15%" class="text-center">Total</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($items as $index => $item)
+                            <tr>
+                                <td class="py-6">{{ $index + 1 }}</td>
+                                <td>
+                                    <x-input.product-float label="Item Name" wire:model="items.{{ $index }}.item_name"/>
+                                </td>
+                                <td>
+                                    <x-input.floating label="Quantity" type="number"
+                                                      wire:model.lazy="items.{{ $index }}.item_quantity"/>
+                                </td>
+                                <td>
+                                    <x-input.floating label="Price" type="number"
+                                                      wire:model.lazy="items.{{ $index }}.item_price"/>
+                                </td>
+                                <td class="text-end pr-3">
+                                    <span>₹ {{ number_format($item['item_quantity'] * $item['item_price'], 2) }}</span>
+                                </td>
+                                <td>
+                                    <button class="text-xs text-white bg-red-600 rounded-full p-1"
+                                            wire:click.prevent="removeItem({{ $index }})">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke-width="1.5" stroke="currentColor" class="size-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M6 18 18 6M6 6l12 12"/>
+                                        </svg>
+
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="4" class="text-right font-bold px-12">Grand Total:</td>
+                            <td colspan="1" class="text-end font-bold pr-3">
+                                ₹ {{ number_format(collect($items)->sum(function ($item) {
+                            return ($item['item_quantity'] ?? 0) * ($item['item_price'] ?? 0);
+                        }), 2) }}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <button class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-md" wire:click.prevent="addItem">Add
+                        Item
+                    </button>
+                </div>
+            @endif
+        </div>
+    </x-forms.create>
 
     <!-- Transactions Table -->
     <x-table.temp title="Transaction">
@@ -172,6 +257,7 @@
                 </td>
             </tr>
         @endforeach
+
         <tr class="border-t font-lex font-semibold tracking-wider">
             <td class="p-2" colspan="5">Total Balance</td>
             <td class="p-2 text-green-500">
@@ -183,138 +269,11 @@
         </tr>
     </x-table.temp>
     <x-modal.delete/>
-{{--    <div class="my-5 mb-12">{{$list->links()}}</div>--}}
+    {{--    <div class="my-5 mb-12">{{$list->links()}}</div>--}}
     <div> {{$list->links()}}</div>
 
-    <x-forms.create :id="$vid" :max-width="'2xl'">
-        <div class="w-full flex flex-col gap-16">
-            <div class="flex gap-5">
-                <div class="w-full flex-col flex gap-5">
-                    <!-- Dropdown to select transaction type -->
-                    <x-input.modal-select wire:model.live="trans_type" label="Transaction Type" class="w-full">
-                        <option value="" disabled>Select Transaction Type</option>
-                        @foreach($transaction_type as $type)
-                            <option value="{{ $type->name }}">{{ $type->name }}</option>
-                        @endforeach
-                    </x-input.modal-select>
-                    <x-input.floating label="Amount" wire:model="amount"/>
-                </div>
-                <div class="w-full flex-col flex gap-5">
-
-                    <x-input.floating type="date" label="Transaction Date" wire:model="date"/>
-                    <x-input.floating label="Transaction Image" wire:model="image" type="file"/>
-                </div>
-            </div>
-            @if($trans_type == 'Item Out')
-
-                <div class="mt-5 text-xs space-y-3 h-80 overflow-y-auto pr-6">
-                    <h3 class="text-lg font-semibold">Items</h3>
-                    <table class="table-auto w-full">
-                        <thead class="pb-12">
-                        <tr class="border-b border-gray-400 bg-gray-100">
-                            <th width="5%" class="py-4">No</th>
-                            <th>Name</th>
-                            <th>Qty</th>
-                            <th>Price</th>
-                            <th width="15%" class="text-center">Total</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($items as $index => $item)
-                            <tr>
-                                <td class="py-6">{{ $index + 1 }}</td>
-                                <td>
-                                    <x-input.product-float label="Item Name" wire:model="items.{{ $index }}.item_name"/>
-                                </td>
-                                <td>
-                                    <x-input.floating label="Quantity" type="number"
-                                                      wire:model.lazy="items.{{ $index }}.item_quantity"/>
-                                </td>
-                                <td>
-                                    <x-input.floating label="Price" type="number"
-                                                      wire:model.lazy="items.{{ $index }}.item_price"/>
-                                </td>
-                                <td class="text-end pr-3">
-                                    <span>₹ {{ number_format($item['item_quantity'] * $item['item_price'], 2) }}</span>
-                                </td>
-                                <td>
-                                    <button class="text-xs text-white bg-red-600 rounded-full p-1"
-                                            wire:click.prevent="removeItem({{ $index }})">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                             stroke-width="1.5" stroke="currentColor" class="size-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                  d="M6 18 18 6M6 6l12 12"/>
-                                        </svg>
-
-                                    </button>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td colspan="4" class="text-right font-bold px-12">Grand Total:</td>
-                            <td colspan="1" class="text-end font-bold pr-3">
-                                ₹ {{ number_format(collect($items)->sum(function ($item) {
-                            return ($item['item_quantity'] ?? 0) * ($item['item_price'] ?? 0);
-                        }), 2) }}
-                            </td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                    <button class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-md" wire:click.prevent="addItem">Add
-                        Item
-                    </button>
-                </div>
-            @endif
-        </div>
-    </x-forms.create>
 
 
-    {{--    <div--}}
-    {{--        class="fixed bottom-0 bg-white p-4 font-lex  shadow rounded-lg mt-4 max-w-max mb-4 flex items-center justify-start gap-x-6">--}}
-    {{--        <div class="inline-flex items-center ">--}}
-    {{--            <span class="text-gray-400 font-semibold">Total Balance :</span>--}}
-    {{--            <span class="font-semibold  text-blue-500 inline-flex items-center">--}}
-    {{--                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"--}}
-    {{--                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"--}}
-    {{--                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">--}}
-    {{--                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
-    {{--                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>--}}
-    {{--                    <path d="M7 9l11 0"/>--}}
-    {{--                </svg>--}}
-    {{--                24,000--}}
-    {{--            </span>--}}
-    {{--        </div>--}}
-    {{--        <div class="inline-flex items-center">--}}
-    {{--            <span class="text-gray-400 font-semibold">Total Credit :</span>--}}
-    {{--            <span class="font-semibold  text-green-500 inline-flex items-center">--}}
-    {{--                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"--}}
-    {{--                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"--}}
-    {{--                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">--}}
-    {{--                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
-    {{--                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>--}}
-    {{--                    <path d="M7 9l11 0"/>--}}
-    {{--                </svg>--}}
-    {{--                24,000--}}
-    {{--            </span>--}}
-    {{--        </div>--}}
-    {{--        <div class="inline-flex items-center">--}}
-    {{--            <span class="text-gray-400 font-semibold">Total Debit :</span>--}}
-    {{--            <span class="font-semibold  text-red-500 inline-flex items-center">--}}
-    {{--                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"--}}
-    {{--                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"--}}
-    {{--                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">--}}
-    {{--                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
-    {{--                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>--}}
-    {{--                    <path d="M7 9l11 0"/>--}}
-    {{--                </svg>--}}
-    {{--                24,000--}}
-    {{--            </span>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
     <div class="fixed bottom-1 right-6 max-w-max py-4 ">
         <x-button.add wire:click="save">Add Transaction</x-button.add>
     </div>
