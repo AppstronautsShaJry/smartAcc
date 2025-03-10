@@ -264,7 +264,7 @@
                 </td>
                 <td class="p-2">
                     <span><x-button.edit wire:click="edit({{$row->id}})"/></span>
-                    <span><x-button.delete wire:click="getDelete({{$row->id}})"/></span>
+                    <span><x-button.delete  wire:click="getDelete({{$row->id}})"/></span>
                 </td>
             </tr>
         @endforeach
