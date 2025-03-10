@@ -16,7 +16,9 @@
 
 {{--    </style>--}}
 
-@props(['status'])
+@props([
+    'status',
+    ])
 
 @php
     $colors = [
