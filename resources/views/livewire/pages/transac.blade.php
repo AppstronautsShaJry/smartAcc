@@ -34,7 +34,7 @@
             </x-input.select>
         </div>
         @if ($dateFilter == 'custom_range')
-            <div class="w-28 border rounded-md md:w-auto">
+            <div class="w-28 rounded-md md:w-auto flex items-center gap-x-3">
                 <div class="w-full md:w-auto">
                     <x-input.floating
                         label="Start Date"
@@ -278,6 +278,8 @@
     <x-modal.delete/>
 
     <div class="my-5 mb-12">{{$list->links()}}</div>
+
+{{--    <div class="my-5 mb-12">{{$list->links()}}</div>--}}
 
     <div class="fixed bottom-1 right-6 max-w-max py-4 ">
         <x-button.add wire:click="save">Add Transaction</x-button.add>

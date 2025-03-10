@@ -28,9 +28,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('customers', App\Livewire\Customer\Index::class)->name('customers.index');
-    Route::get('suppliers', App\Livewire\Supplier\Index::class)->name('suppliers.index');
-    Route::get('transactions/{id}', App\Livewire\Transaction\Index::class)->name('transactions.index');
+//    Route::get('customers', App\Livewire\Customer\Index::class)->name('customers.index');
+//    Route::get('suppliers', App\Livewire\Supplier\Index::class)->name('suppliers.index');
+//    Route::get('transactions/{id}', App\Livewire\Transaction\Index::class)->name('transactions.index');
     Route::get('reg-users', App\Livewire\RegisterUser\Index::class)->name('register-users');
     Route::get('/download-customers-pdf', [\App\Http\Controllers\CustomerReportController::class, 'exportPDF'])->name('customers.pdf');
     Route::get('/download-suppliers-pdf', [\App\Http\Controllers\SupplierReportController::class, 'exportPDF'])->name('supplier.pdf');
@@ -38,9 +38,9 @@ Route::middleware([
     Route::get('customer-xls', App\Livewire\Customer\Index::class)->name('customers.index');
 
     Route::get('/', App\Livewire\Pages\Dashboard::class)->name('dashboard');
-    Route::get('cust', App\Livewire\Pages\Customer::class)->name('customer.page');
-    Route::get('supl', App\Livewire\Pages\Supplier::class)->name('supplier.page');
-    Route::get('trans/{id}', App\Livewire\Pages\Transac::class)->name('transaction.page');
+    Route::get('customers', App\Livewire\Pages\Customer::class)->name('customer.page');
+    Route::get('suppliers', App\Livewire\Pages\Supplier::class)->name('supplier.page');
+    Route::get('transactions/{id}', App\Livewire\Pages\Transac::class)->name('transaction.page');
     Route::get('components', App\Livewire\Pages\Components::class)->name('components');
 
 });
