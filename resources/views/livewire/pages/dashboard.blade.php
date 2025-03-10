@@ -1,7 +1,8 @@
 {{--<x-layouts.master>--}}
+
+
 <div>
     <div class="bg-white p-4 shadow rounded-lg flex justify-between items-center mb-6">
-        {{--        <h1 class="text-xl font-semibold ">Dashboard</h1>--}}
         <x-forms.head header="Dashboard"/>
         <!-- Search & Filter Container -->
         <div class="flex items-center gap-4">
@@ -15,7 +16,7 @@
     <!-- Cards Section -->
     <div class="grid grid-cols-2 md-grid-cols-3 gap-4 mb-6">
 
-        <x-cards.card1 title="Total Customers" value="{{($customers->count())}}">
+        <x-cards.card1 title="Total Customers" value="{{$customers->count()}}">
             <x-slot name="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -39,7 +40,7 @@
             </svg>
         </x-cards.card1>
 
-        <x-cards.card1 title="Total Suppliers" value="{{($suppliers->count())}}">
+        <x-cards.card1 title="Total Suppliers" value="{{$suppliers->count()}}">
             <x-slot name="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -61,8 +62,9 @@
         </x-cards.card1>
 
         <a href="{{route('customer.page')}}">
-            <x-cards.card1 title="Customer Total" value="{{ number_format($customerBalance, 2) }}">
+            <x-cards.card1 title="Customer Total">
                 <x-slot name="icon">
+                    <span class="{{ $customerBalance >= 0 ? 'text-green-600' : 'text-red-600' }} flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
@@ -70,6 +72,8 @@
                         <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
                         <path d="M7 9l11 0"/>
                     </svg>
+                        {{ number_format($customerBalance, 2) }}
+                    </span>
                 </x-slot>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -86,8 +90,9 @@
         </a>
 
         <a href="{{route('supplier.page')}}">
-            <x-cards.card1 title="Supplier Total" value="{{ number_format($supplierBalance, 2) }}">
+            <x-cards.card1 title="Supplier Total">
                 <x-slot name="icon">
+                     <span class="{{ $supplierBalance >= 0 ? 'text-green-600' : 'text-red-600' }} flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
@@ -95,6 +100,8 @@
                         <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
                         <path d="M7 9l11 0"/>
                     </svg>
+                         {{ number_format($supplierBalance, 2) }}
+                     </span>
                 </x-slot>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -122,6 +129,7 @@
         </x-slot>
 
         @foreach($customers->take(5) as $index=>$row)
+
             <tr class="border-t font-lex font-semibold tracking-wider">
                 {{--                <td class="p-2"><a href="{{route('transaction.page',[$row->id])}}">{{$index+1}}</td>--}}
                 <td class="p-2 inline-flex items-center">
@@ -161,13 +169,15 @@
                     </a></td>
                 <td class="p-2 text-left">
                     <div class="">
-                        @if($row->other == 'New')
-                            <x-badge.new-badge>New</x-badge.new-badge>
-                        @elseif($row->other == 'Pending')
-                            <x-badge.pending-badge>Pending</x-badge.pending-badge>
-                        @elseif($row->other == 'Closed')
-                            <x-badge.closed-badge>Closed</x-badge.closed-badge>
-                        @endif
+                        <x-badge.pending-badge :status="$row->other" />
+{{--                        --}}
+{{--                        @if($row->other == 'New')--}}
+{{--                            <x-badge.new-badge>New</x-badge.new-badge>--}}
+{{--                        @elseif($row->other == 'Pending')--}}
+{{--                            <x-badge.pending-badge>Pending</x-badge.pending-badge>--}}
+{{--                        @elseif($row->other == 'Closed')--}}
+{{--                            <x-badge.closed-badge>Closed</x-badge.closed-badge>--}}
+{{--                        @endif--}}
                     </div>
                 </td>
                 <td class="p-2 text-center">
@@ -222,13 +232,14 @@
                     </a></td>
                 <td class="p-2 text-left">
                     <div class="">
-                        @if($row->other == 'New')
-                            <x-badge.new-badge>New</x-badge.new-badge>
-                        @elseif($row->other == 'Pending')
-                            <x-badge.pending-badge>Pending</x-badge.pending-badge>
-                        @elseif($row->other == 'Closed')
-                            <x-badge.closed-badge>Closed</x-badge.closed-badge>
-                        @endif
+                        <x-badge.pending-badge :status="$row->other" />
+{{--                        @if($row->other == 'New')--}}
+{{--                            <x-badge.new-badge>New</x-badge.new-badge>--}}
+{{--                        @elseif($row->other == 'Pending')--}}
+{{--                            <x-badge.pending-badge>Pending</x-badge.pending-badge>--}}
+{{--                        @elseif($row->other == 'Closed')--}}
+{{--                            <x-badge.closed-badge>Closed</x-badge.closed-badge>--}}
+{{--                        @endif--}}
                     </div>
                 </td>
                 <td class="p-2 text-center">
