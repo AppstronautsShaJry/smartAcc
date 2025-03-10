@@ -11,7 +11,7 @@
 
             <x-button.excel wire:click="export">Excel</x-button.excel>
 
-            <a href="{{ route('customers.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}"
+            <a target="_blank" href="{{ route('customers.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}"
             >
                 <x-button.pdf>Pdf</x-button.pdf>
             </a>

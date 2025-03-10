@@ -60,32 +60,43 @@
         </div>
     </x-filter.drop-section>
 
-    <div class="grid grid-cols-1 md-grid-cols-1 gap-4 mb-6">
-        <x-cards.card1 :title="$party->name" :value="$party->phone.$party->adrs_1">
+    <div class="w-1/3  grid grid-cols-1 md-grid-cols-1 gap-4 mb-6">
+        <x-cards.card1
+            :title="$party->name . ' ' . ($party->party_type == 1 ? ' (Customer)' : ' (Supplier)')"
+            :value="$party->phone . ' ' . $party->adrs_1">
+
             <x-slot name="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class="size-5 icon icon-tabler icons-tabler-outline icon-tabler-currency-rupee">
+                     class="icon icon-tabler icons-tabler-outline icon-tabler-home-link">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6"/>
-                    <path d="M7 9l11 0"/>
+                    <path d="M20.085 11.085l-8.085 -8.085l-9 9h2v7a2 2 0 0 0 2 2h4.5"/>
+                    <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 1.807 1.143"/>
+                    <path d="M21 21m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
+                    <path d="M21 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
+                    <path d="M16 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
+                    <path d="M21 16l-5 3l5 2"/>
                 </svg>
             </x-slot>
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="icon icon-tabler icons-tabler-outline icon-tabler-credit-card-pay">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
-                <path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
-                <path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
-                <path d="M4 20h14"/>
+                <path d="M12 19h-6a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v4.5"/>
+                <path d="M3 10h18"/>
+                <path d="M16 19h6"/>
+                <path d="M19 16l3 3l-3 3"/>
+                <path d="M7.005 15h.005"/>
+                <path d="M11 15h2"/>
             </svg>
+
         </x-cards.card1>
+
     </div>
 
     <x-forms.create :id="$vid" :max-width="'2xl'">
-        <div class="w-full flex flex-col gap-16">
+        <div class="w-full flex flex-col gap-4">
             <div class="flex gap-5">
                 <div class="w-full flex-col flex gap-5">
                     <!-- Dropdown to select transaction type -->
@@ -105,7 +116,7 @@
             </div>
             @if($trans_type == 'Item Out')
 
-                <div class="mt-5 text-xs space-y-3 h-80 overflow-y-auto pr-6">
+                <div class="mt-5 text-xs space-y-3 h-72 overflow-y-auto pr-6">
                     <h3 class="text-lg font-semibold">Items</h3>
                     <table class="table-auto w-full">
                         <thead class="pb-12">
@@ -269,9 +280,8 @@
         </tr>
     </x-table.temp>
     <x-modal.delete/>
-    {{--    <div class="my-5 mb-12">{{$list->links()}}</div>--}}
-    <div> {{$list->links()}}</div>
-
+        <div class="my-5 mb-12">{{$list->links()}}</div>
+{{--    <div> {{$list->links()}}</div>--}}
 
 
     <div class="fixed bottom-1 right-6 max-w-max py-4 ">

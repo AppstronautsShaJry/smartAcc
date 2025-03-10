@@ -137,18 +137,17 @@
                     <span class="text-lg font-semibold">Add</span>
                 </button>
                 <button
-                        class="px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-500 to-lime-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
+                    class="px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-500 to-lime-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy"><path stroke="none"
+                                                                                                           d="M0 0h24v24H0z"
+                                                                                                           fill="none"/><path
+                                d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"/><path
+                                d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M14 4l0 4l-6 0l0 -4"/></svg>
 
-    <span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-             class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy"><path stroke="none"
-                                                                                           d="M0 0h24v24H0z"
-                                                                                           fill="none"/><path
-                d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"/><path
-                d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M14 4l0 4l-6 0l0 -4"/></svg>
-
-    </span>
+                    </span>
                     <span class="font-semibold">Save</span>
                 </button>
 
@@ -162,6 +161,7 @@
                                 d="M18 6l-12 12"/><path d="M6 6l12 12"/></svg></span>
                     <span class="text-lg font-semibold">Delete</span>
                 </button>
+
                 <button
                     class="px-4 py-2 rounded-lg bg-gradient-to-r from-gray-500 to-gray-700 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
                     <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -173,15 +173,14 @@
                 </button>
 
                 <button
-                        class="px-4 py-2 rounded-lg bg-gradient-to-r from-gray-500 to-slate-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
+                    class="px-4 py-2 rounded-lg bg-gradient-to-r from-gray-500 to-slate-600 text-white shadow-md flex items-center gap-2 hover:scale-105 transition-transform">
+                    <span>
+                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+                            class="icon icon-tabler icons-tabler-filled icon-tabler-copy-x"><path stroke="none" d="M0 0h24v24H0z"
+                                                                                                  fill="none"/><path
+                               d="M18.333 6a3.667 3.667 0 0 1 3.667 3.667v8.666a3.667 3.667 0 0 1 -3.667 3.667h-8.666a3.667 3.667 0 0 1 -3.667 -3.667v-8.666a3.667 3.667 0 0 1 3.667 -3.667zm-3.333 -4c1.094 0 1.828 .533 2.374 1.514a1 1 0 1 1 -1.748 .972c-.221 -.398 -.342 -.486 -.626 -.486h-10c-.548 0 -1 .452 -1 1v9.998c0 .32 .154 .618 .407 .805l.1 .065a1 1 0 1 1 -.99 1.738a3 3 0 0 1 -1.517 -2.606v-10c0 -1.652 1.348 -3 3 -3zm.8 8.786l-1.837 1.799l-1.749 -1.785a1 1 0 0 0 -1.319 -.096l-.095 .082a1 1 0 0 0 -.014 1.414l1.749 1.785l-1.835 1.8a1 1 0 0 0 -.096 1.32l.082 .095a1 1 0 0 0 1.414 .014l1.836 -1.8l1.75 1.786a1 1 0 0 0 1.319 .096l.095 -.082a1 1 0 0 0 .014 -1.414l-1.75 -1.786l1.836 -1.8a1 1 0 0 0 .096 -1.319l-.082 -.095a1 1 0 0 0 -1.414 -.014"/></svg>
 
-    <span>
-       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
-            class="icon icon-tabler icons-tabler-filled icon-tabler-copy-x"><path stroke="none" d="M0 0h24v24H0z"
-                                                                                  fill="none"/><path
-               d="M18.333 6a3.667 3.667 0 0 1 3.667 3.667v8.666a3.667 3.667 0 0 1 -3.667 3.667h-8.666a3.667 3.667 0 0 1 -3.667 -3.667v-8.666a3.667 3.667 0 0 1 3.667 -3.667zm-3.333 -4c1.094 0 1.828 .533 2.374 1.514a1 1 0 1 1 -1.748 .972c-.221 -.398 -.342 -.486 -.626 -.486h-10c-.548 0 -1 .452 -1 1v9.998c0 .32 .154 .618 .407 .805l.1 .065a1 1 0 1 1 -.99 1.738a3 3 0 0 1 -1.517 -2.606v-10c0 -1.652 1.348 -3 3 -3zm.8 8.786l-1.837 1.799l-1.749 -1.785a1 1 0 0 0 -1.319 -.096l-.095 .082a1 1 0 0 0 -.014 1.414l1.749 1.785l-1.835 1.8a1 1 0 0 0 -.096 1.32l.082 .095a1 1 0 0 0 1.414 .014l1.836 -1.8l1.75 1.786a1 1 0 0 0 1.319 .096l.095 -.082a1 1 0 0 0 .014 -1.414l-1.75 -1.786l1.836 -1.8a1 1 0 0 0 .096 -1.319l-.082 -.095a1 1 0 0 0 -1.414 -.014"/></svg>
-
-    </span>
+                    </span>
                     <span class="font-semibold">Cancel</span>
                 </button>
 
@@ -427,7 +426,8 @@
             <!-- Toast Notifications -->
             <div class="fixed bottom-4 right-4 space-y-2" x-data="{ notifications: [] }">
                 <template x-for="(notification, index) in notifications" :key="index">
-                    <div x-show="notification.show" x-transition.opacity.duration.500ms class="p-4 rounded-lg shadow-md text-white" :class="notification.type">
+                    <div x-show="notification.show" x-transition.opacity.duration.500ms
+                         class="p-4 rounded-lg shadow-md text-white" :class="notification.type">
                         <div class="flex justify-between items-center">
                             <span x-text="notification.message"></span>
                             <button @click="notification.show = false">✖</button>
@@ -439,8 +439,6 @@
         <!-- Footer -->
     </div>
 </div>
-
-
 
 
 </body>

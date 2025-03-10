@@ -9,10 +9,8 @@
         <x-modal wire:model.defer="showEditModal" maxWidth="{{{$maxWidth}}}" >
             <div class="">
                 <div class="text-lg py-4 text-white bg-gradient-to-r from-blue-500 to-indigo-600 p-2 font-semibold rounded-t-md px-6">
-{{--                    {{$id === "" ? 'New Entry' : 'Edit Entry'}}--}}
                     {{ empty($id) ? 'New Entry' : 'Edit Entry' }}
                 </div>
-{{--                <x-forms.section-border class="py-2"/>--}}
                 <div class="mt-5 px-6 ">
                     {{$slot}}
                 </div>
@@ -35,10 +33,14 @@
                         </label>
                     </div>
                     <div class="flex gap-3">
-{{--                        <x-button.cancel/>--}}
-                        <button wire:click.prevent="$set('showEditModal', false)" {{$attributes}} class="rounded-md px-4 py-2 bg-gray-500 text-white">Cancel</button>
-{{--                        <x-button.save/>--}}
-                        <button  wire:click.prevent="getSave"  class="rounded-md px-4 py-2 bg-green-500 text-white">Save</button>
+                        <x-button.cancel
+                            wire:click.prevent="$set('showEditModal', false)"
+                            x-on:click="setTimeout(() => window.location.reload(), 200)"
+                            {{$attributes}}>Cancel</x-button.cancel>
+                        <x-button.save
+                            wire:click.prevent="getSave"
+                            x-on:click="setTimeout(() => window.location.reload(), 200)"
+                        >Save</x-button.save>
                     </div>
                 </div>
             </div>

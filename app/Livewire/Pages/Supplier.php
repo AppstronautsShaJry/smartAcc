@@ -174,7 +174,7 @@ class Supplier extends Component
     public function export()
     {
         $query = Party::where('is_active', true)
-            ->where('party_type', 1)
+            ->where('party_type', 2)
             ->where('user_id', auth()->id())
             ->get();
 
@@ -214,7 +214,7 @@ class Supplier extends Component
         $fileName = 'customer_balances_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
 
         return \Maatwebsite\Excel\Facades\Excel::download(
-            new \App\Exports\CustomerExport($query, $totalCreditSum, $totalDebitSum, $balanceSum),
+            new \App\Exports\SupplierExport($query, $totalCreditSum, $totalDebitSum, $balanceSum),
             $fileName
         );
     }
@@ -224,14 +224,12 @@ class Supplier extends Component
         // Start the query with the user ID filter
         $query = Party::where('user_id', auth()->id())
             ->where('party_type', 2);  // Existing filter for party_type = 1
-
         // Check if we need to show inactive records
         if ($this->is_active === false) {
             $query->where('is_active', false);  // Show only inactive parties
         } else {
             $query->where('is_active', true);  // Default to showing active parties
         }
-
         // Search filter (if any)
         if ($this->search) {
             $query->where(function ($q) {
@@ -241,52 +239,42 @@ class Supplier extends Component
                     ->orWhere('party_type', 'like', '%' . $this->search . '%');
             });
         }
-
         // Date range filter (if any)
         if ($this->start_date && $this->end_date) {
             $startDate = Carbon::parse($this->start_date)->startOfDay();
             $endDate = Carbon::parse($this->end_date)->endOfDay();
             $query->whereBetween('created_at', [$startDate, $endDate]);
         }
-
         // Paginate the result
         $list = $query->paginate(10);
-
         // Variables to store the totals
         $totalCreditSum = 0;
         $totalDebitSum = 0;
         $balanceSum = 0;
-
         // Iterate through the parties and calculate the totals
         foreach ($list as $party) {
             $totalCredit = 0;
             $totalDebit = 0;
-
             $transactions = Transaction::where('party_id', $party->id)->get();
             foreach ($transactions as $transaction) {
                 $items = json_decode($transaction->items, true) ?? [];
                 $itemTotal = 0;
-
                 foreach ($items as $item) {
                     $itemTotal += ($item['item_quantity'] ?? 0) * ($item['item_price'] ?? 0);
                 }
-
                 if ($transaction->trans_type == 'Amount Received') {
                     $totalCredit += $transaction->amount + $itemTotal;
                 } elseif ($transaction->trans_type == 'Item Out') {
                     $totalDebit += $transaction->amount + $itemTotal;
                 }
             }
-
             $party->totalCredit = $totalCredit;
             $party->totalDebit = $totalDebit;
             $party->balance = $totalCredit - $totalDebit;
-
             $totalCreditSum += $totalCredit;
             $totalDebitSum += $totalDebit;
             $balanceSum += $party->balance;
         }
-
         // Return the view with the necessary data
         return view('livewire.pages.supplier')->layout('layouts.web')->with([
             'list' => $list,

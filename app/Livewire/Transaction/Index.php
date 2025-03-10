@@ -14,14 +14,12 @@ use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
-
 //use function Termwind\render;
 
 class Index extends Component
 {
     use WithPagination;
     use WithFileUploads;
-
     public $file;
     public $showEditModal = false;
     public bool $showDeleteModal = false;
@@ -34,7 +32,6 @@ class Index extends Component
     public $dateFilter = 'all'; // Default option
     public $start_date;
     public $end_date;
-
     public $active_id = true;
     public $party_type = true;
     public $items = [];

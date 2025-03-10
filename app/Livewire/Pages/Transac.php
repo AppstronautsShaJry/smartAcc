@@ -160,11 +160,14 @@ class Transac extends Component
         session()->flash('success', '"' . $this->trans_type . '" has been ' . $message . ' .');
         $this->clearFields();
         $this->showEditModal = false;
-        if ($this->party_type == 1) {
-            return $this->redirect(route('customer.page'));
-        } else {
-            return $this->redirect(route('supplier.page'));
-        }
+//        if ($this->party_type == 1) {
+//            return $this->redirect(route('customer.page'));
+//        } elseif($this->party_type == 2) {
+//            return $this->redirect(route('supplier.page'));
+//        } else {
+//            return $this->redirect(route('dashboard'));
+//        }
+
     }
 
     public function edit($id): void
@@ -302,7 +305,7 @@ class Transac extends Component
         }
 
         // Paginate the result
-        $list = $query->orderBy('date', 'asc')->paginate(10);
+        $list = $query->orderBy('date', 'asc')->paginate(10)->withQueryString();
 
         $list->getCollection()->transform(function ($transaction) {
             $items = json_decode($transaction->items, true) ?? [];
