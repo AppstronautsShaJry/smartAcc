@@ -81,7 +81,7 @@
 
                         <x-badge.pending-badge :status="$row->other" />
 
-                        {{--                        @if($row->other == 'New')--}}
+{{--                                                @if($row->other == 'New')--}}
 {{--                            <x-badge.new-badge>New</x-badge.new-badge>--}}
 {{--                        @elseif($row->other == 'Pending')--}}
 {{--                            <x-badge.pending-badge>Pending</x-badge.pending-badge>--}}
