@@ -11,7 +11,8 @@
 
             <x-button.excel wire:click="export">Excel</x-button.excel>
 
-            <a href="{{ route('supplier.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}" target="_blank">
+            <a href="{{ route('supplier.pdf', ['search' => $search, 'start_date' => $start_date, 'end_date' => $end_date]) }}"
+               target="_blank">
                 <x-button.pdf>Pdf</x-button.pdf>
             </a>
         </div>
@@ -54,16 +55,19 @@
                 <td class="p-2"><a href="{{route('transaction.page',[$row->id])}}">{{$index+1}}</td>
                 <td class="p-2 inline-flex items-center">
                     <div class="flex items-center gap-x-3">
-                        <div class="capitalize"><a href="{{route('transaction.page',[$row->id])}}">{{$row->name}}</a></div>
+                        <div class="capitalize"><a href="{{route('transaction.page',[$row->id])}}">{{$row->name}}</a>
+                        </div>
                         <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
                             <span class="text-gray-500 font-semibold">Cr:</span>
-                            <span
-                                class="text-gray-500 pl-2">₹ {{number_format($row->totalCredit,2)}}</span>
+                            <span class="{{ $row->totalCredit > 0 ? 'text-green-500' : 'text-gray-400' }} pl-2">
+                              ₹ {{ number_format($row->totalCredit, 2) }}
+                              </span>
                         </div>
                         <div class="inline-flex items-center text-xs pt-1 gap-x-2 ">
                             <span class="text-gray-500 font-semibold">Db :</span>
-                            <span
-                                class="text-gray-500 pl-2">₹ {{ number_format($row->totalDebit, 2)}}</span>
+                            <span class="{{ $row->totalDebit > 0 ? 'text-red-500' : 'text-gray-400' }} pl-2">
+                             ₹ {{ number_format($row->totalDebit, 2) }}
+                            </span>
                         </div>
                     </div>
                 </td>
@@ -79,15 +83,15 @@
                 <td class="p-2 text-left">
                     <div class="">
 
-                        <x-badge.pending-badge :status="$row->other" />
+                        <x-badge.pending-badge :status="$row->other"/>
 
-{{--                                                @if($row->other == 'New')--}}
-{{--                            <x-badge.new-badge>New</x-badge.new-badge>--}}
-{{--                        @elseif($row->other == 'Pending')--}}
-{{--                            <x-badge.pending-badge>Pending</x-badge.pending-badge>--}}
-{{--                        @elseif($row->other == 'Closed')--}}
-{{--                            <x-badge.closed-badge>Closed</x-badge.closed-badge>--}}
-{{--                        @endif--}}
+                        {{--                                                @if($row->other == 'New')--}}
+                        {{--                            <x-badge.new-badge>New</x-badge.new-badge>--}}
+                        {{--                        @elseif($row->other == 'Pending')--}}
+                        {{--                            <x-badge.pending-badge>Pending</x-badge.pending-badge>--}}
+                        {{--                        @elseif($row->other == 'Closed')--}}
+                        {{--                            <x-badge.closed-badge>Closed</x-badge.closed-badge>--}}
+                        {{--                        @endif--}}
                     </div>
                 </td>
                 <td class="p-2 text-center">

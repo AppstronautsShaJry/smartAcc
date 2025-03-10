@@ -5,6 +5,7 @@ namespace App\Livewire\Pages;
 use App\Models\Party;
 use App\Models\Transaction;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -122,6 +123,7 @@ class Customer extends Component
                 $this->name = $obj->name;
                 $this->phone = $obj->phone;
                 $this->other = $obj->other;
+//                $this->other = $obj->other ?? 'New';
                 $this->is_active = $obj->is_active;
                 return $obj;
             }
@@ -136,6 +138,7 @@ class Customer extends Component
         $this->party_type = 1;
         $this->name = '';
         $this->phone = '';
+        $this->other = null;
         $this->is_active = true;
     }
 
