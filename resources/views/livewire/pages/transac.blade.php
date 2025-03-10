@@ -10,15 +10,11 @@
             <x-filter.btn/>
 
             <x-button.excel wire:click="export">Excel</x-button.excel>
-            <a href="{{ route('transactions.pdf', ['partyId' => $party_id]) }}?searchTerm={{ $searchTerm }}&dateFilter={{ $dateFilter }}&startDate={{ $start_date }}&endDate={{ $end_date }}">
+            <a href="{{ route('transactions.pdf', ['partyId' => $party_id]) }}?searchTerm={{ $searchTerm }}&dateFilter={{ $dateFilter }}&startDate={{ $start_date }}&endDate={{ $end_date }}"
+               target="_blank">
                 <x-button.pdf>Pdf</x-button.pdf>
             </a>
 
-            {{--            <a href="{{ route('transactions.pdf', ['partyId' => $party_id]) }}?searchTerm={{ $searchTerm }}&dateFilter={{ $dateFilter }}&startDate={{ $start_date }}&endDate={{ $end_date }}"--}}
-            {{--               target="_blank"--}}
-            {{--               class="bg-purple-600 text-white px-4 py-2 flex items-center justify-center rounded-md hover:bg-purple-700 transition-colors">--}}
-            {{--                PDF--}}
-            {{--            </a>--}}
         </div>
     </div>
 
@@ -280,9 +276,8 @@
         </tr>
     </x-table.temp>
     <x-modal.delete/>
-        <div class="my-5 mb-12">{{$list->links()}}</div>
-{{--    <div> {{$list->links()}}</div>--}}
 
+    <div class="my-5 mb-12">{{$list->links()}}</div>
 
     <div class="fixed bottom-1 right-6 max-w-max py-4 ">
         <x-button.add wire:click="save">Add Transaction</x-button.add>

@@ -81,7 +81,7 @@
             </div>
 
             <div
-                class="mb-2 flex items-center hover:bg-indigo-700 p-0.5 hover:rounded-sm w-full absolute -bottom-60">
+                class="mb-2 flex items-center hover:bg-indigo-700 p-0.5 hover:rounded-sm w-full absolute -bottom-52">
                     <span class="text-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                stroke-linecap="round" stroke-linejoin="round"
@@ -95,7 +95,7 @@
             </div>
 
             <div
-                class="mb-2 flex items-center hover:bg-indigo-700 p-0.5 hover:rounded-sm absolute -bottom-72 w-full">
+                class="mb-2 flex items-center hover:bg-indigo-700 p-0.5 hover:rounded-sm absolute -bottom-64 w-full">
                 <div
                     class="flex justify-center items-center text-lg rounded-full border-2 border-gray-500 bg-gray-50 w-7 h-7">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -112,6 +112,45 @@
                     {{ auth()->user()->name }}
                 </a>
             </div>
+
+            <div
+                class="mb-2 flex items-center hover:bg-indigo-700 p-0.5 hover:rounded-sm w-full absolute -bottom-[300px]">
+                @if(Auth::user() && Auth::user()->name == 'Admin')
+                    @if (Route::has('register'))
+                        <span class="flex justify-center items-center text-lg w-7 h-7 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-user-plus w-5 h-5 "><path
+                                    d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7"
+                                                                                                 r="4"></circle><line
+                                    x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                        </span>
+                        <a href="{{route('register-users')}}"
+                           class="ml-1 block p-2 rounded font-mono tracking-wider font-semibold"
+                           x-show="sidebarOpen">{{ __('Register User') }}</a>
+                    @endif
+                @endif
+            </div>
+
+            {{--            <div--}}
+            {{--                class="mb-2 flex items-center hover:bg-indigo-700 p-0.5 hover:rounded-sm absolute -bottom-[300px] w-full">--}}
+            {{--                @if(Auth::user() && Auth::user()->name == 'Admin')--}}
+            {{--                    @if (Route::has('register'))--}}
+            {{--                        <a href="{{ route('register-users') }}">--}}
+            {{--                                <span class="inline-flex justify-center items-center ml-4 text-green-400">--}}
+            {{--                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"--}}
+            {{--                                         class="size-6">--}}
+            {{--                      <path--}}
+            {{--                          d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z"/>--}}
+            {{--                    </svg>--}}
+            {{--                                </span>--}}
+            {{--                            <span class="ml-2 font-semibold text-sm tracking-wide truncate font-sans">--}}
+            {{--                {{ __('Register User') }}--}}
+            {{--            </span>--}}
+            {{--                        </a>--}}
+            {{--                    @endif--}}
+            {{--                @endif--}}
+            {{--            </div>--}}
 
             {{--                    <div--}}
             {{--                        class="mb-2 flex items-center hover:bg-indigo-700 p-0.5 hover:rounded-sm absolute -bottom-72 w-full">--}}

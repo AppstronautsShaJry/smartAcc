@@ -7,7 +7,7 @@
     <x-slot name="footer">
         <div class=" flex gap-5 justify-end">
             <button wire:click.prevent="$set('showDeleteModal', false)" class="px-4 py-2 bg-gray-600 text-white font-lex rounded">Cancel</button>
-            <button wire:click.prevent="trashData" class="px-4 py-2 bg-red-600 text-white font-lex rounded">Delete</button>
+            <button wire:click.prevent="trashData" x-on:click="setTimeout(() => window.location.reload(), 200)" class="px-4 py-2 bg-red-600 text-white font-lex rounded">Delete</button>
         </div>
     </x-slot>
 </x-modal.confirmation>

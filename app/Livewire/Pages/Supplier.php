@@ -33,7 +33,7 @@ class Supplier extends Component
             'name' => 'required|string,name',
             'phone' => 'nullable|string',
             'other' => 'nullable|string',
-            'is_active' => 'nullable|boolean', // Assuming is_active is a boolean flag
+            'is_active' => 'nullable|boolean',
         ];
     }
 
@@ -137,6 +137,7 @@ class Supplier extends Component
         $this->party_type = 2;
         $this->name = '';
         $this->phone = '';
+        $this->other = '';
         $this->is_active = true;
     }
 
@@ -163,7 +164,7 @@ class Supplier extends Component
 
     public function updatingSearch()
     {
-        $this->resetPage(); // Reset pagination when searching
+        $this->resetPage();
     }
 
     public function applyDateFilter()
@@ -221,16 +222,15 @@ class Supplier extends Component
 
     public function render()
     {
-        // Start the query with the user ID filter
         $query = Party::where('user_id', auth()->id())
-            ->where('party_type', 2);  // Existing filter for party_type = 1
-        // Check if we need to show inactive records
+            ->where('party_type', 2);
+
         if ($this->is_active === false) {
-            $query->where('is_active', false);  // Show only inactive parties
+            $query->where('is_active', false);
         } else {
-            $query->where('is_active', true);  // Default to showing active parties
+            $query->where('is_active', true);
         }
-        // Search filter (if any)
+
         if ($this->search) {
             $query->where(function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%')
@@ -239,19 +239,18 @@ class Supplier extends Component
                     ->orWhere('party_type', 'like', '%' . $this->search . '%');
             });
         }
-        // Date range filter (if any)
+
         if ($this->start_date && $this->end_date) {
             $startDate = Carbon::parse($this->start_date)->startOfDay();
             $endDate = Carbon::parse($this->end_date)->endOfDay();
             $query->whereBetween('created_at', [$startDate, $endDate]);
         }
-        // Paginate the result
+
         $list = $query->paginate(10);
-        // Variables to store the totals
         $totalCreditSum = 0;
         $totalDebitSum = 0;
         $balanceSum = 0;
-        // Iterate through the parties and calculate the totals
+
         foreach ($list as $party) {
             $totalCredit = 0;
             $totalDebit = 0;
@@ -286,7 +285,6 @@ class Supplier extends Component
 
     public function toggleInactiveFilter()
     {
-        // Toggle the value of is_active between true and false
         $this->is_active = !$this->is_active;
     }
 
